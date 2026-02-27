@@ -4,7 +4,7 @@ import "./globals.css";
 import { Roboto } from "next/font/google";
 import { AsideNavbar } from "@/components";
 
-const geist = Roboto();
+const roboto = Roboto();
 
 export const metadata: Metadata = {
   title: "Mockado",
@@ -17,11 +17,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geist.className} antialiased`}>
-      <body className="flex h-screen w-screen">
-        <AsideNavbar />
-        <main className="flex-1">{children}</main>
-      </body>
+    <html lang="en" className={`${roboto.className} antialiased`}>
+      <body>{children}</body>
     </html>
   );
 }

@@ -19,6 +19,7 @@
       }
     ],
     "paths": {
+      "@services": ["./src/shared/services/index.ts"],
       "@/*": ["./src/*"]
     }
   },
