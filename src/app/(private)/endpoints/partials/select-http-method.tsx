@@ -23,7 +23,8 @@ export const SelectHttpMethod = ({ value, setValue }: Props) => {
       >
         <Select.Trigger
           aria-label="HTTP method"
-          className={`border-2 py-1 px-3 border-background-secondary bg-black/20 rounded font-bold ${textColor}`}
+          className={`border-2 py-1 px-3 border-background-secondary bg-background-tertiary rounded font-bold cursor-pointer ${textColor}
+          select-none focus:outline-2 focus:outline-solid focus:outline-white/10 focus:outline-offset-2`}
         >
           <Select.Value placeholder="Select a method" />
           <Select.Icon>
@@ -32,7 +33,7 @@ export const SelectHttpMethod = ({ value, setValue }: Props) => {
         </Select.Trigger>
 
         <Select.Portal>
-          <Select.Content className="bg-background-primary border-2 border-background-secondary rounded shadow-2xl">
+          <Select.Content className="border-2 border-background-secondary rounded shadow-2xl shadow-black">
             <Select.Viewport>
               {Object.values(HttpMethod).map((method) => (
                 <Item key={method} value={method}>
@@ -58,7 +59,8 @@ const Item = forwardRef<HTMLDivElement, ItemProps>(
 
     return (
       <Select.Item
-        className={`cursor-pointer font-bold ${textColor} hover:bg-background-secondary hover:outline-none duration-150 px-3 py-1`}
+        className={`cursor-pointer font-bold ${textColor} bg-background-tertiary hover:bg-background-secondary duration-150 px-3 py-1
+        select-none hover:outline-none! focus:outline-2 focus:duration-0 focus:outline-white/10 focus:outline-offset-2`}
         {...props}
         ref={forwardedRef}
       >

@@ -3,6 +3,7 @@
 @theme {
   --color-background-primary: #0d1117;
   --color-background-secondary: #010409;
+  --color-background-tertiary: #141a22;
 
   --color-method-get: #705ee2;
   --color-method-post: #83d13a;

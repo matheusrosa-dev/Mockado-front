@@ -22,7 +22,7 @@ export const EndpointsContent = ({ items }: Props) => {
             <li key={item.id}>
               <Link
                 href={ROUTES.ENDPOINTS.DETAIL(item.id)}
-                className={`block duration-150 px-2 pl-4 py-1 rounded ${isActive ? "bg-[#141a22]" : "hover:bg-background-primary"}`}
+                className={`block duration-150 px-2 pl-4 py-1 rounded ${isActive ? "bg-background-tertiary" : "hover:bg-background-primary"}`}
               >
                 <span
                   className={`font-bold ${getMethodTextColor(item.method)}`}
