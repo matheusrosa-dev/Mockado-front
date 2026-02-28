@@ -1,3 +1,3 @@
 export default function Endpoint() {
-  return <>dasdsa</>;
+  return <div>dasdsa</div>;
 }

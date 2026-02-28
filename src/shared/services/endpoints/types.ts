@@ -1,11 +1,10 @@
+import type { IEndpoint } from "@shared/models/endpoint";
+
 export interface IUseEndpointsService {
   getEndpoints: GetEndpoints;
+  getEndpointById: GetEndpointById;
 }
 
-type GetEndpoints = () => Promise<
-  Array<{
-    id: string;
-    title: string;
-    method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
-  }>
->;
+type GetEndpoints = () => Promise<Array<IEndpoint>>;
+
+type GetEndpointById = (id: string) => Promise<IEndpoint>;

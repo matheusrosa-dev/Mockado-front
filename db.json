@@ -1,0 +1,29 @@
+{
+  "endpoints": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174000",
+      "method": "GET",
+      "title": "Search items"
+    },
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174001",
+      "method": "POST",
+      "title": "Create item"
+    },
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174002",
+      "method": "PUT",
+      "title": "Update item"
+    },
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174003",
+      "method": "PATCH",
+      "title": "Partially update item"
+    },
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174004",
+      "method": "DELETE",
+      "title": "Remove item"
+    }
+  ]
+}

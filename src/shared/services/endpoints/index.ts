@@ -10,5 +10,13 @@ export const useEndpointsService = (): IUseEndpointsService => {
 
       return data;
     },
+
+    getEndpointById: async (id: string) => {
+      const response = await api(`/endpoints/${id}`);
+
+      const data = await response.json();
+
+      return data;
+    },
   };
 };
