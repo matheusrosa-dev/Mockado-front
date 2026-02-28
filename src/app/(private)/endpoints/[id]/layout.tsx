@@ -1,3 +1,4 @@
+import { Header } from "@components";
 import { useEndpointsService } from "@services";
 import { getMethodTextColor } from "@shared/helpers/http-method";
 
@@ -17,12 +18,12 @@ export default async function EndpointLayout({ children, params }: Props) {
 
   return (
     <>
-      <header className="bg-[#010409] max-h-17 h-17 p-4 text-2xl font-medium border-l-2 border-b-2 border-[#0d1117]">
+      <Header>
         <span className={getMethodTextColor(endpoint.method)}>
           {endpoint.method}
         </span>{" "}
         - {endpoint.title}
-      </header>
+      </Header>
 
       <div className="p-4 py-5.5">{children}</div>
     </>
