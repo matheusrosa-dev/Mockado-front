@@ -1,16 +1,16 @@
-import { Method } from "@shared/models/endpoint";
+import { HttpMethod } from "@shared/models/endpoint";
 
-export const getMethodTextColor = (method: Method) => {
+export const getMethodTextColor = (method: HttpMethod) => {
   switch (method) {
-    case Method.GET:
-      return "text-[#705ee2]";
-    case Method.POST:
-      return "text-[#83d13a]";
-    case Method.PUT:
-      return "text-[#dd7747]";
-    case Method.PATCH:
-      return "text-[#ddcd38]";
-    case Method.DELETE:
-      return "text-[#b33d25]";
+    case HttpMethod.GET:
+      return "text-method-get";
+    case HttpMethod.POST:
+      return "text-method-post";
+    case HttpMethod.PUT:
+      return "text-method-put";
+    case HttpMethod.PATCH:
+      return "text-method-patch";
+    case HttpMethod.DELETE:
+      return "text-method-delete";
   }
 };

@@ -1,9 +1,15 @@
 import { Header } from "@components";
+import { Content } from "../partials";
+import { Form } from "./partials";
 
 export default function CreateEndpoint() {
   return (
-    <div>
+    <>
       <Header>Create endpoint</Header>
-    </div>
+
+      <Content>
+        <Form />
+      </Content>
+    </>
   );
 }

@@ -1,6 +1,7 @@
 import { Header } from "@components";
 import { useEndpointsService } from "@services";
 import { getMethodTextColor } from "@shared/helpers/http-method";
+import { Content } from "../partials";
 
 type Props = {
   children: React.ReactNode;
@@ -25,7 +26,7 @@ export default async function EndpointLayout({ children, params }: Props) {
         - {endpoint.title}
       </Header>
 
-      <div className="p-4 py-5.5">{children}</div>
+      <Content>{children}</Content>
     </>
   );
 }

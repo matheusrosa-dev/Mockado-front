@@ -12,7 +12,7 @@ export const Trigger = ({ isOpen, title }: Props) => {
     <Collapsible.Trigger asChild>
       <button
         type="button"
-        className="w-full text-start flex items-center justify-between px-2 py-1 cursor-pointer duration-150 hover:bg-[#0d1117] rounded"
+        className="w-full text-start flex items-center justify-between px-2 py-1 cursor-pointer duration-150 hover:bg-background-primary rounded"
       >
         <span className="flex items-center font-medium">{title}</span>
         <PiCaretRightBold

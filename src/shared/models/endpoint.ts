@@ -1,10 +1,10 @@
 export interface IEndpoint {
   id: string;
-  method: Method;
+  method: HttpMethod;
   title: string;
 }
 
-export enum Method {
+export enum HttpMethod {
   GET = "GET",
   POST = "POST",
   PUT = "PUT",
