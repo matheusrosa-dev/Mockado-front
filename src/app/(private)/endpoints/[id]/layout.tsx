@@ -1,7 +1,6 @@
-import { PrivateHeader } from "@components";
+import { PrivateContent, PrivateHeader } from "@components";
 import { useEndpointsService } from "@services";
 import { getHttpMethodTextColor } from "@shared/helpers/http-method";
-import { Content } from "../partials";
 import { notFound } from "next/navigation";
 
 type Props = {
@@ -29,7 +28,7 @@ export default async function EndpointLayout({ children, params }: Props) {
         - {endpoint.title}
       </PrivateHeader>
 
-      <Content>{children}</Content>
+      <PrivateContent>{children}</PrivateContent>
     </>
   );
 }

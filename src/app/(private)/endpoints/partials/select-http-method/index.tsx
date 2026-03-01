@@ -1,11 +1,10 @@
 "use client";
 
-import { forwardRef } from "react";
 import { Select } from "radix-ui";
 import { PiCaretDownBold } from "react-icons/pi";
 import { getHttpMethodTextColor } from "@shared/helpers/http-method";
 import { HttpMethod } from "@shared/const/endpoint";
-import { FaCheck } from "react-icons/fa6";
+import { Item } from "./partials";
 
 type Props = {
   value: HttpMethod;
@@ -48,28 +47,3 @@ export function SelectHttpMethod({ value, setValue }: Props) {
     </div>
   );
 }
-
-type ItemProps = Select.SelectItemProps & {
-  value: HttpMethod;
-  children: React.ReactNode;
-};
-
-const Item = forwardRef<HTMLDivElement, ItemProps>(
-  ({ children, ...props }, forwardedRef) => {
-    const textColor = getHttpMethodTextColor(props.value);
-
-    return (
-      <Select.Item
-        className={`cursor-pointer text-sm font-bold ${textColor} bg-background-tertiary hover:bg-background-secondary duration-150 px-3 py-1.5
-        select-none hover:outline-none! focus:outline-none focus:bg-background-secondary`}
-        {...props}
-        ref={forwardedRef}
-      >
-        <Select.ItemText>{children}</Select.ItemText>
-        <Select.ItemIndicator>
-          <FaCheck className="inline ml-2 text-white" />
-        </Select.ItemIndicator>
-      </Select.Item>
-    );
-  },
-);
