@@ -22,10 +22,12 @@ export const Item = forwardRef<HTMLDivElement, Props>(
         {...props}
         ref={forwardedRef}
       >
-        <Select.ItemText>{children}</Select.ItemText>
-        <Select.ItemIndicator>
-          <FaCheck className="inline ml-2 text-white" />
-        </Select.ItemIndicator>
+        <div className="flex items-center gap-2">
+          <Select.ItemText>{children}</Select.ItemText>
+          <Select.ItemIndicator>
+            <FaCheck className="text-accent text-xs" />
+          </Select.ItemIndicator>
+        </div>
       </Select.Item>
     );
   },

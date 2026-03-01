@@ -65,7 +65,7 @@ export function SelectStatusCode({ value, setValue, statusCodes }: Props) {
                     value={String(statusCode.code)}
                     badgeClass={group.badgeClass}
                   >
-                    {statusCode.code} {statusCode.description}
+                    {statusCode.description}
                   </Item>
                 ))}
 

@@ -25,9 +25,7 @@ export const Item = forwardRef<HTMLDivElement, Props>(
             {value}
           </span>
           <Select.ItemText>
-            <span className="text-text-muted">
-              {String(children).replace(`${value}, ,`, "")}
-            </span>
+            <span className="text-text-muted">{children}</span>
           </Select.ItemText>
         </div>
         <Select.ItemIndicator>
