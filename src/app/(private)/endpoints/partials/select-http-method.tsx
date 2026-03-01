@@ -3,8 +3,8 @@
 import { forwardRef } from "react";
 import { Select } from "radix-ui";
 import { PiCaretDownBold } from "react-icons/pi";
-import { getMethodTextColor } from "@shared/helpers/http-method";
-import { HttpMethod } from "@shared/models/endpoint";
+import { getHttpMethodTextColor } from "@shared/helpers/http-method";
+import { HttpMethod } from "@shared/const/endpoint";
 import { FaCheck } from "react-icons/fa6";
 
 type Props = {
@@ -12,8 +12,8 @@ type Props = {
   setValue: (value: HttpMethod) => void;
 };
 
-export const SelectHttpMethod = ({ value, setValue }: Props) => {
-  const textColor = getMethodTextColor(value);
+export function SelectHttpMethod({ value, setValue }: Props) {
+  const textColor = getHttpMethodTextColor(value);
 
   return (
     <div>
@@ -46,7 +46,7 @@ export const SelectHttpMethod = ({ value, setValue }: Props) => {
       </Select.Root>
     </div>
   );
-};
+}
 
 type ItemProps = Select.SelectItemProps & {
   value: HttpMethod;
@@ -55,7 +55,7 @@ type ItemProps = Select.SelectItemProps & {
 
 const Item = forwardRef<HTMLDivElement, ItemProps>(
   ({ children, ...props }, forwardedRef) => {
-    const textColor = getMethodTextColor(props.value);
+    const textColor = getHttpMethodTextColor(props.value);
 
     return (
       <Select.Item

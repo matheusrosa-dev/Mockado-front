@@ -5,8 +5,8 @@ type Props = {
   items: Array<IDefaultSubmenuItem>;
 };
 
-export const DefaultContent = ({ items }: Props) => {
+export function DefaultContent({ items }: Props) {
   return (
     <Collapsible.Content>{items.map((item) => item.title)}</Collapsible.Content>
   );
-};
+}

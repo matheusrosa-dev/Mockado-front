@@ -3,13 +3,13 @@ import type { IEndpointSubmenuItem } from "../types";
 import Link from "next/link";
 import { ROUTES } from "@shared/routes";
 import { usePathname } from "next/navigation";
-import { getMethodTextColor } from "@shared/helpers/http-method";
+import { getHttpMethodTextColor } from "@shared/helpers/http-method";
 
 type Props = {
   items: Array<IEndpointSubmenuItem>;
 };
 
-export const EndpointsContent = ({ items }: Props) => {
+export function EndpointsContent({ items }: Props) {
   const pathname = usePathname();
 
   return (
@@ -25,7 +25,7 @@ export const EndpointsContent = ({ items }: Props) => {
                 className={`block duration-150 px-2 pl-4 py-1 rounded ${isActive ? "bg-background-tertiary" : "hover:bg-background-primary"}`}
               >
                 <span
-                  className={`font-bold ${getMethodTextColor(item.method)}`}
+                  className={`font-bold ${getHttpMethodTextColor(item.method)}`}
                 >
                   {item.method}
                 </span>{" "}
@@ -46,4 +46,4 @@ export const EndpointsContent = ({ items }: Props) => {
       </ul>
     </Collapsible.Content>
   );
-};
+}

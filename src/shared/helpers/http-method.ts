@@ -1,6 +1,6 @@
-import { HttpMethod } from "@shared/models/endpoint";
+import { HttpMethod } from "@shared/const/endpoint";
 
-export const getMethodTextColor = (method: HttpMethod) => {
+export const getHttpMethodTextColor = (method: HttpMethod) => {
   switch (method) {
     case HttpMethod.GET:
       return "text-method-get";

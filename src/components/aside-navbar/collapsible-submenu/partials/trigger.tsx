@@ -7,7 +7,7 @@ type Props = {
   isOpen: boolean;
 };
 
-export const Trigger = ({ isOpen, title }: Props) => {
+export function Trigger({ isOpen, title }: Props) {
   return (
     <Collapsible.Trigger asChild>
       <button
@@ -21,4 +21,4 @@ export const Trigger = ({ isOpen, title }: Props) => {
       </button>
     </Collapsible.Trigger>
   );
-};
+}

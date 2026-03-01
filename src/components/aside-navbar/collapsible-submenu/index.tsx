@@ -11,11 +11,11 @@ type Props = {
   variant?: "default" | "endpoints";
 };
 
-export const CollapsibleSubmenu = ({
+export function CollapsibleSubmenu({
   title,
   items,
   variant = "default",
-}: Props) => {
+}: Props) {
   const [isOpen, setIsOpen] = useState(true);
 
   return (
@@ -34,4 +34,4 @@ export const CollapsibleSubmenu = ({
       )}
     </Collapsible.Root>
   );
-};
+}

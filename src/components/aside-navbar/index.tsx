@@ -1,7 +1,7 @@
 import { useEndpointsService } from "@services";
 import { CollapsibleSubmenu } from "./collapsible-submenu";
 
-export const AsideNavbar = async () => {
+export async function AsideNavbar() {
   const { getEndpoints } = useEndpointsService();
 
   const endpoints = await getEndpoints();
@@ -23,4 +23,4 @@ export const AsideNavbar = async () => {
       </nav>
     </aside>
   );
-};
+}

@@ -2,7 +2,7 @@
 
 import { Input, Submit } from "@components";
 import { SelectHttpMethod } from "../../partials/select-http-method";
-import { HttpMethod } from "@shared/models/endpoint";
+import { HttpMethod } from "@shared/const/endpoint";
 import { useState } from "react";
 import { Form as FormComponent } from "@components";
 import { useForm } from "react-hook-form";
@@ -10,7 +10,7 @@ import type { IForm } from "../types";
 import { schemaResolver } from "../helpers";
 import Editor from "@monaco-editor/react";
 
-export const Form = () => {
+export function Form() {
   const [method, setMethod] = useState(HttpMethod.GET);
 
   const [value, onChange] = useState('{\n     "key": "value"\n}');
@@ -63,4 +63,4 @@ export const Form = () => {
       </FormComponent>
     </div>
   );
-};
+}

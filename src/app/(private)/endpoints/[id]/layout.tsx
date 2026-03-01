@@ -1,6 +1,6 @@
 import { Header } from "@components";
 import { useEndpointsService } from "@services";
-import { getMethodTextColor } from "@shared/helpers/http-method";
+import { getHttpMethodTextColor } from "@shared/helpers/http-method";
 import { Content } from "../partials";
 
 type Props = {
@@ -20,7 +20,7 @@ export default async function EndpointLayout({ children, params }: Props) {
   return (
     <>
       <Header>
-        <span className={getMethodTextColor(endpoint.method)}>
+        <span className={getHttpMethodTextColor(endpoint.method)}>
           {endpoint.method}
         </span>{" "}
         - {endpoint.title}
