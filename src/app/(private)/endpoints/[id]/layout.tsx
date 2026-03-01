@@ -1,4 +1,4 @@
-import { Header } from "@components";
+import { PrivateHeader } from "@components";
 import { useEndpointsService } from "@services";
 import { getHttpMethodTextColor } from "@shared/helpers/http-method";
 import { Content } from "../partials";
@@ -22,12 +22,12 @@ export default async function EndpointLayout({ children, params }: Props) {
 
   return (
     <>
-      <Header>
+      <PrivateHeader>
         <span className={getHttpMethodTextColor(endpoint.method)}>
           {endpoint.method}
         </span>{" "}
         - {endpoint.title}
-      </Header>
+      </PrivateHeader>
 
       <Content>{children}</Content>
     </>

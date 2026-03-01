@@ -1,4 +1,4 @@
-import { Header } from "@components";
+import { PrivateHeader } from "@components";
 import { Content } from "../partials";
 import { Form } from "./partials";
 import { useStatusCodesService } from "@services";
@@ -10,7 +10,7 @@ export default async function CreateEndpoint() {
 
   return (
     <>
-      <Header>Create endpoint</Header>
+      <PrivateHeader>Create endpoint</PrivateHeader>
 
       <Content>
         <Form statusCodes={statusCodes} />
