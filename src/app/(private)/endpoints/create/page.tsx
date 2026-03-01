@@ -8,14 +8,12 @@ export default async function CreateEndpoint() {
 
   const statusCodes = await getStatusCodes();
 
-  console.log(statusCodes);
-
   return (
     <>
       <Header>Create endpoint</Header>
 
       <Content>
-        <Form />
+        <Form statusCodes={statusCodes} />
       </Content>
     </>
   );

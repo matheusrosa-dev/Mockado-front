@@ -1,7 +1,7 @@
 "use client";
 
 import { Input, Submit } from "@components";
-import { SelectHttpMethod } from "../../partials/select-http-method";
+import { SelectHttpMethod, SelectStatusCode } from "../../partials";
 import { HttpMethod } from "@shared/const/endpoint";
 import { useState } from "react";
 import { Form as FormComponent } from "@components";
@@ -9,9 +9,15 @@ import { useForm } from "react-hook-form";
 import type { IForm } from "../types";
 import { schemaResolver } from "../helpers";
 import Editor from "@monaco-editor/react";
+import type { IStatusCode } from "@shared/models/status-code";
 
-export function Form() {
+type Props = {
+  statusCodes: IStatusCode[];
+};
+
+export function Form({ statusCodes }: Props) {
   const [method, setMethod] = useState(HttpMethod.GET);
+  const [statusCode, setStatusCode] = useState("200");
 
   const [value, onChange] = useState('{\n     "key": "value"\n}');
 
@@ -43,10 +49,28 @@ export function Form() {
             />
           </div>
           <div className="flex flex-col gap-1.5">
-            <span className="text-sm font-medium text-text-muted select-none">
+            <label
+              htmlFor="http-method"
+              className="w-fit text-sm font-medium text-text-muted select-none"
+            >
               Method
-            </span>
+            </label>
+
             <SelectHttpMethod value={method} setValue={setMethod} />
+          </div>
+
+          <div className="flex flex-col gap-1.5">
+            <label
+              htmlFor="status-code"
+              className="w-fit text-sm font-medium text-text-muted select-none"
+            >
+              Status code
+            </label>
+            <SelectStatusCode
+              value={statusCode}
+              setValue={setStatusCode}
+              statusCodes={statusCodes}
+            />
           </div>
         </div>
       </div>
