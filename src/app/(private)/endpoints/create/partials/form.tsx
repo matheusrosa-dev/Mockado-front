@@ -10,6 +10,7 @@ import type { IForm } from "../types";
 import { schemaResolver } from "../helpers";
 import Editor from "@monaco-editor/react";
 import type { IStatusCode } from "@shared/models/status-code";
+import { statusCodeHasBody } from "@shared/helpers/status-code";
 
 type Props = {
   statusCodes: IStatusCode[];
@@ -75,28 +76,30 @@ export function Form({ statusCodes }: Props) {
         </div>
       </div>
 
-      <div className="rounded-lg border border-border bg-background-secondary p-5 flex flex-col gap-3">
-        <h2 className="text-sm font-semibold text-white/70 uppercase tracking-widest">
-          Response body
-        </h2>
-        <div className="rounded-md overflow-hidden border border-border">
-          <Editor
-            height="280px"
-            defaultLanguage="json"
-            value={value}
-            onChange={(v) => onChange(v ?? "")}
-            loading="Loading editor..."
-            theme="vs-dark"
-            options={{
-              minimap: { enabled: false },
-              formatOnPaste: true,
-              padding: { top: 16, bottom: 16 },
-              fontSize: 13,
-              lineHeight: 20,
-            }}
-          />
+      {statusCodeHasBody(Number(statusCode)) && (
+        <div className="rounded-lg border border-border bg-background-secondary p-5 flex flex-col gap-3">
+          <h2 className="text-sm font-semibold text-white/70 uppercase tracking-widest">
+            Response body
+          </h2>
+          <div className="rounded-md overflow-hidden border border-border">
+            <Editor
+              height="280px"
+              defaultLanguage="json"
+              value={value}
+              onChange={(v) => onChange(v ?? "")}
+              loading="Loading editor..."
+              theme="vs-dark"
+              options={{
+                minimap: { enabled: false },
+                formatOnPaste: true,
+                padding: { top: 16, bottom: 16 },
+                fontSize: 13,
+                lineHeight: 20,
+              }}
+            />
+          </div>
         </div>
-      </div>
+      )}
 
       <div>
         <Submit>Create endpoint</Submit>

@@ -30,3 +30,5 @@ export const STATUS_CODE_GROUPS = {
     badgeClass: "bg-method-delete-bg text-method-delete",
   },
 } as const;
+
+export const STATUS_CODES_WITHOUT_BODY = [204, 205, 304];
