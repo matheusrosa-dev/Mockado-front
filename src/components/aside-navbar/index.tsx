@@ -7,14 +7,14 @@ export async function AsideNavbar() {
   const endpoints = await getEndpoints();
 
   return (
-    <aside className="min-w-70 w-70 flex flex-col bg-background-secondary">
-      <section className="p-4 h-17 max-h-17 border-b-2 border-background-primary flex items-center justify-center">
-        <h1 className="text-2xl font-medium text-center select-none">
+    <aside className="min-w-64 w-64 flex flex-col bg-background-secondary border-r border-border">
+      <section className="h-14 px-4 flex items-center border-b border-border">
+        <h1 className="text-lg text-center w-full font-semibold text-white/90">
           &#96;&#36;&#123;Mockado&#125;&#96;
         </h1>
       </section>
 
-      <nav className="p-4">
+      <nav className="flex-1 overflow-y-auto p-3">
         <CollapsibleSubmenu
           title="Endpoints"
           items={endpoints}

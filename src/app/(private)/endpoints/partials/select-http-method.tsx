@@ -23,17 +23,17 @@ export function SelectHttpMethod({ value, setValue }: Props) {
       >
         <Select.Trigger
           aria-label="HTTP method"
-          className={`border-2 py-1 px-3 border-background-secondary bg-background-tertiary rounded font-bold cursor-pointer ${textColor}
-          select-none focus:outline-2 focus:outline-solid focus:outline-white/10 focus:outline-offset-2`}
+          className={`border border-border py-1.5 px-3 bg-background-tertiary rounded-md text-sm font-bold cursor-pointer ${textColor}
+          select-none transition-colors hover:border-accent/50 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30`}
         >
           <Select.Value placeholder="Select a method" />
           <Select.Icon>
-            <PiCaretDownBold className="inline ml-2 text-white" />
+            <PiCaretDownBold className="inline ml-2 text-text-muted" />
           </Select.Icon>
         </Select.Trigger>
 
         <Select.Portal>
-          <Select.Content className="border-2 border-background-secondary rounded shadow-2xl shadow-black">
+          <Select.Content className="border border-border rounded-md shadow-2xl shadow-black/50 bg-background-tertiary">
             <Select.Viewport>
               {Object.values(HttpMethod).map((method) => (
                 <Item key={method} value={method}>
@@ -59,8 +59,8 @@ const Item = forwardRef<HTMLDivElement, ItemProps>(
 
     return (
       <Select.Item
-        className={`cursor-pointer font-bold ${textColor} bg-background-tertiary hover:bg-background-secondary duration-150 px-3 py-1
-        select-none hover:outline-none! focus:outline-2 focus:duration-0 focus:outline-white/10 focus:outline-offset-2`}
+        className={`cursor-pointer text-sm font-bold ${textColor} bg-background-tertiary hover:bg-background-secondary duration-150 px-3 py-1.5
+        select-none hover:outline-none! focus:outline-none focus:bg-background-secondary`}
         {...props}
         ref={forwardedRef}
       >

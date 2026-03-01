@@ -3,7 +3,5 @@ type Props = {
 };
 
 export function Content({ children }: Props) {
-  return (
-    <div className="p-4 py-5.5 overflow-auto w-full h-full">{children}</div>
-  );
+  return <div className="flex-1 p-6 overflow-auto">{children}</div>;
 }

@@ -7,7 +7,7 @@ const schema = yup.object({
   title: yup
     .string()
     .required("Required")
-    .max(100, "Max length is 100 characters"),
+    .max(30, "Max length is 30 characters"),
 });
 
 export const schemaResolver = yupResolver(schema) as Resolver<IForm>;

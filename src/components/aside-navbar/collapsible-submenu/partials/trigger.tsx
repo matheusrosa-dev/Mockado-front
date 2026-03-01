@@ -12,11 +12,16 @@ export function Trigger({ isOpen, title }: Props) {
     <Collapsible.Trigger asChild>
       <button
         type="button"
-        className="w-full text-start flex items-center justify-between px-2 py-1 cursor-pointer duration-150 hover:bg-background-primary rounded"
+        className="w-full text-start flex items-center justify-between px-2 py-1.5 cursor-pointer duration-150 rounded hover:bg-white/5 group"
       >
-        <span className="flex items-center font-medium">{title}</span>
+        <span className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-text-subtle group-hover:text-text-muted">
+          {title}
+        </span>
         <PiCaretRightBold
-          className={twMerge("duration-150", isOpen ? "rotate-90" : "")}
+          className={twMerge(
+            "duration-150 text-text-subtle",
+            isOpen ? "rotate-90" : "",
+          )}
         />
       </button>
     </Collapsible.Trigger>

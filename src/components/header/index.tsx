@@ -4,8 +4,10 @@ type Props = {
 
 export function Header({ children }: Props) {
   return (
-    <header className="bg-background-secondary max-h-17 h-17 p-4 text-2xl font-medium border-l-2 border-b-2 border-background-primary select-none">
-      {children}
+    <header className="bg-background-secondary max-h-14 h-14 px-5 flex items-center border-b border-border select-none">
+      <span className="text-base font-semibold text-white/90 tracking-tight">
+        {children}
+      </span>
     </header>
   );
 }

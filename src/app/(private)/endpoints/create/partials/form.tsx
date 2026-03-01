@@ -24,28 +24,40 @@ export function Form() {
   });
 
   return (
-    <div>
-      <FormComponent
-        className="flex gap-4"
-        onSubmit={handleSubmit((data) => console.log(data))}
-      >
-        <div className="flex flex-col gap-2 w-120">
-          <Input
-            label="Title"
-            {...register("title")}
-            error={errors.title?.message}
-          />
-          <SelectHttpMethod value={method} setValue={setMethod} />
-          <Submit>Submit</Submit>
-        </div>
+    <FormComponent
+      className="flex flex-col gap-6 max-w-3xl"
+      onSubmit={handleSubmit((data) => console.log(data))}
+    >
+      <div className="rounded-lg border border-border bg-background-secondary p-5 flex flex-col gap-4">
+        <h2 className="text-sm font-semibold text-white/70 uppercase tracking-widest">
+          Endpoint info
+        </h2>
 
-        <div className="flex-1 flex flex-col gap-1">
-          <span className="font-medium cursor-default select-none">
-            Response body
-          </span>
+        <div className="flex items-end gap-3">
+          <div className="flex-1">
+            <Input
+              label="Title"
+              placeholder="e.g. Get all users"
+              {...register("title")}
+              error={errors.title?.message}
+            />
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <span className="text-sm font-medium text-text-muted select-none">
+              Method
+            </span>
+            <SelectHttpMethod value={method} setValue={setMethod} />
+          </div>
+        </div>
+      </div>
+
+      <div className="rounded-lg border border-border bg-background-secondary p-5 flex flex-col gap-3">
+        <h2 className="text-sm font-semibold text-white/70 uppercase tracking-widest">
+          Response body
+        </h2>
+        <div className="rounded-md overflow-hidden border border-border">
           <Editor
-            key={"teste"}
-            height="300px"
+            height="280px"
             defaultLanguage="json"
             value={value}
             onChange={(v) => onChange(v ?? "")}
@@ -54,13 +66,17 @@ export function Form() {
             options={{
               minimap: { enabled: false },
               formatOnPaste: true,
-              padding: {
-                top: 28,
-              },
+              padding: { top: 16, bottom: 16 },
+              fontSize: 13,
+              lineHeight: 20,
             }}
           />
         </div>
-      </FormComponent>
-    </div>
+      </div>
+
+      <div>
+        <Submit>Create endpoint</Submit>
+      </div>
+    </FormComponent>
   );
 }

@@ -10,14 +10,14 @@ type Props = React.InputHTMLAttributes<HTMLInputElement> & {
 export const Input = forwardRef<HTMLInputElement, Props>(
   ({ name, label, error, ...props }, forwardedRef) => {
     return (
-      <FormRadix.Field name={name} className="flex flex-col gap-1">
+      <FormRadix.Field name={name} className="flex flex-col gap-1.5">
         <div className="flex items-baseline justify-between">
-          <FormRadix.Label className="font-medium select-none">
+          <FormRadix.Label className="text-sm font-medium text-text-muted select-none">
             {label}
           </FormRadix.Label>
 
           {error && (
-            <FormRadix.Message className="text-red-500">
+            <FormRadix.Message className="text-xs text-method-delete">
               {error}
             </FormRadix.Message>
           )}
@@ -26,8 +26,9 @@ export const Input = forwardRef<HTMLInputElement, Props>(
         <FormRadix.Control asChild>
           <input
             type="text"
-            className="w-full border-2 rounded border-background-secondary py-1 px-2 bg-background-tertiary 
-             focus:outline-2 focus:outline-solid focus:outline-white/10 focus:outline-offset-2"
+            className="w-full border border-border rounded-md py-1.5 px-3 bg-background-tertiary text-sm text-white/90
+             placeholder-text-subtle transition-colors
+             focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30"
             {...props}
             ref={forwardedRef}
           />

@@ -9,7 +9,7 @@ export default function PrivateLayout({ children }: Props) {
     <div className="flex h-screen w-screen overflow-hidden">
       <AsideNavbar />
 
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 flex flex-col overflow-hidden">{children}</main>
     </div>
   );
 }
