@@ -20,10 +20,10 @@
   --color-method-get-bg: rgba(124, 92, 226, 0.1);
   --color-method-post: #3fb950;
   --color-method-post-bg: rgba(63, 185, 80, 0.1);
-  --color-method-put: #d29922;
-  --color-method-put-bg: rgba(210, 153, 34, 0.1);
-  --color-method-patch: #c99a07;
-  --color-method-patch-bg: rgba(201, 154, 7, 0.1);
+  --color-method-put: #e06b1a;
+  --color-method-put-bg: rgba(224, 107, 26, 0.1);
+  --color-method-patch: #d4b800;
+  --color-method-patch-bg: rgba(212, 184, 0, 0.1);
   --color-method-delete: #f85149;
   --color-method-delete-bg: rgba(248, 81, 73, 0.1);
 }

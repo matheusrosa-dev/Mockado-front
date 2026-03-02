@@ -10,25 +10,21 @@ export const Route = createFileRoute("/(private)/endpoints/$endpointId")({
 function RouteComponent() {
   const { endpointId } = Route.useParams();
 
-  const { data: endpoint, isLoading } = getEndpointById(endpointId);
+  const { data: endpoint } = getEndpointById(endpointId);
 
-  // TODO: CORRIGIR
-  if (isLoading) {
-    return <>Loading...</>;
-  }
-
-  // TODO: CORRIGIR
-  if (!endpoint) {
-    return <>not found</>;
-  }
+  // TODO: implementar not found e outros erros gerais
 
   return (
     <>
       <PrivateHeader>
-        <span className={getHttpMethodTextColor(endpoint.method)}>
-          {endpoint.method}
-        </span>{" "}
-        - {endpoint.title}
+        {endpoint && (
+          <>
+            <span className={getHttpMethodTextColor(endpoint.method)}>
+              {endpoint.method}
+            </span>{" "}
+            - {endpoint.title}
+          </>
+        )}
       </PrivateHeader>
 
       <PrivateContent>

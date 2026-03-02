@@ -1,5 +1,5 @@
 import { Collapsible } from "radix-ui";
-import { DefaultContent, EndpointsContent, Trigger } from "./partials";
+import { EndpointsContent, Trigger } from "./partials";
 import { useState } from "react";
 import type { IDefaultSubmenuItem, IEndpointSubmenuItem } from "./types";
 
@@ -7,12 +7,16 @@ type Props = {
   title: string;
   items: Array<IDefaultSubmenuItem | IEndpointSubmenuItem>;
   variant?: "default" | "endpoints";
+  isLoading?: boolean;
+  isError?: boolean;
 };
 
 export function CollapsibleSubmenu({
   title,
   items,
   variant = "default",
+  isLoading = false,
+  isError = false,
 }: Props) {
   const [isOpen, setIsOpen] = useState(true);
 
@@ -24,11 +28,12 @@ export function CollapsibleSubmenu({
     >
       <Trigger isOpen={isOpen} title={title} />
 
-      {variant === "default" && (
-        <DefaultContent items={items as IDefaultSubmenuItem[]} />
-      )}
       {variant === "endpoints" && (
-        <EndpointsContent items={items as IEndpointSubmenuItem[]} />
+        <EndpointsContent
+          items={items as IEndpointSubmenuItem[]}
+          isLoading={isLoading}
+          isError={isError}
+        />
       )}
     </Collapsible.Root>
   );
