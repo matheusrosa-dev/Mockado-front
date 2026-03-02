@@ -7,7 +7,7 @@ const schema = yup.object({
   title: yup
     .string()
     .required("Required")
-    .max(30, "Max length is 30 characters")
+    .max(50, "Max length is 50 characters")
     .trim(),
   description: yup
     .string()

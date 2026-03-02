@@ -49,30 +49,14 @@ export function Form({ statusCodes }: Props) {
               error={errors.title?.message}
             />
           </div>
-          <div className="flex flex-col gap-1.5">
-            <label
-              htmlFor="http-method"
-              className="w-fit text-sm font-medium text-text-muted select-none"
-            >
-              Method
-            </label>
 
-            <SelectHttpMethod value={method} setValue={setMethod} />
-          </div>
+          <SelectHttpMethod value={method} onChange={setMethod} />
 
-          <div className="flex flex-col gap-1.5">
-            <label
-              htmlFor="status-code"
-              className="w-fit text-sm font-medium text-text-muted select-none"
-            >
-              Status code
-            </label>
-            <SelectStatusCode
-              value={statusCode}
-              setValue={setStatusCode}
-              statusCodes={statusCodes}
-            />
-          </div>
+          <SelectStatusCode
+            value={statusCode}
+            onChange={setStatusCode}
+            statusCodes={statusCodes}
+          />
         </div>
 
         <Textarea

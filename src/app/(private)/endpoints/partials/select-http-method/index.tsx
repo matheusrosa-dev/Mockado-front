@@ -8,18 +8,22 @@ import { Item } from "./partials";
 
 type Props = {
   value: HttpMethod;
-  setValue: (value: HttpMethod) => void;
+  onChange: (value: HttpMethod) => void;
 };
 
-export function SelectHttpMethod({ value, setValue }: Props) {
+export function SelectHttpMethod({ value, onChange }: Props) {
   const textColor = getHttpMethodTextColor(value);
 
   return (
-    <div>
-      <Select.Root
-        value={value}
-        onValueChange={(value: HttpMethod) => setValue(value)}
+    <div className="flex flex-col gap-1.5">
+      <label
+        htmlFor="http-method"
+        className="w-fit text-sm font-medium text-text-muted select-none"
       >
+        Method
+      </label>
+
+      <Select.Root value={value} onValueChange={onChange}>
         <Select.Trigger
           id="http-method"
           aria-label="HTTP method"
