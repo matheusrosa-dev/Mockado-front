@@ -1,5 +1,3 @@
-"use client";
-
 import { useSidebarContext } from "../../context";
 import { RxHamburgerMenu } from "react-icons/rx";
 

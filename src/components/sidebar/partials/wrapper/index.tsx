@@ -1,5 +1,3 @@
-"use client";
-
 import { useSidebarContext } from "../../context";
 
 export function Wrapper({ children }: { children: React.ReactNode }) {

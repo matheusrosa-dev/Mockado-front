@@ -1,12 +1,10 @@
 import { CollapsibleSubmenu, Wrapper, HamburgerButton } from "./partials";
 import { Provider, useSidebarContext } from "./context";
-import type { IEndpoint } from "@shared/models/endpoint";
+import { getEndpoints } from "@services/endpoints/react-query";
 
-type Props = {
-  endpoints: Array<IEndpoint>;
-};
+export function Sidebar() {
+  const { data: endpoints, isLoading, isError } = getEndpoints();
 
-export function Sidebar({ endpoints }: Props) {
   return (
     <Wrapper>
       <section className="h-14 px-4 flex items-center border-b border-border">
@@ -19,6 +17,8 @@ export function Sidebar({ endpoints }: Props) {
         <CollapsibleSubmenu
           title="Endpoints"
           items={endpoints}
+          isLoading={isLoading}
+          isError={isError}
           variant="endpoints"
         />
       </nav>
