@@ -22,9 +22,9 @@ export function EndpointsContent({ items }: Props) {
           return (
             <li key={item.id}>
               <Link
-                to="/endpoints/$id"
+                to="/endpoints/$endpointId"
                 params={{
-                  id: item.id,
+                  endpointId: item.id,
                 }}
                 className={`flex items-center gap-2 duration-150 px-2 py-1.5 rounded text-sm
                   ${

@@ -8,120 +8,120 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from "./routes/__root";
-import { Route as privateRouteRouteImport } from "./routes/(private)/route";
-import { Route as privateIndexRouteImport } from "./routes/(private)/index";
-import { Route as privateEndpointsCreateIndexRouteImport } from "./routes/(private)/endpoints/create/index";
-import { Route as privateEndpointsEndpointIdIndexRouteImport } from "./routes/(private)/endpoints/$endpointId/index";
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as privateRouteRouteImport } from './routes/(private)/route'
+import { Route as privateIndexRouteImport } from './routes/(private)/index'
+import { Route as privateEndpointsCreateIndexRouteImport } from './routes/(private)/endpoints/create/index'
+import { Route as privateEndpointsEndpointIdIndexRouteImport } from './routes/(private)/endpoints/$endpointId/index'
 
 const privateRouteRoute = privateRouteRouteImport.update({
-  id: "/(private)",
+  id: '/(private)',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const privateIndexRoute = privateIndexRouteImport.update({
-  id: "/",
-  path: "/",
+  id: '/',
+  path: '/',
   getParentRoute: () => privateRouteRoute,
-} as any);
+} as any)
 const privateEndpointsCreateIndexRoute =
   privateEndpointsCreateIndexRouteImport.update({
-    id: "/endpoints/create/",
-    path: "/endpoints/create/",
+    id: '/endpoints/create/',
+    path: '/endpoints/create/',
     getParentRoute: () => privateRouteRoute,
-  } as any);
+  } as any)
 const privateEndpointsEndpointIdIndexRoute =
   privateEndpointsEndpointIdIndexRouteImport.update({
-    id: "/endpoints/$endpointId/",
-    path: "/endpoints/$endpointId/",
+    id: '/endpoints/$endpointId/',
+    path: '/endpoints/$endpointId/',
     getParentRoute: () => privateRouteRoute,
-  } as any);
+  } as any)
 
 export interface FileRoutesByFullPath {
-  "/": typeof privateIndexRoute;
-  "/endpoints/$endpointId/": typeof privateEndpointsEndpointIdIndexRoute;
-  "/endpoints/create/": typeof privateEndpointsCreateIndexRoute;
+  '/': typeof privateIndexRoute
+  '/endpoints/$endpointId/': typeof privateEndpointsEndpointIdIndexRoute
+  '/endpoints/create/': typeof privateEndpointsCreateIndexRoute
 }
 export interface FileRoutesByTo {
-  "/": typeof privateIndexRoute;
-  "/endpoints/$endpointId": typeof privateEndpointsEndpointIdIndexRoute;
-  "/endpoints/create": typeof privateEndpointsCreateIndexRoute;
+  '/': typeof privateIndexRoute
+  '/endpoints/$endpointId': typeof privateEndpointsEndpointIdIndexRoute
+  '/endpoints/create': typeof privateEndpointsCreateIndexRoute
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport;
-  "/(private)": typeof privateRouteRouteWithChildren;
-  "/(private)/": typeof privateIndexRoute;
-  "/(private)/endpoints/$endpointId/": typeof privateEndpointsEndpointIdIndexRoute;
-  "/(private)/endpoints/create/": typeof privateEndpointsCreateIndexRoute;
+  __root__: typeof rootRouteImport
+  '/(private)': typeof privateRouteRouteWithChildren
+  '/(private)/': typeof privateIndexRoute
+  '/(private)/endpoints/$endpointId/': typeof privateEndpointsEndpointIdIndexRoute
+  '/(private)/endpoints/create/': typeof privateEndpointsCreateIndexRoute
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: "/" | "/endpoints/$endpointId/" | "/endpoints/create/";
-  fileRoutesByTo: FileRoutesByTo;
-  to: "/" | "/endpoints/$endpointId" | "/endpoints/create";
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths: '/' | '/endpoints/$endpointId/' | '/endpoints/create/'
+  fileRoutesByTo: FileRoutesByTo
+  to: '/' | '/endpoints/$endpointId' | '/endpoints/create'
   id:
-    | "__root__"
-    | "/(private)"
-    | "/(private)/"
-    | "/(private)/endpoints/$endpointId/"
-    | "/(private)/endpoints/create/";
-  fileRoutesById: FileRoutesById;
+    | '__root__'
+    | '/(private)'
+    | '/(private)/'
+    | '/(private)/endpoints/$endpointId/'
+    | '/(private)/endpoints/create/'
+  fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  privateRouteRoute: typeof privateRouteRouteWithChildren;
+  privateRouteRoute: typeof privateRouteRouteWithChildren
 }
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    "/(private)": {
-      id: "/(private)";
-      path: "";
-      fullPath: "";
-      preLoaderRoute: typeof privateRouteRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/(private)/": {
-      id: "/(private)/";
-      path: "/";
-      fullPath: "/";
-      preLoaderRoute: typeof privateIndexRouteImport;
-      parentRoute: typeof privateRouteRoute;
-    };
-    "/(private)/endpoints/create/": {
-      id: "/(private)/endpoints/create/";
-      path: "/endpoints/create";
-      fullPath: "/endpoints/create/";
-      preLoaderRoute: typeof privateEndpointsCreateIndexRouteImport;
-      parentRoute: typeof privateRouteRoute;
-    };
-    "/(private)/endpoints/$endpointId/": {
-      id: "/(private)/endpoints/$endpointId/";
-      path: "/endpoints/$endpointId";
-      fullPath: "/endpoints/$endpointId/";
-      preLoaderRoute: typeof privateEndpointsEndpointIdIndexRouteImport;
-      parentRoute: typeof privateRouteRoute;
-    };
+    '/(private)': {
+      id: '/(private)'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof privateRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(private)/': {
+      id: '/(private)/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof privateIndexRouteImport
+      parentRoute: typeof privateRouteRoute
+    }
+    '/(private)/endpoints/create/': {
+      id: '/(private)/endpoints/create/'
+      path: '/endpoints/create'
+      fullPath: '/endpoints/create/'
+      preLoaderRoute: typeof privateEndpointsCreateIndexRouteImport
+      parentRoute: typeof privateRouteRoute
+    }
+    '/(private)/endpoints/$endpointId/': {
+      id: '/(private)/endpoints/$endpointId/'
+      path: '/endpoints/$endpointId'
+      fullPath: '/endpoints/$endpointId/'
+      preLoaderRoute: typeof privateEndpointsEndpointIdIndexRouteImport
+      parentRoute: typeof privateRouteRoute
+    }
   }
 }
 
 interface privateRouteRouteChildren {
-  privateIndexRoute: typeof privateIndexRoute;
-  privateEndpointsEndpointIdIndexRoute: typeof privateEndpointsEndpointIdIndexRoute;
-  privateEndpointsCreateIndexRoute: typeof privateEndpointsCreateIndexRoute;
+  privateIndexRoute: typeof privateIndexRoute
+  privateEndpointsEndpointIdIndexRoute: typeof privateEndpointsEndpointIdIndexRoute
+  privateEndpointsCreateIndexRoute: typeof privateEndpointsCreateIndexRoute
 }
 
 const privateRouteRouteChildren: privateRouteRouteChildren = {
   privateIndexRoute: privateIndexRoute,
   privateEndpointsEndpointIdIndexRoute: privateEndpointsEndpointIdIndexRoute,
   privateEndpointsCreateIndexRoute: privateEndpointsCreateIndexRoute,
-};
+}
 
 const privateRouteRouteWithChildren = privateRouteRoute._addFileChildren(
   privateRouteRouteChildren,
-);
+)
 
 const rootRouteChildren: RootRouteChildren = {
   privateRouteRoute: privateRouteRouteWithChildren,
-};
+}
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
+  ._addFileTypes<FileRouteTypes>()
