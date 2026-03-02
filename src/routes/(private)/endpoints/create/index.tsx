@@ -1,29 +1,31 @@
 import { PrivateContent, PrivateHeader } from "@components";
 import { createFileRoute } from "@tanstack/react-router";
 import { Form } from "./-partials";
-import { useStatusCodesService } from "@services";
-import { useQuery } from "@tanstack/react-query";
+import { getStatusCodes } from "@services/status-codes/react-query";
 
 export const Route = createFileRoute("/(private)/endpoints/create/")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { getStatusCodes } = useStatusCodesService();
+  const { data: statusCodes, isLoading } = getStatusCodes();
 
-  /* TODO: CORRIGIR */
-  const { data } = useQuery({
-    queryKey: ["status-codes"],
-    queryFn: getStatusCodes,
-  });
+  // TODO: CORRIGIR
+  if (isLoading) {
+    return <>Loading...</>;
+  }
+
+  // TODO: CORRIGIR
+  if (!statusCodes) {
+    return <>not found</>;
+  }
 
   return (
     <>
       <PrivateHeader>Create endpoint</PrivateHeader>
 
       <PrivateContent>
-        {/* /* TODO: CORRIGIR */}
-        <Form statusCodes={data || []} />
+        <Form statusCodes={statusCodes} />
       </PrivateContent>
     </>
   );

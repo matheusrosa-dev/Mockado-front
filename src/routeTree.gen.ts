@@ -11,8 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as privateRouteRouteImport } from './routes/(private)/route'
 import { Route as privateIndexRouteImport } from './routes/(private)/index'
+import { Route as privateEndpointsEndpointIdRouteImport } from './routes/(private)/endpoints/$endpointId'
 import { Route as privateEndpointsCreateIndexRouteImport } from './routes/(private)/endpoints/create/index'
-import { Route as privateEndpointsEndpointIdIndexRouteImport } from './routes/(private)/endpoints/$endpointId/index'
 
 const privateRouteRoute = privateRouteRouteImport.update({
   id: '/(private)',
@@ -23,46 +23,46 @@ const privateIndexRoute = privateIndexRouteImport.update({
   path: '/',
   getParentRoute: () => privateRouteRoute,
 } as any)
+const privateEndpointsEndpointIdRoute =
+  privateEndpointsEndpointIdRouteImport.update({
+    id: '/endpoints/$endpointId',
+    path: '/endpoints/$endpointId',
+    getParentRoute: () => privateRouteRoute,
+  } as any)
 const privateEndpointsCreateIndexRoute =
   privateEndpointsCreateIndexRouteImport.update({
     id: '/endpoints/create/',
     path: '/endpoints/create/',
     getParentRoute: () => privateRouteRoute,
   } as any)
-const privateEndpointsEndpointIdIndexRoute =
-  privateEndpointsEndpointIdIndexRouteImport.update({
-    id: '/endpoints/$endpointId/',
-    path: '/endpoints/$endpointId/',
-    getParentRoute: () => privateRouteRoute,
-  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof privateIndexRoute
-  '/endpoints/$endpointId/': typeof privateEndpointsEndpointIdIndexRoute
+  '/endpoints/$endpointId': typeof privateEndpointsEndpointIdRoute
   '/endpoints/create/': typeof privateEndpointsCreateIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof privateIndexRoute
-  '/endpoints/$endpointId': typeof privateEndpointsEndpointIdIndexRoute
+  '/endpoints/$endpointId': typeof privateEndpointsEndpointIdRoute
   '/endpoints/create': typeof privateEndpointsCreateIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/(private)': typeof privateRouteRouteWithChildren
   '/(private)/': typeof privateIndexRoute
-  '/(private)/endpoints/$endpointId/': typeof privateEndpointsEndpointIdIndexRoute
+  '/(private)/endpoints/$endpointId': typeof privateEndpointsEndpointIdRoute
   '/(private)/endpoints/create/': typeof privateEndpointsCreateIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/endpoints/$endpointId/' | '/endpoints/create/'
+  fullPaths: '/' | '/endpoints/$endpointId' | '/endpoints/create/'
   fileRoutesByTo: FileRoutesByTo
   to: '/' | '/endpoints/$endpointId' | '/endpoints/create'
   id:
     | '__root__'
     | '/(private)'
     | '/(private)/'
-    | '/(private)/endpoints/$endpointId/'
+    | '/(private)/endpoints/$endpointId'
     | '/(private)/endpoints/create/'
   fileRoutesById: FileRoutesById
 }
@@ -86,6 +86,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof privateIndexRouteImport
       parentRoute: typeof privateRouteRoute
     }
+    '/(private)/endpoints/$endpointId': {
+      id: '/(private)/endpoints/$endpointId'
+      path: '/endpoints/$endpointId'
+      fullPath: '/endpoints/$endpointId'
+      preLoaderRoute: typeof privateEndpointsEndpointIdRouteImport
+      parentRoute: typeof privateRouteRoute
+    }
     '/(private)/endpoints/create/': {
       id: '/(private)/endpoints/create/'
       path: '/endpoints/create'
@@ -93,25 +100,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof privateEndpointsCreateIndexRouteImport
       parentRoute: typeof privateRouteRoute
     }
-    '/(private)/endpoints/$endpointId/': {
-      id: '/(private)/endpoints/$endpointId/'
-      path: '/endpoints/$endpointId'
-      fullPath: '/endpoints/$endpointId/'
-      preLoaderRoute: typeof privateEndpointsEndpointIdIndexRouteImport
-      parentRoute: typeof privateRouteRoute
-    }
   }
 }
 
 interface privateRouteRouteChildren {
   privateIndexRoute: typeof privateIndexRoute
-  privateEndpointsEndpointIdIndexRoute: typeof privateEndpointsEndpointIdIndexRoute
+  privateEndpointsEndpointIdRoute: typeof privateEndpointsEndpointIdRoute
   privateEndpointsCreateIndexRoute: typeof privateEndpointsCreateIndexRoute
 }
 
 const privateRouteRouteChildren: privateRouteRouteChildren = {
   privateIndexRoute: privateIndexRoute,
-  privateEndpointsEndpointIdIndexRoute: privateEndpointsEndpointIdIndexRoute,
+  privateEndpointsEndpointIdRoute: privateEndpointsEndpointIdRoute,
   privateEndpointsCreateIndexRoute: privateEndpointsCreateIndexRoute,
 }
 

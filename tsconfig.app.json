@@ -25,7 +25,7 @@
     "noUncheckedSideEffectImports": true,
 
     "paths": {
-      "@services": ["./src/shared/services/index.ts"],
+      "@services/*": ["./src/shared/services/*"],
       "@components": ["./src/components/index.ts"],
       "@shared/*": ["./src/shared/*"]
     }

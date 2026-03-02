@@ -1,22 +1,16 @@
 import { PrivateContent, PrivateHeader } from "@components";
-import { useEndpointsService } from "@services";
+import { getEndpointById } from "@services/endpoints/react-query";
 import { getHttpMethodTextColor } from "@shared/helpers/http-method";
-import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/(private)/endpoints/$endpointId/")({
+export const Route = createFileRoute("/(private)/endpoints/$endpointId")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { getEndpointById } = useEndpointsService();
-
   const { endpointId } = Route.useParams();
-  /* TODO: CORRIGIR */
-  const { data: endpoint, isLoading } = useQuery({
-    queryKey: ["endpoints", endpointId],
-    queryFn: () => getEndpointById(endpointId),
-  });
+
+  const { data: endpoint, isLoading } = getEndpointById(endpointId);
 
   // TODO: CORRIGIR
   if (isLoading) {
