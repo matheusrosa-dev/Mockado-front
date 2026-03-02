@@ -9,6 +9,11 @@ const schema = yup.object({
     .required("Required")
     .max(30, "Max length is 30 characters")
     .trim(),
+  description: yup
+    .string()
+    .optional()
+    .max(200, "Max length is 200 characters")
+    .trim(),
 });
 
 export const schemaResolver = yupResolver(schema) as Resolver<IForm>;

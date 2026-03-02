@@ -1,6 +1,6 @@
 "use client";
 
-import { Input, Submit } from "@components";
+import { Input, Submit, Textarea } from "@components";
 import { SelectHttpMethod, SelectStatusCode } from "../../partials";
 import { HttpMethod } from "@shared/const/endpoint";
 import { useState } from "react";
@@ -32,7 +32,7 @@ export function Form({ statusCodes }: Props) {
 
   return (
     <FormComponent
-      className="flex flex-col gap-6 max-w-3xl"
+      className="flex flex-col gap-6 lg:max-w-4xl"
       onSubmit={handleSubmit((data) => console.log(data))}
     >
       <div className="rounded-lg border border-border bg-background-secondary p-5 flex flex-col gap-4">
@@ -43,9 +43,9 @@ export function Form({ statusCodes }: Props) {
         <div className="flex items-end gap-3">
           <div className="flex-1">
             <Input
+              {...register("title")}
               label="Title"
               placeholder="e.g. Get all users"
-              {...register("title")}
               error={errors.title?.message}
             />
           </div>
@@ -74,6 +74,14 @@ export function Form({ statusCodes }: Props) {
             />
           </div>
         </div>
+
+        <Textarea
+          {...register("description")}
+          label="Description"
+          placeholder="e.g. Returns a paginated list of users"
+          rows={7}
+          error={errors.description?.message}
+        />
       </div>
 
       {statusCodeHasBody(Number(statusCode)) && (

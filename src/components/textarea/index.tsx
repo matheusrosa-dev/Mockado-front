@@ -1,13 +1,13 @@
 import { Form as FormRadix } from "radix-ui";
 import { forwardRef } from "react";
 
-type Props = React.InputHTMLAttributes<HTMLInputElement> & {
+type Props = React.TextareaHTMLAttributes<HTMLTextAreaElement> & {
   name: string;
   label: string;
   error?: string;
 };
 
-export const Input = forwardRef<HTMLInputElement, Props>(
+export const Textarea = forwardRef<HTMLTextAreaElement, Props>(
   ({ name, label, error, ...props }, forwardedRef) => {
     return (
       <FormRadix.Field name={name} className="flex flex-col gap-1.5">
@@ -24,17 +24,16 @@ export const Input = forwardRef<HTMLInputElement, Props>(
         </div>
 
         <FormRadix.Control asChild>
-          <input
+          <textarea
+            className={`w-full border rounded-md py-1.5 px-3 bg-background-tertiary text-sm transition-colors resize-none
+             placeholder-text-subtle
+             focus:outline-none focus:ring-1${
+               error
+                 ? " border-red-500 text-red-500 focus:border-red-500 focus:ring-red-500/30"
+                 : " border-border text-white/90 focus:border-accent focus:ring-accent/30"
+             }`}
             {...props}
             ref={forwardedRef}
-            type="text"
-            className={`w-full border rounded-md py-1.5 px-3 bg-background-tertiary text-sm transition-colors
-             placeholder-text-subtle
-             focus:outline-none focus:ring-1 ${
-               error
-                 ? "border-red-500 text-red-500 focus:border-red-500 focus:ring-red-500/30"
-                 : "border-border text-white/90 focus:border-accent focus:ring-accent/30"
-             }`}
           />
         </FormRadix.Control>
       </FormRadix.Field>

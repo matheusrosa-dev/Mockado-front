@@ -4,10 +4,10 @@ import { ROUTES } from "@shared/routes";
 export default function EndpointNotFound() {
   return (
     <div className="flex flex-col items-center justify-center flex-1 gap-5 text-center px-6">
-      <div className="w-14 h-14 rounded-xl bg-method-delete-bg flex items-center justify-center">
+      <div className="w-14 h-14 rounded-xl bg-red-500/15 flex items-center justify-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="w-7 h-7 text-method-delete"
+          className="w-7 h-7 text-red-500"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -22,7 +22,7 @@ export default function EndpointNotFound() {
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <span className="text-xs font-semibold uppercase tracking-widest text-method-delete">
+        <span className="text-xs font-semibold uppercase tracking-widest text-red-500">
           404
         </span>
         <h2 className="text-base font-semibold text-white/90">
