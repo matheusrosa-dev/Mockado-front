@@ -11,9 +11,7 @@ export const Route = createFileRoute("/(private)/endpoints/create/")({
 function RouteComponent() {
   const { getStatusCodes } = useStatusCodesService();
 
-  {
-    /* TODO: CORRIGIR */
-  }
+  /* TODO: CORRIGIR */
   const { data } = useQuery({
     queryKey: ["status-codes"],
     queryFn: getStatusCodes,

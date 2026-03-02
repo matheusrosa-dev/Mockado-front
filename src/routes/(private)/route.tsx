@@ -10,9 +10,7 @@ export const Route = createFileRoute("/(private)")({
 function RouteComponent() {
   const { getEndpoints } = useEndpointsService();
 
-  {
-    /* TODO: CORRIGIR */
-  }
+  /* TODO: CORRIGIR */
   const { data } = useQuery({
     queryKey: ["endpoints"],
     queryFn: getEndpoints,

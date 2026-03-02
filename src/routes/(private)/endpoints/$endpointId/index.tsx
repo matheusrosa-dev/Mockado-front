@@ -12,9 +12,7 @@ function RouteComponent() {
   const { getEndpointById } = useEndpointsService();
 
   const { endpointId } = Route.useParams();
-  {
-    /* TODO: CORRIGIR */
-  }
+  /* TODO: CORRIGIR */
   const { data: endpoint, isLoading } = useQuery({
     queryKey: ["endpoints", endpointId],
     queryFn: () => getEndpointById(endpointId),
