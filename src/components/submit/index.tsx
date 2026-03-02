@@ -7,6 +7,8 @@ type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 
 export const Submit = forwardRef<HTMLButtonElement, Props>(
   ({ children, ...props }, forwardedRef) => {
+    // TODO: Adicionar skeleton
+
     return (
       <FormRadix.Submit asChild>
         <button

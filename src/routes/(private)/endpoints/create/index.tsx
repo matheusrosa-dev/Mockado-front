@@ -10,22 +10,14 @@ export const Route = createFileRoute("/(private)/endpoints/create/")({
 function RouteComponent() {
   const { data: statusCodes, isLoading } = getStatusCodes();
 
-  // TODO: CORRIGIR
-  if (isLoading) {
-    return <>Loading...</>;
-  }
-
-  // TODO: CORRIGIR
-  if (!statusCodes) {
-    return <>not found</>;
-  }
+  // TODO: Adicionar tratativa de erro
 
   return (
     <>
       <PrivateHeader>Create endpoint</PrivateHeader>
 
       <PrivateContent>
-        <Form statusCodes={statusCodes} />
+        <Form isLoading={isLoading} statusCodes={statusCodes} />
       </PrivateContent>
     </>
   );

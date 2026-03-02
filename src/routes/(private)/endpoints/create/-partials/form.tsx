@@ -1,4 +1,4 @@
-import { Input, Submit, Textarea } from "@components";
+import { Input, JsonEditor, Submit, Textarea } from "@components";
 import { SelectHttpMethod, SelectStatusCode } from "../../-partials";
 import { HttpMethod } from "@shared/const/endpoint";
 import { useState } from "react";
@@ -6,15 +6,15 @@ import { Form as FormComponent } from "@components";
 import { useForm } from "react-hook-form";
 import type { IForm } from "../-types";
 import { schemaResolver } from "../-helpers";
-import Editor from "@monaco-editor/react";
 import type { IStatusCode } from "@shared/models/status-code";
 import { statusCodeHasBody } from "@shared/helpers/status-code";
 
 type Props = {
+  isLoading: boolean;
   statusCodes: IStatusCode[];
 };
 
-export function Form({ statusCodes }: Props) {
+export function Form({ isLoading, statusCodes }: Props) {
   const [method, setMethod] = useState(HttpMethod.GET);
   const [statusCode, setStatusCode] = useState("200");
 
@@ -45,15 +45,21 @@ export function Form({ statusCodes }: Props) {
               label="Title"
               placeholder="e.g. Get all users"
               error={errors.title?.message}
+              showSkeleton={isLoading}
             />
           </div>
 
-          <SelectHttpMethod value={method} onChange={setMethod} />
+          <SelectHttpMethod
+            value={method}
+            onChange={setMethod}
+            showSkeleton={isLoading}
+          />
 
           <SelectStatusCode
             value={statusCode}
             onChange={setStatusCode}
             statusCodes={statusCodes}
+            showSkeleton={isLoading}
           />
         </div>
 
@@ -63,6 +69,7 @@ export function Form({ statusCodes }: Props) {
           placeholder="e.g. Returns a paginated list of users"
           rows={7}
           error={errors.description?.message}
+          showSkeleton={isLoading}
         />
       </div>
 
@@ -71,23 +78,12 @@ export function Form({ statusCodes }: Props) {
           <h2 className="text-sm font-semibold text-white/70 uppercase tracking-widest">
             Response body
           </h2>
-          <div className="rounded-md overflow-hidden border border-border">
-            <Editor
-              height="280px"
-              defaultLanguage="json"
-              value={value}
-              onChange={(v) => onChange(v ?? "")}
-              loading="Loading editor..."
-              theme="vs-dark"
-              options={{
-                minimap: { enabled: false },
-                formatOnPaste: true,
-                padding: { top: 16, bottom: 16 },
-                fontSize: 13,
-                lineHeight: 20,
-              }}
-            />
-          </div>
+
+          <JsonEditor
+            value={value}
+            onChange={onChange}
+            showSkeleton={isLoading}
+          />
         </div>
       )}
 

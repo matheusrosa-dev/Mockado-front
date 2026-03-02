@@ -3,14 +3,23 @@ import { PiCaretDownBold, PiCaretUpBold } from "react-icons/pi";
 import type { IStatusCode } from "@shared/models/status-code";
 import { getGroupByCode, groupStatusCodes } from "./helpers";
 import { Item } from "./partials";
+import { Skeleton } from "@components";
 
 type Props = {
   value: string;
   onChange: (value: string) => void;
   statusCodes: IStatusCode[];
+  disabled?: boolean;
+  showSkeleton?: boolean;
 };
 
-export function SelectStatusCode({ value, onChange, statusCodes }: Props) {
+export function SelectStatusCode({
+  value,
+  onChange,
+  statusCodes,
+  disabled,
+  showSkeleton = false,
+}: Props) {
   const groupedStatusCodes = groupStatusCodes(statusCodes);
 
   const selectedStatusCodeGroup = value ? getGroupByCode(value) : null;
@@ -25,28 +34,34 @@ export function SelectStatusCode({ value, onChange, statusCodes }: Props) {
         Status code
       </label>
 
-      <Select.Root value={value} onValueChange={onChange}>
-        <Select.Trigger
-          id="status-code"
-          aria-label="Status code"
-          className={`border border-border py-1.5 px-3 bg-background-tertiary rounded-md text-sm font-bold cursor-pointer ${triggerColor}
-          select-none transition-colors hover:border-accent/50 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30
-          flex items-center gap-2`}
-        >
-          <span className="flex items-center gap-2">
-            {selectedStatusCodeGroup && (
-              <span
-                className={`text-[11px] font-bold px-1.5 py-0.5 rounded ${selectedStatusCodeGroup.badgeClass} shrink-0`}
-              >
-                {value}
-              </span>
-            )}
-            <Select.Value placeholder="Status code" />
-          </span>
-          <Select.Icon>
-            <PiCaretDownBold className="text-text-muted" />
-          </Select.Icon>
-        </Select.Trigger>
+      <Select.Root
+        value={value}
+        onValueChange={onChange}
+        disabled={disabled || showSkeleton}
+      >
+        <Skeleton show={showSkeleton} className="rounded-md">
+          <Select.Trigger
+            id="status-code"
+            aria-label="Status code"
+            className={`border border-border py-1.5 px-3 bg-background-tertiary rounded-md text-sm font-bold not-disabled:cursor-pointer ${triggerColor}
+            select-none transition-colors hover:border-accent/50 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30
+            flex items-center gap-2`}
+          >
+            <span className="flex items-center gap-2">
+              {selectedStatusCodeGroup && (
+                <span
+                  className={`text-[11px] font-bold px-1.5 py-0.5 rounded ${selectedStatusCodeGroup.badgeClass} shrink-0`}
+                >
+                  {value}
+                </span>
+              )}
+              <Select.Value placeholder="Status code" />
+            </span>
+            <Select.Icon>
+              <PiCaretDownBold className="text-text-muted" />
+            </Select.Icon>
+          </Select.Trigger>
+        </Skeleton>
 
         <Select.Portal>
           <Select.Content

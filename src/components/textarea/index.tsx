@@ -1,14 +1,19 @@
 import { Form as FormRadix } from "radix-ui";
 import { forwardRef } from "react";
+import { Skeleton } from "../skeleton";
 
 type Props = React.TextareaHTMLAttributes<HTMLTextAreaElement> & {
   name: string;
   label: string;
   error?: string;
+  showSkeleton?: boolean;
 };
 
 export const Textarea = forwardRef<HTMLTextAreaElement, Props>(
-  ({ name, label, error, ...props }, forwardedRef) => {
+  (
+    { name, label, error, showSkeleton = false, disabled, ...props },
+    forwardedRef,
+  ) => {
     return (
       <FormRadix.Field name={name} className="flex flex-col gap-1.5">
         <div className="flex items-baseline justify-between">
@@ -23,19 +28,22 @@ export const Textarea = forwardRef<HTMLTextAreaElement, Props>(
           )}
         </div>
 
-        <FormRadix.Control asChild>
-          <textarea
-            className={`w-full border rounded-md py-1.5 px-3 bg-background-tertiary text-sm transition-colors resize-none
+        <Skeleton show={showSkeleton} className="rounded-md">
+          <FormRadix.Control asChild>
+            <textarea
+              {...props}
+              disabled={disabled || showSkeleton}
+              className={`w-full border rounded-md py-1.5 px-3 bg-background-tertiary text-sm transition-colors resize-none
              placeholder-text-subtle
              focus:outline-none focus:ring-1${
                error
                  ? " border-red-500 text-red-500 focus:border-red-500 focus:ring-red-500/30"
                  : " border-border text-white/90 focus:border-accent focus:ring-accent/30"
              }`}
-            {...props}
-            ref={forwardedRef}
-          />
-        </FormRadix.Control>
+              ref={forwardedRef}
+            />
+          </FormRadix.Control>
+        </Skeleton>
       </FormRadix.Field>
     );
   },

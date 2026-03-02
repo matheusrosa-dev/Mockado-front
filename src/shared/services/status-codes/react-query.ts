@@ -10,5 +10,6 @@ export const getStatusCodes = () => {
     queryFn: statusCodesService.getStatusCodes,
     retry: false,
     refetchOnWindowFocus: false,
+    initialData: [],
   });
 };

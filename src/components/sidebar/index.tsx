@@ -16,7 +16,7 @@ export function Sidebar() {
       <nav className="flex-1 overflow-y-auto p-3">
         <CollapsibleSubmenu
           title="Endpoints"
-          items={endpoints || []}
+          items={endpoints}
           isLoading={isLoading}
           isError={isError}
           variant="endpoints"
