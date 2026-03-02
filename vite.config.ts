@@ -19,4 +19,11 @@ export default defineConfig({
   preview: {
     port: 3000,
   },
+  resolve: {
+    alias: {
+      "@components": "/src/components/index.ts",
+      "@shared": "/src/shared/",
+      "@services": "/src/shared/services/index.ts",
+    },
+  },
 });
