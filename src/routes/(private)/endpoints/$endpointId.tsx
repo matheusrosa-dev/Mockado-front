@@ -1,4 +1,9 @@
-import { PrivateContent, PrivateHeader } from "@components";
+import {
+  FetchError,
+  NotFound,
+  PrivateContent,
+  PrivateHeader,
+} from "@components";
 import { getEndpointById } from "@services/endpoints/react-query";
 import { getHttpMethodTextColor } from "@shared/helpers/http-method";
 import { createFileRoute } from "@tanstack/react-router";
@@ -10,14 +15,23 @@ export const Route = createFileRoute("/(private)/endpoints/$endpointId")({
 function RouteComponent() {
   const { endpointId } = Route.useParams();
 
-  const { data: endpoint } = getEndpointById(endpointId);
+  const {
+    data: endpoint,
+    error,
+    isError,
+    refetch,
+  } = getEndpointById(endpointId);
 
-  // TODO: implementar not found e outros erros gerais
+  if (error?.status === 404) {
+    return <NotFound />;
+  }
 
   return (
     <>
       <PrivateHeader>
-        {endpoint && (
+        {isError && "Error loading endpoint"}
+
+        {!isError && endpoint && (
           <>
             <span className={getHttpMethodTextColor(endpoint.method)}>
               {endpoint.method}
@@ -28,16 +42,11 @@ function RouteComponent() {
       </PrivateHeader>
 
       <PrivateContent>
-        <div className="flex flex-col gap-4">
-          <div className="rounded-lg border border-border bg-background-secondary p-5">
-            <h2 className="text-xs font-semibold text-white/50 uppercase tracking-widest mb-3">
-              Response body
-            </h2>
-            <pre className="text-sm text-text-muted font-mono bg-background-tertiary rounded-md p-4 border border-border">
-              {"{}"}
-            </pre>
-          </div>
-        </div>
+        {isError ? (
+          <FetchError title="Failed to load endpoint" refetch={refetch} />
+        ) : (
+          "content"
+        )}
       </PrivateContent>
     </>
   );

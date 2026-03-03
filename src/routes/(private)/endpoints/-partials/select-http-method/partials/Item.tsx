@@ -16,7 +16,7 @@ export const Item = forwardRef<HTMLDivElement, Props>(
     return (
       <Select.Item
         className={`cursor-pointer text-sm font-bold ${textColor} bg-background-tertiary hover:bg-background-secondary duration-150 px-3 py-1.5
-        select-none hover:outline-none! focus:outline-none focus:bg-background-secondary`}
+        select-none hover:outline-none focus:outline-none focus:bg-background-secondary`}
         value={value}
         ref={forwardedRef}
       >
