@@ -16,6 +16,8 @@
   --color-accent: #388bfd;
   --color-accent-hover: #58a6ff;
 
+  --color-error: #fb2c36;
+
   --color-method-get: #7c5ce2;
   --color-method-get-bg: rgba(124, 92, 226, 0.1);
   --color-method-post: #3fb950;
@@ -33,8 +35,6 @@
 body {
   font-family: "Roboto", sans-serif;
   background-color: var(--color-background-primary);
-  color: #e6edf3;
-  font-size: 14px;
 }
 
 ::-webkit-scrollbar {

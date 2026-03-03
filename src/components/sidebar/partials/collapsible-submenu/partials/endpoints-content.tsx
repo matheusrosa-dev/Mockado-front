@@ -66,9 +66,7 @@ export function EndpointsContent({ items, isLoading, isError }: Props) {
 
       {isError && (
         <div className="flex items-center justify-center py-4">
-          <span className="text-sm text-red-500">
-            Failed to load endpoints.
-          </span>
+          <span className="text-sm text-error">Failed to load endpoints.</span>
         </div>
       )}
 

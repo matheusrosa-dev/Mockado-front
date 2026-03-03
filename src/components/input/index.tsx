@@ -22,7 +22,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
           </FormRadix.Label>
 
           {error && (
-            <FormRadix.Message className="text-xs text-red-500">
+            <FormRadix.Message className="text-xs text-error">
               {error}
             </FormRadix.Message>
           )}
@@ -39,7 +39,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
              placeholder-text-subtle
              focus:outline-none focus:ring-1 ${
                error
-                 ? "border-red-500 text-red-500 focus:border-red-500 focus:ring-red-500/30"
+                 ? "border-error text-error focus:border-error focus:ring-error/30"
                  : "border-border text-white/90 focus:border-accent focus:ring-accent/30"
              }`}
             />

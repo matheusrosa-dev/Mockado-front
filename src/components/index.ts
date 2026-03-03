@@ -7,3 +7,4 @@ export { Sidebar } from "./sidebar";
 export { PrivateContent } from "./private-content";
 export { Skeleton } from "./skeleton";
 export { JsonEditor } from "./json-editor";
+export { FetchError } from "./fetch-error";
