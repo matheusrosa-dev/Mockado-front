@@ -3,7 +3,7 @@ import { SelectHttpMethod, SelectStatusCode } from "../../-partials";
 import { HttpMethod } from "@shared/const/endpoint";
 import { useState } from "react";
 import { Form as FormComponent } from "@components";
-import { useForm } from "react-hook-form";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import type { IForm } from "../-types";
 import { schemaResolver } from "../-helpers";
 import type { IStatusCode } from "@shared/models/status-code";
@@ -15,17 +15,24 @@ type Props = {
 };
 
 export function Form({ isLoading, statusCodes }: Props) {
-  const [method, setMethod] = useState(HttpMethod.GET);
-  const [statusCode, setStatusCode] = useState("200");
-
   const [value, onChange] = useState('{\n     "key": "value"\n}');
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    control,
   } = useForm<IForm>({
     resolver: schemaResolver,
+    defaultValues: {
+      method: HttpMethod.GET,
+      statusCode: "200",
+    },
+  });
+
+  const statusCode = useWatch({
+    control,
+    name: "statusCode",
   });
 
   return (
@@ -49,17 +56,29 @@ export function Form({ isLoading, statusCodes }: Props) {
             />
           </div>
 
-          <SelectHttpMethod
-            value={method}
-            onChange={setMethod}
-            showSkeleton={isLoading}
+          <Controller
+            control={control}
+            name="method"
+            render={({ field: { value, onChange } }) => (
+              <SelectHttpMethod
+                value={value}
+                onChange={onChange}
+                showSkeleton={isLoading}
+              />
+            )}
           />
 
-          <SelectStatusCode
-            value={statusCode}
-            onChange={setStatusCode}
-            statusCodes={statusCodes}
-            showSkeleton={isLoading}
+          <Controller
+            control={control}
+            name="statusCode"
+            render={({ field: { value, onChange } }) => (
+              <SelectStatusCode
+                value={value}
+                onChange={onChange}
+                statusCodes={statusCodes}
+                showSkeleton={isLoading}
+              />
+            )}
           />
         </div>
 
@@ -73,6 +92,7 @@ export function Form({ isLoading, statusCodes }: Props) {
         />
       </div>
 
+      {/* TODO: adicionar opções de response (null, undefined, arquivo, etc) */}
       {statusCodeHasBody(Number(statusCode)) && (
         <div className="rounded-lg border border-border bg-background-secondary p-5 flex flex-col gap-3">
           <h2 className="text-sm font-semibold text-white/70 uppercase tracking-widest">
