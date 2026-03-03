@@ -1,8 +1,7 @@
-import { Input, JsonEditor, Submit, Textarea } from "@components";
+import { JsonEditor, Form as FormComponent } from "@components";
 import { SelectHttpMethod, SelectStatusCode } from "../../-partials";
 import { HttpMethod } from "@shared/const/endpoint";
 import { useState } from "react";
-import { Form as FormComponent } from "@components";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import type { IForm } from "../-types";
 import { schemaResolver } from "../-helpers";
@@ -36,7 +35,7 @@ export function Form({ isLoading, statusCodes }: Props) {
   });
 
   return (
-    <FormComponent
+    <FormComponent.Form
       className="flex flex-col gap-6 lg:max-w-4xl"
       onSubmit={handleSubmit((data) => console.log(data))}
     >
@@ -47,7 +46,7 @@ export function Form({ isLoading, statusCodes }: Props) {
 
         <div className="flex items-end gap-3">
           <div className="flex-1">
-            <Input
+            <FormComponent.Input
               {...register("title")}
               label="Title"
               placeholder="e.g. Get all users"
@@ -82,7 +81,7 @@ export function Form({ isLoading, statusCodes }: Props) {
           />
         </div>
 
-        <Textarea
+        <FormComponent.Textarea
           {...register("description")}
           label="Description"
           placeholder="e.g. Returns a paginated list of users"
@@ -108,8 +107,10 @@ export function Form({ isLoading, statusCodes }: Props) {
       )}
 
       <div>
-        <Submit showSkeleton={isLoading}>Create endpoint</Submit>
+        <FormComponent.Submit showSkeleton={isLoading}>
+          Create endpoint
+        </FormComponent.Submit>
       </div>
-    </FormComponent>
+    </FormComponent.Form>
   );
 }

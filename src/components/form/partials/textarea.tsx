@@ -1,6 +1,6 @@
 import { Form as FormRadix } from "radix-ui";
 import { forwardRef } from "react";
-import { Skeleton } from "../skeleton";
+import { Skeleton } from "../../skeleton";
 
 type Props = React.TextareaHTMLAttributes<HTMLTextAreaElement> & {
   name: string;
