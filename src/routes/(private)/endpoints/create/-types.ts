@@ -6,4 +6,6 @@ export interface IForm {
   method: HttpMethod;
   statusCode: string;
   delay?: number;
+
+  jsonResponse?: string;
 }

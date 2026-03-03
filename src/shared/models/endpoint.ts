@@ -4,4 +4,5 @@ export interface IEndpoint {
   id: string;
   method: HttpMethod;
   title: string;
+  description?: string;
 }

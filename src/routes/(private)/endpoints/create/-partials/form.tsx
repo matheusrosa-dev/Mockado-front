@@ -5,7 +5,6 @@ import {
   SelectStatusCode,
 } from "../../-partials";
 import { HttpMethod } from "@shared/const/endpoint";
-import { useState } from "react";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import type { IForm } from "../-types";
 import { schemaResolver } from "../-helpers";
@@ -18,8 +17,6 @@ type Props = {
 };
 
 export function Form({ isLoading, statusCodes }: Props) {
-  const [value, onChange] = useState('{\n     "key": "value"\n}');
-
   const {
     register,
     handleSubmit,
@@ -30,6 +27,7 @@ export function Form({ isLoading, statusCodes }: Props) {
     defaultValues: {
       method: HttpMethod.GET,
       statusCode: "200",
+      jsonResponse: '{\n     "key": "value"\n}',
     },
   });
 
@@ -102,16 +100,23 @@ export function Form({ isLoading, statusCodes }: Props) {
       </div>
 
       {/* TODO: adicionar opções de response (null, undefined, arquivo, etc) */}
-      {statusCodeHasBody(Number(statusCode)) && (
+      {statusCodeHasBody(statusCode) && (
         <div className="rounded-lg border border-border bg-background-secondary p-5 flex flex-col gap-3">
           <h2 className="text-sm font-semibold text-white/70 uppercase tracking-widest">
-            Response body
+            Response
           </h2>
 
-          <JsonEditor
-            value={value}
-            onChange={onChange}
-            showSkeleton={isLoading}
+          <Controller
+            control={control}
+            name="jsonResponse"
+            render={({ field }) => (
+              <JsonEditor
+                value={field.value}
+                onChange={field.onChange}
+                showSkeleton={isLoading}
+                error={errors.jsonResponse?.message}
+              />
+            )}
           />
         </div>
       )}
