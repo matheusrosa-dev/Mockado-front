@@ -95,3 +95,14 @@ body {
   background-repeat: no-repeat;
   animation: skeleton-shimmer 1.8s ease-in-out infinite;
 }
+
+/* it removes the arrows from number inputs */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}

@@ -16,6 +16,12 @@ const schema = yup.object({
     .trim(),
   statusCode: yup.string().required(),
   method: yup.string().required(),
+  delay: yup
+    .number()
+    .transform((val, orig) => (orig === "" ? undefined : val))
+    .optional()
+    .min(0, "Min is 0")
+    .max(10, "Max is 10"),
 });
 
 export const schemaResolver = yupResolver(schema) as Resolver<IForm>;

@@ -1,5 +1,9 @@
 import { JsonEditor, Form as FormComponent } from "@components";
-import { SelectHttpMethod, SelectStatusCode } from "../../-partials";
+import {
+  InputDelay,
+  SelectHttpMethod,
+  SelectStatusCode,
+} from "../../-partials";
 import { HttpMethod } from "@shared/const/endpoint";
 import { useState } from "react";
 import { Controller, useForm, useWatch } from "react-hook-form";
@@ -78,6 +82,12 @@ export function Form({ isLoading, statusCodes }: Props) {
                 showSkeleton={isLoading}
               />
             )}
+          />
+
+          <InputDelay
+            {...register("delay")}
+            error={errors.delay?.message}
+            showSkeleton={isLoading}
           />
         </div>
 

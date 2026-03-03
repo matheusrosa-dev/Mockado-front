@@ -5,4 +5,5 @@ export interface IForm {
   description?: string;
   method: HttpMethod;
   statusCode: string;
+  delay?: number;
 }
