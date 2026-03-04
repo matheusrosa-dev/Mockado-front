@@ -1,4 +1,4 @@
-import { ResponseBodyType } from "../-types";
+import { ResponseBodyType } from "../../../-types";
 
 const OPTIONS = Object.values(ResponseBodyType).map((value) => ({
   value,
@@ -10,7 +10,7 @@ type Props = {
   onChange: (value: ResponseBodyType) => void;
 };
 
-export function SelectResponseBodyType({ value, onChange }: Props) {
+export function SelectBodyType({ value, onChange }: Props) {
   return (
     <div className="flex items-center gap-1.5 flex-wrap">
       {OPTIONS.map((option) => {
