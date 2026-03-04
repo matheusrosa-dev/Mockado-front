@@ -1,4 +1,4 @@
-import { ResponseBodyType } from "../../../-types";
+import { ResponseBodyType } from "@shared/const/endpoint";
 
 const OPTIONS = Object.values(ResponseBodyType).map((value) => ({
   value,

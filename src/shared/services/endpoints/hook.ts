@@ -14,5 +14,11 @@ export const useEndpointsService = (): IUseEndpointsService => {
 
       return response.data;
     },
+
+    createEndpoint: async (data) => {
+      const response = await api.post("/endpoints", data);
+
+      return response.data;
+    },
   };
 };

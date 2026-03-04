@@ -1,13 +1,4 @@
-import type { HttpMethod } from "@shared/const/endpoint";
-
-export enum ResponseBodyType {
-  JSON = "json",
-  TEXT = "text",
-  HTML = "html",
-  XML = "xml",
-  NULL = "null",
-  EMPTY = "empty",
-}
+import type { HttpMethod, ResponseBodyType } from "@shared/const/endpoint";
 
 export interface IForm {
   title: string;

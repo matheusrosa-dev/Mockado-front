@@ -2,8 +2,9 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import type { Resolver } from "react-hook-form";
 import * as yup from "yup";
-import { ResponseBodyType, type IForm } from "../-types";
+import type { IForm } from "../-types";
 import { statusCodeHasBody } from "@shared/helpers/status-code";
+import { ResponseBodyType } from "@shared/const/endpoint";
 
 const schema = yup.object({
   title: yup
