@@ -1,10 +1,32 @@
 import { Skeleton } from "@components";
 import { ResponseBodyType } from "@shared/const/endpoint";
 
-const OPTIONS = Object.values(ResponseBodyType).map((value) => ({
-  value,
-  label: value.toUpperCase(),
-}));
+const OPTIONS = [
+  {
+    value: ResponseBodyType.JSON,
+    label: "JSON",
+  },
+  {
+    value: ResponseBodyType.TEXT,
+    label: "Text",
+  },
+  {
+    value: ResponseBodyType.HTML,
+    label: "HTML",
+  },
+  {
+    value: ResponseBodyType.XML,
+    label: "XML",
+  },
+  {
+    value: ResponseBodyType.NULL,
+    label: "Null",
+  },
+  {
+    value: ResponseBodyType.EMPTY,
+    label: "Empty",
+  },
+];
 
 type Props = {
   value: ResponseBodyType;
