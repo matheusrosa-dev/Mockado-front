@@ -6,7 +6,9 @@ export interface IUseEndpointsService {
   createEndpoint: CreateEndpoint;
 }
 
-type GetEndpoints = () => Promise<Array<IEndpoint>>;
+type GetEndpoints = () => Promise<
+  Array<Pick<IEndpoint, "id" | "title" | "method">>
+>;
 
 type GetEndpointById = (id: string) => Promise<IEndpoint>;
 

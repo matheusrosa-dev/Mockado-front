@@ -3,27 +3,48 @@
     {
       "id": "123e4567-e89b-12d3-a456-426614174000",
       "method": "GET",
-      "title": "Search items"
+      "title": "Search items",
+      "description": "Endpoint to search for items based on query parameters.",
+      "responseBodyType": "json",
+      "responseJson": "{\"key\": \"value\"}"
     },
     {
       "id": "123e4567-e89b-12d3-a456-426614174001",
       "method": "POST",
-      "title": "Create item"
+      "title": "Create item",
+      "description": "Endpoint to create a new item with the provided data.",
+      "responseBodyType": "text",
+      "responseText": "Item created successfully."
     },
     {
       "id": "123e4567-e89b-12d3-a456-426614174002",
       "method": "PUT",
-      "title": "Update item"
+      "title": "Update item",
+      "description": "Endpoint to update an existing item with the provided data.",
+      "responseBodyType": "null"
     },
     {
       "id": "123e4567-e89b-12d3-a456-426614174003",
       "method": "PATCH",
-      "title": "Partially update item"
+      "title": "Partially update item",
+      "description": "Endpoint to partially update an existing item with the provided data.",
+      "responseBodyType": "empty"
     },
     {
       "id": "123e4567-e89b-12d3-a456-426614174004",
       "method": "DELETE",
-      "title": "Remove item"
+      "title": "Remove item",
+      "description": "Endpoint to delete an existing item based on its identifier.",
+      "responseBodyType": "json",
+      "responseJson": "{\"key\": \"value\"}"
+    },
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174005",
+      "method": "DELETE",
+      "title": "Incomplete endpoint",
+      "description": null,
+      "responseBodyType": "json",
+      "responseJson": "{\"key\": \"value\"}"
     }
   ],
   "status-codes": [

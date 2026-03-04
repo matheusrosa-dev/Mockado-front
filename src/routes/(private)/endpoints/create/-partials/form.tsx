@@ -32,6 +32,7 @@ export function Form({ isLoading, statusCodes }: Props) {
       statusCode: "200",
       responseBodyType: ResponseBodyType.JSON,
       responseJson: '{\n     "key": "value"\n}',
+      responseText: "",
     },
   });
 
