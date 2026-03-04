@@ -45,7 +45,11 @@ export function ResponseBody<T extends IFormDefaultFields>({
           control={control}
           name="responseBodyType"
           render={({ field: { value, onChange } }) => (
-            <SelectBodyType value={value} onChange={onChange} />
+            <SelectBodyType
+              value={value}
+              onChange={onChange}
+              showSkeleton={isLoading}
+            />
           )}
         />
       </div>

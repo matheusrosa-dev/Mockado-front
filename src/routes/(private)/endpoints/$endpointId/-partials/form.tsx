@@ -12,8 +12,10 @@ import { schemaResolver } from "../-helpers";
 import type { IStatusCode } from "@shared/models/status-code";
 import { statusCodeHasBody } from "@shared/helpers/status-code";
 import { validateJsonString } from "@shared/helpers/json";
+import type { IEndpoint } from "@shared/models/endpoint";
 
 type Props = {
+  endpoint: IEndpoint;
   isLoading: boolean;
   statusCodes: IStatusCode[];
 };

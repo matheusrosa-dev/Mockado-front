@@ -11,7 +11,6 @@ export const getEndpoints = () => {
     queryFn: endpointsService.getEndpoints,
     retry: false,
     refetchOnWindowFocus: false,
-    initialData: [],
   });
 };
 

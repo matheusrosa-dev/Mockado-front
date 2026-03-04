@@ -21,7 +21,8 @@ function RouteComponent() {
   const { data: statusCodes, ...statusCodesQuery } = getStatusCodes();
 
   const showHeader = !endpointQuery.isError && endpoint;
-  const showContent = !endpointQuery.isError && !statusCodesQuery.isError;
+  const showContent =
+    !endpointQuery.isError && !statusCodesQuery.isError && endpoint;
 
   if (endpointQuery.error?.status === 404) {
     return <NotFound />;
@@ -58,7 +59,11 @@ function RouteComponent() {
         )}
 
         {showContent && (
-          <Form isLoading={endpointQuery.isLoading} statusCodes={statusCodes} />
+          <Form
+            endpoint={endpoint}
+            isLoading={endpointQuery.isLoading || statusCodesQuery.isLoading}
+            statusCodes={statusCodes || []}
+          />
         )}
       </PrivateContent>
     </>
