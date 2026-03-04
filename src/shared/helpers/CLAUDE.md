@@ -9,6 +9,7 @@ Contém funções utilitárias puras agrupadas por domínio. Cada arquivo reúne
 - Encapsular lógica de derivação e transformação de dados que seria repetida em múltiplos lugares.
 - Mapear valores de domínio (como método HTTP ou código de status) para representações visuais (classes CSS Tailwind).
 - Fornecer predicados de domínio (ex.: verificar se um código de status possui corpo de resposta).
+- Fornecer funções utilitárias de validação e formatação de tipos primitivos (ex.: validar e formatar strings JSON).
 
 ## Padrões de organização
 

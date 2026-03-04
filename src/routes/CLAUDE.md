@@ -18,7 +18,7 @@ Contém todas as rotas da aplicação gerenciadas pelo TanStack Router com file-
 - `__root.tsx` — rota raiz; define os providers globais (`QueryClientProvider`) e o outlet principal.
 - `route.tsx` dentro de um grupo — define o layout do grupo de rotas (componente com `<Outlet />`).
 - `index.tsx` dentro de um grupo ou segmento — define a rota índice daquela localização.
-- Segmentos dinâmicos: nomeados com `$` (ex.: `$endpointId.tsx`).
+- Segmentos dinâmicos: nomeados com `$` (ex.: `$endpointId/` como diretório com `index.tsx` interno, ou `$endpointId.tsx` como arquivo simples).
 - Grupos de rota sem prefixo de URL: nomeados entre parênteses (ex.: `(private)`).
 
 ### Convenções de prefixo para arquivos co-localizados
