@@ -11,7 +11,7 @@ import type { IForm } from "../-types";
 import { schemaResolver } from "../-helpers";
 import type { IStatusCode } from "@shared/models/status-code";
 import { statusCodeHasBody } from "@shared/helpers/status-code";
-import { validateJsonString } from "@shared/helpers/json";
+import { formatJsonString, validateJsonString } from "@shared/helpers/json";
 
 type Props = {
   isLoading: boolean;
@@ -31,7 +31,7 @@ export function Form({ isLoading, statusCodes }: Props) {
       method: HttpMethod.GET,
       statusCode: "200",
       responseBodyType: ResponseBodyType.JSON,
-      responseJson: '{\n     "key": "value"\n}',
+      responseJson: '{\n  "key": "value"\n}',
       responseText: "",
     },
   });
@@ -62,7 +62,7 @@ export function Form({ isLoading, statusCodes }: Props) {
       description: formData.description,
       responseBodyType: formData.responseBodyType,
       ...(formData.responseBodyType === ResponseBodyType.JSON && {
-        responseJson: formData.responseJson,
+        responseJson: formatJsonString(formData.responseJson!),
       }),
       ...(formData.responseBodyType === ResponseBodyType.TEXT && {
         responseText: formData.responseText,

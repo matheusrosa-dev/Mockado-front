@@ -6,7 +6,7 @@
       "title": "Search items",
       "description": "Endpoint to search for items based on query parameters.",
       "responseBodyType": "json",
-      "responseJson": "{\"key\": \"value\"}"
+      "responseJson": "{\n  \"key\": \"value\"\n}"
     },
     {
       "id": "123e4567-e89b-12d3-a456-426614174001",
@@ -36,7 +36,7 @@
       "title": "Remove item",
       "description": "Endpoint to delete an existing item based on its identifier.",
       "responseBodyType": "json",
-      "responseJson": "{\"key\": \"value\"}"
+      "responseJson": "{\n  \"key\": \"value\"\n}"
     },
     {
       "id": "123e4567-e89b-12d3-a456-426614174005",
@@ -44,7 +44,7 @@
       "title": "Incomplete endpoint",
       "description": null,
       "responseBodyType": "json",
-      "responseJson": "{\"key\": \"value\"}"
+      "responseJson": "{\n  \"key\": \"value\"\n}"
     }
   ],
   "status-codes": [
