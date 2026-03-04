@@ -161,7 +161,7 @@ export function Form({ isLoading, statusCodes }: Props) {
 
       <div>
         <FormComponent.Submit showSkeleton={isLoading}>
-          Create endpoint
+          Save changes
         </FormComponent.Submit>
       </div>
     </FormComponent.Form>

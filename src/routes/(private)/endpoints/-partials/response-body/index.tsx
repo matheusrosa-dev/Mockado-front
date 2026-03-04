@@ -4,22 +4,33 @@ import {
   useWatch,
   type Control,
 } from "react-hook-form";
-import type { IForm } from "../../-types";
 import { SelectBodyType } from "./partials";
 import { JsonEditor, Form as FormComponent } from "@components";
+import type { ResponseBodyType } from "@shared/const/endpoint";
 
-type Props = {
-  control: Control<IForm>;
+interface IFormDefaultFields {
+  responseBodyType: ResponseBodyType;
+  responseJson?: string;
+  responseText?: string;
+}
+
+type Props<T extends IFormDefaultFields> = {
+  control: Control<T>;
   isLoading: boolean;
 };
 
-export function ResponseBody({ control, isLoading }: Props) {
+export function ResponseBody<T extends IFormDefaultFields>({
+  control: controlProp,
+  isLoading,
+}: Props<T>) {
+  const control = controlProp as unknown as Control<IFormDefaultFields>;
+
   const { errors } = useFormState({
     control,
   });
 
   const responseBodyType = useWatch({
-    control,
+    control: control as Control<IFormDefaultFields>,
     name: "responseBodyType",
   });
 
