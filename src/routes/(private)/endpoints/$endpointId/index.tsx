@@ -9,6 +9,7 @@ import { getHttpMethodTextColor } from "@shared/helpers/http-method";
 import { createFileRoute } from "@tanstack/react-router";
 import { Form } from "./-partials";
 import { getStatusCodes } from "@services/status-codes/react-query";
+import type { IEndpoint } from "@shared/models/endpoint";
 
 export const Route = createFileRoute("/(private)/endpoints/$endpointId/")({
   component: RouteComponent,
@@ -21,8 +22,7 @@ function RouteComponent() {
   const { data: statusCodes, ...statusCodesQuery } = getStatusCodes();
 
   const showHeader = !endpointQuery.isError && endpoint;
-  const showContent =
-    !endpointQuery.isError && !statusCodesQuery.isError && endpoint;
+  const showContent = !endpointQuery.isError && !statusCodesQuery.isError;
 
   if (endpointQuery.error?.status === 404) {
     return <NotFound />;
@@ -60,7 +60,8 @@ function RouteComponent() {
 
         {showContent && (
           <Form
-            endpoint={endpoint}
+            key={endpointId}
+            endpoint={endpoint || ({} as IEndpoint)}
             isLoading={endpointQuery.isLoading || statusCodesQuery.isLoading}
             statusCodes={statusCodes || []}
           />

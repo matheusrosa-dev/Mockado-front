@@ -156,7 +156,11 @@ export function Form({ isLoading, statusCodes }: Props) {
       </div>
 
       {statusCodeHasBody(statusCode) && (
-        <ResponseBody control={control} isLoading={isLoading} />
+        <ResponseBody
+          key="response-body"
+          control={control}
+          isLoading={isLoading}
+        />
       )}
 
       <div>

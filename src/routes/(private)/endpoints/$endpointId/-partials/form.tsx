@@ -13,6 +13,7 @@ import type { IStatusCode } from "@shared/models/status-code";
 import { statusCodeHasBody } from "@shared/helpers/status-code";
 import { validateJsonString } from "@shared/helpers/json";
 import type { IEndpoint } from "@shared/models/endpoint";
+import { useCallback, useEffect } from "react";
 
 type Props = {
   endpoint: IEndpoint;
@@ -20,13 +21,14 @@ type Props = {
   statusCodes: IStatusCode[];
 };
 
-export function Form({ isLoading, statusCodes }: Props) {
+export function Form({ endpoint, isLoading, statusCodes }: Props) {
   const {
     register,
     handleSubmit,
     formState: { errors },
     control,
     setError,
+    reset,
   } = useForm<IForm>({
     resolver: schemaResolver,
     defaultValues: {
@@ -42,6 +44,18 @@ export function Form({ isLoading, statusCodes }: Props) {
     control,
     name: "statusCode",
   });
+
+  const fillForm = useCallback(() => {
+    reset({
+      title: endpoint.title,
+      description: endpoint.description,
+      method: endpoint.method ?? HttpMethod.GET,
+      statusCode: "200",
+      responseBodyType: endpoint.responseBodyType ?? ResponseBodyType.JSON,
+      responseJson: endpoint.responseJson ?? '{\n     "key": "value"\n}',
+      responseText: endpoint.responseText ?? "",
+    });
+  }, [endpoint, reset]);
 
   const submitWithResponseBody = (formData: IForm) => {
     const isJsonBody = formData.responseBodyType === ResponseBodyType.JSON;
@@ -93,6 +107,12 @@ export function Form({ isLoading, statusCodes }: Props) {
       submitWithoutResponseBody(formData);
     }
   };
+
+  useEffect(() => {
+    if (!endpoint.id) return;
+
+    fillForm();
+  }, [endpoint, fillForm]);
 
   return (
     <FormComponent.Form
@@ -158,7 +178,11 @@ export function Form({ isLoading, statusCodes }: Props) {
       </div>
 
       {statusCodeHasBody(statusCode) && (
-        <ResponseBody control={control} isLoading={isLoading} />
+        <ResponseBody
+          key={endpoint.id}
+          control={control}
+          isLoading={isLoading}
+        />
       )}
 
       <div>

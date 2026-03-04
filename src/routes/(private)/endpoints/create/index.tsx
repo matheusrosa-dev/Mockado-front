@@ -18,7 +18,7 @@ function RouteComponent() {
         {isError ? (
           <FetchError title="Failed to load status codes" refetch={refetch} />
         ) : (
-          <Form isLoading={isLoading} statusCodes={statusCodes} />
+          <Form isLoading={isLoading} statusCodes={statusCodes || []} />
         )}
       </PrivateContent>
     </>
