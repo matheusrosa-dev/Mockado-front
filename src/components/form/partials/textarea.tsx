@@ -4,7 +4,7 @@ import { Skeleton } from "../../skeleton";
 
 type Props = React.TextareaHTMLAttributes<HTMLTextAreaElement> & {
   name: string;
-  label: string;
+  label?: string;
   error?: string;
   showSkeleton?: boolean;
 };
@@ -16,13 +16,15 @@ export const Textarea = forwardRef<HTMLTextAreaElement, Props>(
   ) => {
     return (
       <FormRadix.Field name={name} className="flex flex-col gap-1.5">
-        <div className="flex items-baseline justify-between">
-          <FormRadix.Label className="text-sm font-medium text-text-muted select-none">
-            {label}
-          </FormRadix.Label>
+        <div className="flex items-baseline">
+          {label && (
+            <FormRadix.Label className="text-sm font-medium text-text-muted select-none">
+              {label}
+            </FormRadix.Label>
+          )}
 
           {error && (
-            <FormRadix.Message className="text-xs text-error">
+            <FormRadix.Message className="text-xs text-error ml-auto">
               {error}
             </FormRadix.Message>
           )}
