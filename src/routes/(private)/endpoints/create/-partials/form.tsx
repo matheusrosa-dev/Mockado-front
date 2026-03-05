@@ -61,6 +61,7 @@ export function Form({ isLoading, statusCodes }: Props) {
       delay: formData.delay,
       description: formData.description,
       responseBodyType: formData.responseBodyType,
+      statusCode: Number(formData.statusCode),
       ...(formData.responseBodyType === ResponseBodyType.JSON && {
         responseJson: formatJsonString(formData.responseJson!),
       }),
@@ -76,6 +77,7 @@ export function Form({ isLoading, statusCodes }: Props) {
       method: formData.method,
       delay: formData.delay,
       description: formData.description,
+      statusCode: Number(formData.statusCode),
     });
   };
 

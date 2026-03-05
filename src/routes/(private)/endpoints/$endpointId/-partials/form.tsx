@@ -52,7 +52,7 @@ export function Form({ endpoint, isLoading, statusCodes }: Props) {
       title: endpoint.title,
       description: endpoint.description,
       method: endpoint.method,
-      statusCode: "200",
+      statusCode: String(endpoint.statusCode),
       delay: endpoint.delay ?? 0,
       responseBodyType: endpoint.responseBodyType ?? ResponseBodyType.JSON,
       responseJson: endpoint.responseJson ?? '{\n  "key": "value"\n}',
@@ -79,6 +79,7 @@ export function Form({ endpoint, isLoading, statusCodes }: Props) {
       method: formData.method,
       delay: formData.delay,
       description: formData.description,
+      statusCode: Number(formData.statusCode),
       responseBodyType: formData.responseBodyType,
       ...(formData.responseBodyType === ResponseBodyType.JSON && {
         responseJson: formatJsonString(formData.responseJson!),
@@ -95,6 +96,7 @@ export function Form({ endpoint, isLoading, statusCodes }: Props) {
       method: formData.method,
       delay: formData.delay,
       description: formData.description,
+      statusCode: Number(formData.statusCode),
     });
   };
 

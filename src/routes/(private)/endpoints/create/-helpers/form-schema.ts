@@ -18,6 +18,7 @@ const schema = yup.object({
     .optional()
     .max(200, "Max length is 200 characters")
     .trim(),
+
   statusCode: yup.string().required(),
 
   method: yup.string().required(),
