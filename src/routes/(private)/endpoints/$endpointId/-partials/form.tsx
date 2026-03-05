@@ -13,7 +13,7 @@ import type { IStatusCode } from "@shared/models/status-code";
 import { statusCodeHasBody } from "@shared/helpers/status-code";
 import { formatJsonString, validateJsonString } from "@shared/helpers/json";
 import type { IEndpoint } from "@shared/models/endpoint";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 type Props = {
   endpoint: IEndpoint;
@@ -22,6 +22,8 @@ type Props = {
 };
 
 export function Form({ endpoint, isLoading, statusCodes }: Props) {
+  const [isFilled, setIsFilled] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -49,11 +51,12 @@ export function Form({ endpoint, isLoading, statusCodes }: Props) {
     reset({
       title: endpoint.title,
       description: endpoint.description,
-      method: endpoint.method ?? HttpMethod.GET,
+      method: endpoint.method,
       statusCode: "200",
-      responseBodyType: endpoint.responseBodyType ?? ResponseBodyType.JSON,
-      responseJson: endpoint.responseJson ?? '{\n  "key": "value"\n}',
-      responseText: endpoint.responseText ?? "",
+      delay: endpoint.delay || 0,
+      responseBodyType: endpoint.responseBodyType || ResponseBodyType.JSON,
+      responseJson: endpoint.responseJson || '{\n  "key": "value"\n}',
+      responseText: endpoint.responseText || "",
     });
   }, [endpoint, reset]);
 
@@ -111,7 +114,11 @@ export function Form({ endpoint, isLoading, statusCodes }: Props) {
   useEffect(() => {
     if (!endpoint.id) return;
 
-    fillForm();
+    // timeout is needed to avoid a inconsistency between values in the form
+    setTimeout(() => {
+      fillForm();
+      setIsFilled(true);
+    }, 0);
   }, [endpoint, fillForm]);
 
   return (
@@ -131,7 +138,7 @@ export function Form({ endpoint, isLoading, statusCodes }: Props) {
               label="Title"
               placeholder="e.g. Get all users"
               error={errors.title?.message}
-              showSkeleton={isLoading}
+              showSkeleton={isLoading || !isFilled}
             />
           </div>
 
@@ -142,7 +149,7 @@ export function Form({ endpoint, isLoading, statusCodes }: Props) {
               <SelectHttpMethod
                 value={value}
                 onChange={onChange}
-                showSkeleton={isLoading}
+                showSkeleton={isLoading || !isFilled}
               />
             )}
           />
@@ -155,7 +162,7 @@ export function Form({ endpoint, isLoading, statusCodes }: Props) {
                 value={value}
                 onChange={onChange}
                 statusCodes={statusCodes}
-                showSkeleton={isLoading}
+                showSkeleton={isLoading || !isFilled}
               />
             )}
           />
@@ -163,7 +170,7 @@ export function Form({ endpoint, isLoading, statusCodes }: Props) {
           <InputDelay
             {...register("delay")}
             error={errors.delay?.message}
-            showSkeleton={isLoading}
+            showSkeleton={isLoading || !isFilled}
           />
         </div>
 
@@ -173,7 +180,7 @@ export function Form({ endpoint, isLoading, statusCodes }: Props) {
           placeholder="e.g. Returns a paginated list of users"
           rows={7}
           error={errors.description?.message}
-          showSkeleton={isLoading}
+          showSkeleton={isLoading || !isFilled}
         />
       </div>
 
@@ -181,12 +188,12 @@ export function Form({ endpoint, isLoading, statusCodes }: Props) {
         <ResponseBody
           key={endpoint.id}
           control={control}
-          isLoading={isLoading}
+          isLoading={isLoading || !isFilled}
         />
       )}
 
       <div>
-        <FormComponent.Submit showSkeleton={isLoading}>
+        <FormComponent.Submit showSkeleton={isLoading || !isFilled}>
           Save changes
         </FormComponent.Submit>
       </div>

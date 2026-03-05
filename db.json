@@ -5,6 +5,7 @@
       "method": "GET",
       "title": "Search items",
       "description": "Endpoint to search for items based on query parameters.",
+      "delay": 0,
       "responseBodyType": "json",
       "responseJson": "{\n  \"key\": \"value\"\n}"
     },
@@ -13,6 +14,7 @@
       "method": "POST",
       "title": "Create item",
       "description": "Endpoint to create a new item with the provided data.",
+      "delay": 0,
       "responseBodyType": "text",
       "responseText": "Item created successfully."
     },
@@ -21,6 +23,7 @@
       "method": "PUT",
       "title": "Update item",
       "description": "Endpoint to update an existing item with the provided data.",
+      "delay": 1,
       "responseBodyType": "null"
     },
     {
@@ -28,6 +31,7 @@
       "method": "PATCH",
       "title": "Partially update item",
       "description": "Endpoint to partially update an existing item with the provided data.",
+      "delay": 2,
       "responseBodyType": "empty"
     },
     {
@@ -35,6 +39,7 @@
       "method": "DELETE",
       "title": "Remove item",
       "description": "Endpoint to delete an existing item based on its identifier.",
+      "delay": 3,
       "responseBodyType": "json",
       "responseJson": "{\n  \"key\": \"value\"\n}"
     },
@@ -43,6 +48,7 @@
       "method": "DELETE",
       "title": "Incomplete endpoint",
       "description": null,
+      "delay": 4,
       "responseBodyType": "json",
       "responseJson": "{\n  \"key\": \"value\"\n}"
     }

@@ -5,6 +5,7 @@ export interface IEndpoint {
   method: HttpMethod;
   title: string;
   description?: string;
+  delay?: number;
   responseBodyType: ResponseBodyType;
   responseJson?: string;
   responseText?: string;
