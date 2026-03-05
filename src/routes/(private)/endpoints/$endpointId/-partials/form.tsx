@@ -53,10 +53,10 @@ export function Form({ endpoint, isLoading, statusCodes }: Props) {
       description: endpoint.description,
       method: endpoint.method,
       statusCode: "200",
-      delay: endpoint.delay || 0,
-      responseBodyType: endpoint.responseBodyType || ResponseBodyType.JSON,
-      responseJson: endpoint.responseJson || '{\n  "key": "value"\n}',
-      responseText: endpoint.responseText || "",
+      delay: endpoint.delay ?? 0,
+      responseBodyType: endpoint.responseBodyType ?? ResponseBodyType.JSON,
+      responseJson: endpoint.responseJson ?? '{\n  "key": "value"\n}',
+      responseText: endpoint.responseText ?? "",
     });
   }, [endpoint, reset]);
 

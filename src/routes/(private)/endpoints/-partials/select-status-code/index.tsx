@@ -23,7 +23,7 @@ export function SelectStatusCode({
   const groupedStatusCodes = groupStatusCodes(statusCodes);
 
   const selectedStatusCodeGroup = value ? getGroupByCode(value) : null;
-  const triggerColor = selectedStatusCodeGroup?.color ?? "text-white/70";
+  const triggerColor = selectedStatusCodeGroup?.color || "text-white/70";
 
   return (
     <div className="flex flex-col gap-1.5">
