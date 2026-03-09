@@ -1,9 +1,9 @@
 import { CollapsibleSubmenu, Wrapper, HamburgerButton } from "./partials";
 import { Provider, useSidebarContext } from "./context";
-import { getEndpoints } from "@services/endpoints/react-query";
+import { getEndpointsSummary } from "@services/endpoints/react-query";
 
 export function Sidebar() {
-  const { data: endpoints, isLoading, isError } = getEndpoints();
+  const { data: endpoints, isLoading, isError } = getEndpointsSummary();
 
   return (
     <Wrapper>

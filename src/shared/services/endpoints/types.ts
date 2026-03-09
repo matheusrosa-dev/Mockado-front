@@ -1,14 +1,12 @@
-import type { IEndpoint } from "@shared/models/endpoint";
+import type { EndpointSummary, IEndpoint } from "@shared/models/endpoint";
 
 export interface IUseEndpointsService {
-  getEndpoints: GetEndpoints;
+  getEndpointsSummary: GetEndpointsSummary;
   getEndpointById: GetEndpointById;
   createEndpoint: CreateEndpoint;
 }
 
-type GetEndpoints = () => Promise<
-  Array<Pick<IEndpoint, "id" | "title" | "method">>
->;
+type GetEndpointsSummary = () => Promise<Array<EndpointSummary>>;
 
 type GetEndpointById = (id: string) => Promise<IEndpoint>;
 

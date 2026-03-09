@@ -5,10 +5,10 @@ import type { AxiosError } from "axios";
 
 const endpointsService = useEndpointsService();
 
-export const getEndpoints = () => {
+export const getEndpointsSummary = () => {
   return useQuery({
     queryKey: ["endpoints"],
-    queryFn: endpointsService.getEndpoints,
+    queryFn: endpointsService.getEndpointsSummary,
     retry: false,
     refetchOnWindowFocus: false,
   });

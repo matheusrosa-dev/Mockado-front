@@ -11,3 +11,5 @@ export interface IEndpoint {
   responseJson?: string;
   responseText?: string;
 }
+
+export type EndpointSummary = Pick<IEndpoint, "id" | "title" | "method">;

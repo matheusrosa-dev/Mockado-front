@@ -1,28 +1,30 @@
-import type { IEndpoint } from "@shared/models/endpoint";
+import type { EndpointSummary, IEndpoint } from "@shared/models/endpoint";
 import { api } from "../config";
 import type { IUseEndpointsService } from "./types";
+import type { IApiReturn } from "@services/interfaces";
 
 export const useEndpointsService = (): IUseEndpointsService => {
   return {
-    getEndpoints: async () => {
+    getEndpointsSummary: async () => {
       const response =
-        await api.get<Array<Pick<IEndpoint, "id" | "title" | "method">>>(
-          "/endpoints",
-        );
+        await api.get<IApiReturn<Array<EndpointSummary>>>("/endpoints/summary");
 
-      return response.data;
+      return response.data.data;
     },
 
     getEndpointById: async (id: string) => {
-      const response = await api.get<IEndpoint>(`/endpoints/${id}`);
+      const response = await api.get<IApiReturn<IEndpoint>>(`/endpoints/${id}`);
 
-      return response.data;
+      return response.data.data;
     },
 
     createEndpoint: async (data) => {
-      const response = await api.post<IEndpoint>("/endpoints", data);
+      const response = await api.post<IApiReturn<IEndpoint>>(
+        "/endpoints",
+        data,
+      );
 
-      return response.data;
+      return response.data.data;
     },
   };
 };
