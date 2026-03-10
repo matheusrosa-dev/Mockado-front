@@ -60,7 +60,7 @@ function ToastItem({
         if (!isOpen) setTimeout(() => onDismiss(id), 300);
       }}
       duration={4000}
-      className={`flex items-start gap-3 rounded-lg border bg-background-tertiary p-4 shadow-lg
+      className={`cursor-grab flex items-start gap-3 rounded-lg border bg-background-tertiary p-4 shadow-lg
         data-[state=open]:animate-[toast-slide-in-right_200ms_ease-out]
         data-[state=closed]:animate-[toast-slide-out-right_200ms_ease-in_forwards]
         data-[swipe=cancel]:translate-x-0
