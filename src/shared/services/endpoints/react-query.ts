@@ -1,11 +1,14 @@
-/** biome-ignore-all lint/correctness/useHookAtTopLevel: <Its necessary in this file> */
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEndpointsService } from "./hook";
 import type { AxiosError } from "axios";
+import type { IEndpoint } from "@shared/models/endpoint";
+import { Toast } from "@components";
+import { formatApiError } from "@shared/helpers/api-error";
+import type { ApiError } from "@services/interfaces";
 
-const endpointsService = useEndpointsService();
+export const useGetEndpointsSummary = () => {
+  const endpointsService = useEndpointsService();
 
-export const getEndpointsSummary = () => {
   return useQuery({
     queryKey: ["endpoints"],
     queryFn: endpointsService.getEndpointsSummary,
@@ -14,7 +17,61 @@ export const getEndpointsSummary = () => {
   });
 };
 
-export const getEndpointById = (id: string) => {
+export const useCreateEndpoint = (props: {
+  onSuccess: (data: IEndpoint) => void;
+}) => {
+  const endpointsService = useEndpointsService();
+  const queryClient = useQueryClient();
+  const toast = Toast.useToast();
+
+  const mutation = useMutation({
+    retry: false,
+    mutationFn: (data: Omit<IEndpoint, "id">) =>
+      endpointsService.createEndpoint(data),
+
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["endpoints"] });
+
+      toast.show({
+        title: "Endpoint created",
+        description: "The endpoint was created successfully.",
+        variant: "success",
+      });
+
+      props.onSuccess(data);
+    },
+
+    onError: (error: ApiError) => {
+      if (error.status === 422) {
+        toast.show({
+          title: "Validation error",
+          description: formatApiError(error),
+          variant: "warning",
+        });
+
+        return;
+      }
+
+      toast.show({
+        title: "Error creating endpoint",
+        description:
+          "An unexpected error occurred while creating the endpoint.",
+        variant: "error",
+      });
+    },
+  });
+
+  return {
+    ...mutation,
+    createEndpoint: mutation.mutate,
+    isSubmitting: mutation.isPending,
+    error: mutation.error as AxiosError | null,
+  };
+};
+
+export const useGetEndpointById = (id: string) => {
+  const endpointsService = useEndpointsService();
+
   const query = useQuery({
     queryKey: ["endpoint", id],
     queryFn: () => endpointsService.getEndpointById(id),

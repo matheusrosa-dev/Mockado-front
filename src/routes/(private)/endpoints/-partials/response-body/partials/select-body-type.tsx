@@ -11,14 +11,6 @@ const OPTIONS = [
     label: "Text",
   },
   {
-    value: ResponseBodyType.HTML,
-    label: "HTML",
-  },
-  {
-    value: ResponseBodyType.XML,
-    label: "XML",
-  },
-  {
     value: ResponseBodyType.NULL,
     label: "Null",
   },
@@ -53,10 +45,11 @@ export function SelectBodyType({
               onClick={() => onChange(option.value)}
               disabled={disabled || showSkeleton}
               className={`px-2.5 py-1 rounded text-xs font-medium border transition-colors select-none cursor-pointer
+                disabled:cursor-not-allowed disabled:opacity-50
               ${
                 isActive
                   ? "border-accent/50 bg-accent/10 text-accent"
-                  : "border-border bg-background-tertiary text-text-muted hover:text-white hover:border-accent/30"
+                  : "border-border bg-background-tertiary text-text-muted not-disabled:hover:text-white not-disabled:hover:border-accent/30"
               }`}
             >
               {option.label}

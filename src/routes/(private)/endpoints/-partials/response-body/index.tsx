@@ -6,7 +6,7 @@ import {
 } from "react-hook-form";
 import { SelectBodyType } from "./partials";
 import { JsonEditor, Form as FormComponent } from "@components";
-import type { ResponseBodyType } from "@shared/const/endpoint";
+import { ResponseBodyType } from "@shared/const/endpoint";
 
 interface IFormDefaultFields {
   responseBodyType: ResponseBodyType;
@@ -17,11 +17,13 @@ interface IFormDefaultFields {
 type Props<T extends IFormDefaultFields> = {
   control: Control<T>;
   isLoading: boolean;
+  isSubmitting: boolean;
 };
 
 export function ResponseBody<T extends IFormDefaultFields>({
   control: controlProp,
   isLoading,
+  isSubmitting,
 }: Props<T>) {
   const control = controlProp as unknown as Control<IFormDefaultFields>;
 
@@ -49,12 +51,13 @@ export function ResponseBody<T extends IFormDefaultFields>({
               value={value}
               onChange={onChange}
               showSkeleton={isLoading}
+              disabled={isSubmitting}
             />
           )}
         />
       </div>
 
-      {responseBodyType === "json" && (
+      {responseBodyType === ResponseBodyType.JSON && (
         <Controller
           control={control}
           name="responseJson"
@@ -62,14 +65,15 @@ export function ResponseBody<T extends IFormDefaultFields>({
             <JsonEditor
               value={field.value ?? ""}
               onChange={field.onChange}
-              showSkeleton={isLoading}
               error={errors.responseJson?.message}
+              showSkeleton={isLoading}
+              disabled={isSubmitting}
             />
           )}
         />
       )}
 
-      {responseBodyType === "text" && (
+      {responseBodyType === ResponseBodyType.TEXT && (
         <Controller
           control={control}
           name="responseText"
@@ -80,12 +84,13 @@ export function ResponseBody<T extends IFormDefaultFields>({
               rows={10}
               error={errors.responseText?.message}
               showSkeleton={isLoading}
+              disabled={isSubmitting}
             />
           )}
         />
       )}
 
-      {responseBodyType === "null" && (
+      {responseBodyType === ResponseBodyType.NULL && (
         <div className="rounded-md border border-border bg-background-tertiary px-3 py-2.5">
           <span className="text-xs text-text-muted">
             The response body will be sent as{" "}
@@ -94,7 +99,7 @@ export function ResponseBody<T extends IFormDefaultFields>({
         </div>
       )}
 
-      {responseBodyType === "empty" && (
+      {responseBodyType === ResponseBodyType.EMPTY && (
         <div className="rounded-md border border-border bg-background-tertiary px-3 py-2.5">
           <span className="text-xs text-text-muted">
             The response body will be empty.

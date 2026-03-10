@@ -9,6 +9,7 @@ type Props = {
   onChange: (value: string) => void;
   showSkeleton?: boolean;
   error?: string;
+  disabled?: boolean;
 };
 
 export function JsonEditor({
@@ -16,6 +17,7 @@ export function JsonEditor({
   onChange,
   showSkeleton = false,
   error,
+  disabled,
 }: Props) {
   const editorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
 
@@ -39,7 +41,9 @@ export function JsonEditor({
           <button
             type="button"
             onClick={handleFormat}
-            className="ml-auto flex items-center gap-1.5 text-xs text-text-muted hover:text-white/90 cursor-pointer duration-150 select-none"
+            disabled={disabled || showSkeleton}
+            className="ml-auto flex items-center gap-1.5 text-xs text-text-muted not-disabled:hover:text-white/90 
+            cursor-pointer duration-150 select-none disabled:cursor-not-allowed disabled:opacity-50"
           >
             <PiBracketsCurlyBold className="text-sm" />
             Format
@@ -47,8 +51,11 @@ export function JsonEditor({
         </div>
 
         <div
-          className={`rounded-md overflow-hidden border ${error ? "border-error" : "border-border"}`}
+          className={`relative rounded-md overflow-hidden border ${error ? "border-error" : "border-border"}`}
         >
+          {disabled && (
+            <div className="absolute inset-0 z-10 cursor-not-allowed opacity-40 bg-black" />
+          )}
           <Editor
             height="280px"
             defaultLanguage="json"
@@ -68,6 +75,7 @@ export function JsonEditor({
               fontSize: 13,
               lineHeight: 20,
               fontFamily: "Roboto Mono, monospace",
+              readOnly: disabled || showSkeleton,
             }}
           />
         </div>

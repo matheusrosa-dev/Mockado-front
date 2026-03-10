@@ -39,8 +39,10 @@ export function SelectHttpMethod({
           <Select.Trigger
             id="http-method"
             aria-label="HTTP method"
-            className={`border border-border py-1.5 px-3 bg-background-tertiary rounded-md text-sm font-bold not-disabled:cursor-pointer ${textColor}
-          select-none transition-colors hover:border-accent/50 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30`}
+            className={`border border-border py-1.5 px-3 bg-background-tertiary rounded-md text-sm font-bold ${textColor} 
+            select-none transition-colors not-disabled:hover:border-accent/50 focus:outline-none focus:border-accent 
+            focus:ring-1 not-disabled:focus:ring-accent/30 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer
+            `}
           >
             <Select.Value placeholder="Select a method" />
             <Select.Icon>

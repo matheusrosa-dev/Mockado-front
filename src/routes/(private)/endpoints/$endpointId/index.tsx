@@ -4,11 +4,11 @@ import {
   PrivateContent,
   PrivateHeader,
 } from "@components";
-import { getEndpointById } from "@services/endpoints/react-query";
+import { useGetEndpointById } from "@services/endpoints/react-query";
 import { getHttpMethodTextColor } from "@shared/helpers/http-method";
 import { createFileRoute } from "@tanstack/react-router";
 import { Form } from "./-partials";
-import { getStatusCodes } from "@services/status-codes/react-query";
+import { useGetStatusCodes } from "@services/status-codes/react-query";
 import type { IEndpoint } from "@shared/models/endpoint";
 
 export const Route = createFileRoute("/(private)/endpoints/$endpointId/")({
@@ -18,8 +18,8 @@ export const Route = createFileRoute("/(private)/endpoints/$endpointId/")({
 function RouteComponent() {
   const { endpointId } = Route.useParams();
 
-  const { data: endpoint, ...endpointQuery } = getEndpointById(endpointId);
-  const { data: statusCodes, ...statusCodesQuery } = getStatusCodes();
+  const { data: endpoint, ...endpointQuery } = useGetEndpointById(endpointId);
+  const { data: statusCodes, ...statusCodesQuery } = useGetStatusCodes();
 
   const showHeader = !endpointQuery.isError && endpoint;
   const showContent = !endpointQuery.isError && !statusCodesQuery.isError;

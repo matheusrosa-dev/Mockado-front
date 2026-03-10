@@ -49,11 +49,12 @@ export const InputDelay = forwardRef<HTMLInputElement, Props>(
                   }
                 }}
                 className={`w-full border rounded-md py-1.5 px-3 bg-background-tertiary text-sm transition-colors
-             placeholder-text-subtle focus:outline-none focus:ring-1 pr-16 ${
-               error
-                 ? "border-error text-error focus:border-error focus:ring-error/30"
-                 : "border-border text-white/90 focus:border-accent focus:ring-accent/30"
-             }`}
+              placeholder-text-subtle focus:outline-none focus:ring-1 pr-16 disabled:cursor-not-allowed disabled:opacity-50
+              ${
+                error
+                  ? "border-error text-error focus:border-error focus:ring-error/30"
+                  : "border-border text-white/90 focus:border-accent focus:ring-accent/30"
+              }`}
               />
             </FormRadix.Control>
             <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-text-subtle select-none pointer-events-none">

@@ -36,8 +36,8 @@ export const Input = forwardRef<HTMLInputElement, Props>(
               type="text"
               disabled={disabled || showSkeleton}
               className={`w-full border rounded-md py-1.5 px-3 bg-background-tertiary text-sm transition-colors
-             placeholder-text-subtle
-             focus:outline-none focus:ring-1 ${
+             placeholder-text-subtle focus:outline-none focus:ring-1 disabled:opacity-50 disabled:cursor-not-allowed
+             ${
                error
                  ? "border-error text-error focus:border-error focus:ring-error/30"
                  : "border-border text-white/90 focus:border-accent focus:ring-accent/30"

@@ -12,6 +12,9 @@ import { schemaResolver } from "../-helpers";
 import type { IStatusCode } from "@shared/models/status-code";
 import { statusCodeHasBody } from "@shared/helpers/status-code";
 import { formatJsonString, validateJsonString } from "@shared/helpers/json";
+import { useCreateEndpoint } from "@services/endpoints/react-query";
+import { CgSpinner } from "react-icons/cg";
+import { useNavigate } from "@tanstack/react-router";
 
 type Props = {
   isLoading: boolean;
@@ -19,6 +22,19 @@ type Props = {
 };
 
 export function Form({ isLoading, statusCodes }: Props) {
+  const navigate = useNavigate();
+
+  const { createEndpoint, isSubmitting } = useCreateEndpoint({
+    onSuccess: (data) => {
+      navigate({
+        to: "/endpoints/$endpointId",
+        params: {
+          endpointId: data.id,
+        },
+      });
+    },
+  });
+
   const {
     register,
     handleSubmit,
@@ -55,7 +71,7 @@ export function Form({ isLoading, statusCodes }: Props) {
       }
     }
 
-    console.log("submit with body", {
+    createEndpoint({
       title: formData.title,
       method: formData.method,
       delay: formData.delay,
@@ -72,7 +88,7 @@ export function Form({ isLoading, statusCodes }: Props) {
   };
 
   const submitWithoutResponseBody = (formData: IForm) => {
-    console.log("no body submit", {
+    createEndpoint({
       title: formData.title,
       method: formData.method,
       delay: formData.delay,
@@ -112,6 +128,7 @@ export function Form({ isLoading, statusCodes }: Props) {
               placeholder="e.g. Get all users"
               error={errors.title?.message}
               showSkeleton={isLoading}
+              disabled={isSubmitting}
             />
           </div>
 
@@ -123,6 +140,7 @@ export function Form({ isLoading, statusCodes }: Props) {
                 value={value}
                 onChange={onChange}
                 showSkeleton={isLoading}
+                disabled={isSubmitting}
               />
             )}
           />
@@ -136,6 +154,7 @@ export function Form({ isLoading, statusCodes }: Props) {
                 onChange={onChange}
                 statusCodes={statusCodes}
                 showSkeleton={isLoading}
+                disabled={isSubmitting}
               />
             )}
           />
@@ -144,6 +163,7 @@ export function Form({ isLoading, statusCodes }: Props) {
             {...register("delay")}
             error={errors.delay?.message}
             showSkeleton={isLoading}
+            disabled={isSubmitting}
           />
         </div>
 
@@ -154,6 +174,7 @@ export function Form({ isLoading, statusCodes }: Props) {
           rows={7}
           error={errors.description?.message}
           showSkeleton={isLoading}
+          disabled={isSubmitting}
         />
       </div>
 
@@ -162,12 +183,20 @@ export function Form({ isLoading, statusCodes }: Props) {
           key="response-body"
           control={control}
           isLoading={isLoading}
+          isSubmitting={isSubmitting}
         />
       )}
 
       <div>
-        <FormComponent.Submit showSkeleton={isLoading}>
-          Create endpoint
+        <FormComponent.Submit showSkeleton={isLoading} disabled={isSubmitting}>
+          {isSubmitting ? (
+            <>
+              Creating endpoint...
+              <CgSpinner className="animate-spin text-base" />
+            </>
+          ) : (
+            "Create endpoint"
+          )}
         </FormComponent.Submit>
       </div>
     </FormComponent.Form>

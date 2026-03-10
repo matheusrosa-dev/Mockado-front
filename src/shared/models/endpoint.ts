@@ -7,7 +7,7 @@ export interface IEndpoint {
   description?: string;
   delay?: number;
   statusCode: number;
-  responseBodyType: ResponseBodyType;
+  responseBodyType?: ResponseBodyType;
   responseJson?: string;
   responseText?: string;
 }

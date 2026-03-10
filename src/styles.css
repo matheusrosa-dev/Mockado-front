@@ -83,6 +83,33 @@ body {
   }
 }
 
+@keyframes toast-slide-in-right {
+  from {
+    transform: translateX(calc(100% + 1.5rem));
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes toast-slide-out-right {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(100% + 1.5rem));
+  }
+}
+
+@keyframes toast-swipe-out {
+  from {
+    transform: translateX(var(--radix-toast-swipe-end-x));
+  }
+  to {
+    transform: translateX(calc(100% + 1.5rem));
+  }
+}
+
 @utility skeleton {
   background-color: var(--color-background-tertiary);
   background-image: linear-gradient(
