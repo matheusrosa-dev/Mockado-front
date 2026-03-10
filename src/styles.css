@@ -110,6 +110,15 @@ body {
   }
 }
 
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 @utility skeleton {
   background-color: var(--color-background-tertiary);
   background-image: linear-gradient(

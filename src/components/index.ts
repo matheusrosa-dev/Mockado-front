@@ -7,3 +7,4 @@ export { JsonEditor } from "./json-editor";
 export { FetchError } from "./fetch-error";
 export { NotFound } from "./not-found";
 export { Toast } from "./toast";
+export { LoginModal } from "./login-modal";

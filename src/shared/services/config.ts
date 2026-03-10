@@ -1,8 +1,7 @@
 import axios from "axios";
 
-//TODO: Move this to .env file
-const BASE_URL = "http://localhost:3333";
+const API_BACKEND_URL = import.meta.env.VITE_API_BACKEND_URL as string;
 
 export const api = axios.create({
-  baseURL: BASE_URL,
+  baseURL: API_BACKEND_URL,
 });
