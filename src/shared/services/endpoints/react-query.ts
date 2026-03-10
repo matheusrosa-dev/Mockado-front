@@ -90,6 +90,7 @@ export const useUpdateEndpoint = (props: {
 }) => {
   const endpointsService = useEndpointsService();
   const toast = Toast.useToast();
+  const queryClient = useQueryClient();
 
   const mutation = useMutation({
     retry: false,
@@ -104,6 +105,8 @@ export const useUpdateEndpoint = (props: {
         description: "The endpoint was updated successfully.",
         variant: "success",
       });
+
+      queryClient.invalidateQueries({ queryKey: ["endpoints"] });
       props.onSuccess(data);
     },
 
