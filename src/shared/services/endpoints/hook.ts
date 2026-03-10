@@ -26,5 +26,14 @@ export const useEndpointsService = (): IUseEndpointsService => {
 
       return response.data.data;
     },
+
+    updateEndpoint: async (id: string, data: Partial<IEndpoint>) => {
+      const response = await api.patch<IApiReturn<IEndpoint>>(
+        `/endpoints/${id}`,
+        data,
+      );
+
+      return response.data.data;
+    },
   };
 };

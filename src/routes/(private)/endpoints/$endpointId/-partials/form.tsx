@@ -14,6 +14,8 @@ import { statusCodeHasBody } from "@shared/helpers/status-code";
 import { formatJsonString, validateJsonString } from "@shared/helpers/json";
 import type { IEndpoint } from "@shared/models/endpoint";
 import { useCallback, useEffect, useState } from "react";
+import { CgSpinner } from "react-icons/cg";
+import { useUpdateEndpoint } from "@services/endpoints/react-query";
 
 type Props = {
   endpoint: IEndpoint;
@@ -27,7 +29,7 @@ export function Form({ endpoint, isLoading, statusCodes }: Props) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty },
     control,
     setError,
     reset,
@@ -47,18 +49,25 @@ export function Form({ endpoint, isLoading, statusCodes }: Props) {
     name: "statusCode",
   });
 
-  const fillForm = useCallback(() => {
-    reset({
-      title: endpoint.title,
-      description: endpoint.description,
-      method: endpoint.method,
-      statusCode: String(endpoint.statusCode),
-      delay: endpoint.delay ?? 0,
-      responseBodyType: endpoint.responseBodyType ?? ResponseBodyType.JSON,
-      responseJson: endpoint.responseJson ?? '{\n  "key": "value"\n}',
-      responseText: endpoint.responseText ?? "",
-    });
-  }, [endpoint, reset]);
+  const fillForm = useCallback(
+    (data: IEndpoint) => {
+      reset({
+        title: data.title,
+        description: data.description,
+        method: data.method,
+        statusCode: String(data.statusCode),
+        delay: data.delay ?? 0,
+        responseBodyType: data.responseBodyType ?? ResponseBodyType.JSON,
+        responseJson: data.responseJson ?? '{\n  "key": "value"\n}',
+        responseText: data.responseText ?? "",
+      });
+    },
+    [reset],
+  );
+
+  const { isSubmitting, updateEndpoint } = useUpdateEndpoint({
+    onSuccess: fillForm,
+  });
 
   const submitWithResponseBody = (formData: IForm) => {
     const isJsonBody = formData.responseBodyType === ResponseBodyType.JSON;
@@ -74,7 +83,8 @@ export function Form({ endpoint, isLoading, statusCodes }: Props) {
       }
     }
 
-    console.log("submit with body", {
+    updateEndpoint({
+      id: endpoint.id,
       title: formData.title,
       method: formData.method,
       delay: formData.delay,
@@ -91,7 +101,8 @@ export function Form({ endpoint, isLoading, statusCodes }: Props) {
   };
 
   const submitWithoutResponseBody = (formData: IForm) => {
-    console.log("no body submit", {
+    updateEndpoint({
+      id: endpoint.id,
       title: formData.title,
       method: formData.method,
       delay: formData.delay,
@@ -118,7 +129,7 @@ export function Form({ endpoint, isLoading, statusCodes }: Props) {
 
     // timeout is needed to avoid a inconsistency between values in the form
     setTimeout(() => {
-      fillForm();
+      fillForm(endpoint);
       setIsFilled(true);
     }, 0);
   }, [endpoint, fillForm]);
@@ -141,6 +152,7 @@ export function Form({ endpoint, isLoading, statusCodes }: Props) {
               placeholder="e.g. Get all users"
               error={errors.title?.message}
               showSkeleton={isLoading || !isFilled}
+              disabled={isSubmitting}
             />
           </div>
 
@@ -152,6 +164,7 @@ export function Form({ endpoint, isLoading, statusCodes }: Props) {
                 value={value}
                 onChange={onChange}
                 showSkeleton={isLoading || !isFilled}
+                disabled={isSubmitting}
               />
             )}
           />
@@ -165,6 +178,7 @@ export function Form({ endpoint, isLoading, statusCodes }: Props) {
                 onChange={onChange}
                 statusCodes={statusCodes}
                 showSkeleton={isLoading || !isFilled}
+                disabled={isSubmitting}
               />
             )}
           />
@@ -173,6 +187,7 @@ export function Form({ endpoint, isLoading, statusCodes }: Props) {
             {...register("delay")}
             error={errors.delay?.message}
             showSkeleton={isLoading || !isFilled}
+            disabled={isSubmitting}
           />
         </div>
 
@@ -183,6 +198,7 @@ export function Form({ endpoint, isLoading, statusCodes }: Props) {
           rows={7}
           error={errors.description?.message}
           showSkeleton={isLoading || !isFilled}
+          disabled={isSubmitting}
         />
       </div>
 
@@ -191,12 +207,23 @@ export function Form({ endpoint, isLoading, statusCodes }: Props) {
           key={endpoint.id}
           control={control}
           isLoading={isLoading || !isFilled}
+          isSubmitting={isSubmitting}
         />
       )}
 
       <div>
-        <FormComponent.Submit showSkeleton={isLoading || !isFilled}>
-          Save changes
+        <FormComponent.Submit
+          showSkeleton={isLoading || !isFilled}
+          disabled={isSubmitting || !isDirty}
+        >
+          {isSubmitting ? (
+            <>
+              Saving changes...
+              <CgSpinner className="animate-spin text-base" />
+            </>
+          ) : (
+            "Save changes"
+          )}
         </FormComponent.Submit>
       </div>
     </FormComponent.Form>

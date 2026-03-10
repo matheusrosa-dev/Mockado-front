@@ -17,6 +17,22 @@ export const useGetEndpointsSummary = () => {
   });
 };
 
+export const useGetEndpointById = (id: string) => {
+  const endpointsService = useEndpointsService();
+
+  const query = useQuery({
+    queryKey: ["endpoint", id],
+    queryFn: () => endpointsService.getEndpointById(id),
+    retry: false,
+    refetchOnWindowFocus: false,
+  });
+
+  return {
+    ...query,
+    error: query.error as AxiosError | null,
+  };
+};
+
 export const useCreateEndpoint = (props: {
   onSuccess: (data: IEndpoint) => void;
 }) => {
@@ -69,18 +85,52 @@ export const useCreateEndpoint = (props: {
   };
 };
 
-export const useGetEndpointById = (id: string) => {
+export const useUpdateEndpoint = (props: {
+  onSuccess: (data: IEndpoint) => void;
+}) => {
   const endpointsService = useEndpointsService();
+  const toast = Toast.useToast();
 
-  const query = useQuery({
-    queryKey: ["endpoint", id],
-    queryFn: () => endpointsService.getEndpointById(id),
+  const mutation = useMutation({
     retry: false,
-    refetchOnWindowFocus: false,
+    mutationFn: (data: IEndpoint) => {
+      const { id, ...updateData } = data;
+
+      return endpointsService.updateEndpoint(id, updateData);
+    },
+    onSuccess: (data) => {
+      toast.show({
+        title: "Endpoint updated",
+        description: "The endpoint was updated successfully.",
+        variant: "success",
+      });
+      props.onSuccess(data);
+    },
+
+    onError: (error: ApiError) => {
+      if (error.status === 422) {
+        toast.show({
+          title: "Validation error",
+          description: formatApiError(error),
+          variant: "warning",
+        });
+
+        return;
+      }
+
+      toast.show({
+        title: "Error updating endpoint",
+        description:
+          "An unexpected error occurred while updating the endpoint.",
+        variant: "error",
+      });
+    },
   });
 
   return {
-    ...query,
-    error: query.error as AxiosError | null,
+    ...mutation,
+    updateEndpoint: mutation.mutate,
+    isSubmitting: mutation.isPending,
+    error: mutation.error as AxiosError | null,
   };
 };

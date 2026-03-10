@@ -45,7 +45,7 @@ export function SelectStatusCode({
             aria-label="Status code"
             className={`border border-border py-1.5 px-3 bg-background-tertiary rounded-md text-sm font-bold ${triggerColor}
             select-none transition-colors not-disabled:hover:border-accent/50 focus:outline-none focus:border-accent focus:ring-1 
-            focus:ring-accent/30 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed
+            focus:ring-accent/30 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer
             `}
           >
             <span className="flex items-center gap-2">
