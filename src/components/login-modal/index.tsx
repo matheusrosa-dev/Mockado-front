@@ -1,13 +1,17 @@
 import { GoogleLogin } from "@react-oauth/google";
+import { useGoogleLogin } from "@services/auth/react-query";
 import { Dialog } from "radix-ui";
-import { LuBraces } from "react-icons/lu";
+import { LuBraces, LuLoaderCircle } from "react-icons/lu";
+import { Toast } from "../toast";
 
 type Props = {
   open: boolean;
-  onClose: () => void;
 };
 
-export function LoginModal({ open, onClose }: Props) {
+export function LoginModal({ open }: Props) {
+  const { googleLogin, isSubmitting } = useGoogleLogin();
+  const toast = Toast.useToast();
+
   return (
     <Dialog.Root open={open}>
       <Dialog.Portal>
@@ -27,17 +31,9 @@ export function LoginModal({ open, onClose }: Props) {
                 <LuBraces className="w-7 h-7 text-accent" />
               </div>
 
-              <button
-                className="bg-white cursor-pointer"
-                type="button"
-                onClick={onClose}
-              >
-                fechar
-              </button>
-
               <div className="flex flex-col gap-1.5">
                 <Dialog.Title className="text-xl font-semibold text-white/90 tracking-tight">
-                  Welcome to Mockado
+                  Welcome to &#96;&#36;&#123;Mockado&#125;&#96;
                 </Dialog.Title>
                 <Dialog.Description className="text-sm text-text-muted max-w-xs">
                   Sign in to manage your mock API endpoints and accelerate your
@@ -49,17 +45,31 @@ export function LoginModal({ open, onClose }: Props) {
             <hr className="border-border" />
 
             <div className="flex flex-col gap-4">
-              <GoogleLogin
-                theme="filled_black"
-                text="continue_with"
-                onSuccess={(credentialResponse) => {
-                  console.log(credentialResponse);
-                }}
-                onError={() => {
-                  console.log("Login Failed");
-                }}
-                useOneTap
-              />
+              {isSubmitting ? (
+                <div className="flex items-center justify-center gap-2 py-2 text-sm text-text-muted">
+                  <LuLoaderCircle className="w-4 h-4 animate-spin text-accent" />
+                  <span>Signing in...</span>
+                </div>
+              ) : (
+                <GoogleLogin
+                  theme="filled_black"
+                  text="continue_with"
+                  onSuccess={(credentialResponse) => {
+                    googleLogin({
+                      googleToken: credentialResponse.credential!,
+                    });
+                  }}
+                  onError={() => {
+                    toast.show({
+                      title: "Google login failed",
+                      description:
+                        "An error occurred while trying to log in with Google. Please try again.",
+                      variant: "error",
+                    });
+                  }}
+                  useOneTap
+                />
+              )}
 
               <p className="text-xs text-text-subtle text-center leading-relaxed">
                 By continuing, you agree to our{" "}
