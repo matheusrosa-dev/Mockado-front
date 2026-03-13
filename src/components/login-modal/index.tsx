@@ -3,14 +3,21 @@ import { useGoogleLogin } from "@services/auth/react-query";
 import { Dialog } from "radix-ui";
 import { LuBraces, LuLoaderCircle } from "react-icons/lu";
 import { Toast } from "../toast";
+import { useSessionStore } from "@shared/stores";
 
 type Props = {
   open: boolean;
 };
 
 export function LoginModal({ open }: Props) {
-  const { googleLogin, isSubmitting } = useGoogleLogin();
   const toast = Toast.useToast();
+  const { createSession } = useSessionStore();
+
+  const { googleLogin, isSubmitting } = useGoogleLogin({
+    onSuccess: (session) => {
+      createSession(session);
+    },
+  });
 
   return (
     <Dialog.Root open={open}>

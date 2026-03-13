@@ -103,7 +103,7 @@ export function Toast() {
       {toasts.map((toast) => (
         <ToastItem key={toast.id} {...toast} onDismiss={dismiss} />
       ))}
-      <ToastRadix.Viewport className="fixed bottom-0 right-0 flex flex-col gap-2 p-6 w-97.5 max-w-[100vw] z-50 outline-none" />
+      <ToastRadix.Viewport className="fixed bottom-0 right-0 flex flex-col gap-2 p-6 w-97.5 max-w-[100vw] z-60 outline-none" />
     </>
   );
 }

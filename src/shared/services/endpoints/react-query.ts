@@ -58,7 +58,7 @@ export const useCreateEndpoint = (props: {
     },
 
     onError: (error: ApiError) => {
-      if (error.status === 422) {
+      if (error.response?.status === 422) {
         toast.show({
           title: "Validation error",
           description: formatApiError(error),
@@ -111,7 +111,7 @@ export const useUpdateEndpoint = (props: {
     },
 
     onError: (error: ApiError) => {
-      if (error.status === 422) {
+      if (error.response?.status === 422) {
         toast.show({
           title: "Validation error",
           description: formatApiError(error),

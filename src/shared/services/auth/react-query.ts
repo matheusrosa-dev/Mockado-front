@@ -4,17 +4,22 @@ import type { AxiosError } from "axios";
 import { Toast } from "@components";
 import { formatApiError } from "@shared/helpers/api-error";
 import type { ApiError } from "@services/interfaces";
+import type { ISession } from "@shared/models/session";
 
-export const useGoogleLogin = () => {
+export const useGoogleLogin = (props: {
+  onSuccess: (session: ISession) => void;
+}) => {
   const authService = useAuthService();
   const toast = Toast.useToast();
 
-  const mutation = useMutation({
+  const { mutate, ...mutation } = useMutation({
     retry: false,
     mutationFn: (data: { googleToken: string }) =>
       authService.googleLogin(data),
 
-    onSuccess: () => {
+    onSuccess: (session: ISession) => {
+      props.onSuccess(session);
+
       toast.show({
         title: "Login successful",
         description: "You have successfully logged in with Google.",
@@ -23,7 +28,7 @@ export const useGoogleLogin = () => {
     },
 
     onError: (error: ApiError) => {
-      if (error.status === 422) {
+      if (error.response?.status === 422) {
         toast.show({
           title: "Error logging in",
           description: formatApiError(error),
@@ -44,7 +49,7 @@ export const useGoogleLogin = () => {
 
   return {
     ...mutation,
-    googleLogin: mutation.mutate,
+    googleLogin: mutate,
     isSubmitting: mutation.isPending,
     error: mutation.error as AxiosError | null,
   };

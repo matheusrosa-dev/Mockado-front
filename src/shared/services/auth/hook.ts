@@ -1,3 +1,4 @@
+import type { ISession } from "@shared/models/session";
 import { api } from "../config";
 import type { IAuthService } from "./types";
 import type { IApiReturn } from "@services/interfaces";
@@ -5,18 +6,16 @@ import type { IApiReturn } from "@services/interfaces";
 export const useAuthService = (): IAuthService => {
   return {
     googleLogin: async (data) => {
-      const response = await api.post<IApiReturn<[]>>(
+      const response = await api.post<IApiReturn<ISession>>(
         "/auth/google/login",
         data,
       );
 
-      console.log(response.data.data);
+      return response.data.data;
+    },
 
-      //   return response.data.data;
-
-      return {
-        teste: "teste",
-      };
+    refreshSession: async () => {
+      return api.post("/auth/refresh");
     },
   };
 };
