@@ -54,3 +54,18 @@ export const useGoogleLogin = (props: {
     error: mutation.error as AxiosError | null,
   };
 };
+
+export const useLogout = (props: { onMutate: () => void }) => {
+  const authService = useAuthService();
+
+  const { mutate, ...mutation } = useMutation({
+    retry: false,
+    mutationFn: () => authService.logout(),
+    onMutate: props.onMutate,
+  });
+
+  return {
+    ...mutation,
+    logout: mutate,
+  };
+};

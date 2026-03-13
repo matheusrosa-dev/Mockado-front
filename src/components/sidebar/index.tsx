@@ -1,4 +1,9 @@
-import { CollapsibleSubmenu, Wrapper, HamburgerButton } from "./partials";
+import {
+  CollapsibleSubmenu,
+  Wrapper,
+  HamburgerButton,
+  UserFooter,
+} from "./partials";
 import { Provider, useSidebarContext } from "./context";
 import { useGetEndpointsSummary } from "@services/endpoints/react-query";
 
@@ -22,6 +27,8 @@ export function Sidebar() {
           variant="endpoints"
         />
       </nav>
+
+      <UserFooter />
     </Wrapper>
   );
 }

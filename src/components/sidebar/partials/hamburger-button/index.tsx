@@ -8,7 +8,7 @@ export function HamburgerButton() {
     <button
       type="button"
       onClick={open}
-      className="lg:hidden p-1.5 rounded hover:bg-white/10 mr-2 text-white/80 hover:text-white/90 transition-colors"
+      className="lg:hidden p-1.5 rounded hover:bg-white/10 mr-2 text-white/80 hover:text-white/90 transition-colors cursor-pointer"
       aria-label="Open sidebar"
     >
       <RxHamburgerMenu className="w-5 h-5" />

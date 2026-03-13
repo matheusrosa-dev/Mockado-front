@@ -17,5 +17,9 @@ export const useAuthService = (): IAuthService => {
     refreshSession: async () => {
       return api.post("/auth/refresh");
     },
+
+    logout: async () => {
+      return api.post("/auth/logout");
+    },
   };
 };
