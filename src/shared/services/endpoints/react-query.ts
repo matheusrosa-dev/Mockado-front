@@ -6,12 +6,13 @@ import { Toast } from "@components";
 import { formatApiError } from "@shared/helpers/api-error";
 import type { ApiError } from "@services/interfaces";
 
-export const useGetEndpointsSummary = () => {
+export const useGetEndpointsSummary = (props: { enabled: boolean }) => {
   const endpointsService = useEndpointsService();
 
   return useQuery({
     queryKey: ["endpoints"],
     queryFn: endpointsService.getEndpointsSummary,
+    enabled: props.enabled,
     retry: false,
     refetchOnWindowFocus: false,
   });

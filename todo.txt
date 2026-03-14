@@ -1,2 +1,5 @@
-ADICIONAR MIDDLEWARE NAS ROTAS PARA SO PERMITIR QUANDO ESTIVER LOGADO
-TESTAR FLUXOS DE EXPIRACAO DO ACCESS E REFRESH TOKEN
+PEDIR PARA O CLAUDE REVER OS ARQUIVOS CLAUDE.MD
+a tela home deve deixar de existir, pois quando o usuario criar uma conta ele deve ja vir com 1 endpoint de exemplo criado
+mostrar url do endpoint na tela de editar
+alterar nome dos components content e header para ficarem mais descritivos
+passar dados da session para as keys das queries

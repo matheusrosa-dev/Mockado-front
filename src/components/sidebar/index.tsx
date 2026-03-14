@@ -6,9 +6,18 @@ import {
 } from "./partials";
 import { Provider, useSidebarContext } from "./context";
 import { useGetEndpointsSummary } from "@services/endpoints/react-query";
+import { useSessionStore } from "@shared/stores";
 
 export function Sidebar() {
-  const { data: endpoints, isLoading, isError } = useGetEndpointsSummary();
+  const { session } = useSessionStore();
+
+  const {
+    data: endpoints,
+    isLoading,
+    isError,
+  } = useGetEndpointsSummary({
+    enabled: !!session,
+  });
 
   return (
     <Wrapper>

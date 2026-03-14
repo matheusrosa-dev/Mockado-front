@@ -13,6 +13,11 @@ export const api = axios.create({
   withCredentials: true,
 });
 
+// Mutex de refresh: garante que apenas um refresh seja executado por vez.
+// Requests concorrentes com 401 aguardam a mesma Promise em vez de
+// cada uma disparar seu proprio refresh (o que esgotaria o token de uso unico).
+let refreshPromise: Promise<void> | null = null;
+
 api.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
@@ -58,9 +63,16 @@ api.interceptors.response.use(
     originalRequest._retry = true;
 
     try {
-      // 9) Tenta renovar credenciais e, em sucesso, repete a request original.
+      // 9) Se ja existe um refresh em andamento, aguardamos ele terminar.
+      //    Caso contrario, iniciamos um novo e armazenamos a Promise no mutex.
       // TODO: FAZER O CREATE SESSION DE NOVO QUANDO A API IMPLEMENTAR O RETORNO DOS DADOS DO USUARIO
-      await refreshSession();
+      if (!refreshPromise) {
+        refreshPromise = refreshSession().finally(() => {
+          refreshPromise = null;
+        });
+      }
+
+      await refreshPromise;
 
       return api.request(originalRequest);
     } catch (refreshError) {

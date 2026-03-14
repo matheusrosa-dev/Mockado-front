@@ -1,7 +1,15 @@
 import { Sidebar } from "@components";
-import { createFileRoute, Outlet } from "@tanstack/react-router";
+import { useSessionStore } from "@shared/stores";
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/(private)")({
+  beforeLoad: ({ location }) => {
+    const { session } = useSessionStore.getState();
+
+    if (!session && location.pathname !== "/") {
+      throw redirect({ to: "/" });
+    }
+  },
   component: RouteComponent,
 });
 
