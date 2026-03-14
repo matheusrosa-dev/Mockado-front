@@ -7,8 +7,8 @@ import {
   IoInformationCircle,
   IoWarning,
 } from "react-icons/io5";
-import { Provider, useToastContext } from "./context";
 import type { ToastData, ToastVariant } from "./types";
+import { useToastStore } from "@shared/stores/toast";
 
 const VARIANT_CONFIG: Record<
   NonNullable<ToastVariant>,
@@ -96,18 +96,14 @@ function ToastItem({
 }
 
 export function Toast() {
-  const { toasts, dismiss } = useToastContext();
+  const { toasts, dismiss } = useToastStore();
 
   return (
-    <>
+    <ToastRadix.Provider swipeDirection="right">
       {toasts.map((toast) => (
         <ToastItem key={toast.id} {...toast} onDismiss={dismiss} />
       ))}
       <ToastRadix.Viewport className="fixed bottom-0 right-0 flex flex-col gap-2 p-6 w-97.5 max-w-[100vw] z-60 outline-none" />
-    </>
+    </ToastRadix.Provider>
   );
 }
-
-Toast.displayName = "Toast";
-Toast.Provider = Provider;
-Toast.useToast = useToastContext;

@@ -4,7 +4,6 @@ import {
   HamburgerButton,
   UserFooter,
 } from "./partials";
-import { Provider, useSidebarContext } from "./context";
 import { useGetEndpointsSummary } from "@services/endpoints/react-query";
 import { useSessionStore } from "@shared/stores";
 
@@ -44,5 +43,3 @@ export function Sidebar() {
 
 Sidebar.displayName = "Sidebar";
 Sidebar.HamburgerButton = HamburgerButton;
-Sidebar.Provider = Provider;
-Sidebar.useSidebar = useSidebarContext;

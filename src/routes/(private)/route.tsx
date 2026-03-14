@@ -15,14 +15,12 @@ export const Route = createFileRoute("/(private)")({
 
 function RouteComponent() {
   return (
-    <Sidebar.Provider>
-      <div className="flex h-screen w-screen overflow-hidden">
-        <Sidebar />
+    <div className="flex h-screen w-screen overflow-hidden">
+      <Sidebar />
 
-        <main className="flex-1 flex flex-col overflow-hidden">
-          <Outlet />
-        </main>
-      </div>
-    </Sidebar.Provider>
+      <main className="flex-1 flex flex-col overflow-hidden">
+        <Outlet />
+      </main>
+    </div>
   );
 }

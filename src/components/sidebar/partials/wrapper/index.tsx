@@ -1,7 +1,7 @@
-import { useSidebarContext } from "../../context";
+import { useSidebarStore } from "@shared/stores/sidebar";
 
 export function Wrapper({ children }: { children: React.ReactNode }) {
-  const { isOpen, close } = useSidebarContext();
+  const { isOpen, close } = useSidebarStore();
 
   return (
     <>

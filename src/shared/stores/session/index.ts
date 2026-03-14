@@ -1,16 +1,8 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { ISession } from "@shared/models/session";
+import type { UseSessionStore } from "./types";
 
-// TODO: verificar todos os context da aplicação e ver quais da pra substituir por zustand
-
-type UseSession = {
-  session: ISession | null;
-  createSession: (session: ISession) => void;
-  destroySession: () => void;
-};
-
-export const useSessionStore = create<UseSession>()(
+export const useSessionStore = create<UseSessionStore>()(
   persist(
     (set) => ({
       session: null,

@@ -2,9 +2,9 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEndpointsService } from "./hook";
 import type { AxiosError } from "axios";
 import type { IEndpoint } from "@shared/models/endpoint";
-import { Toast } from "@components";
 import { formatApiError } from "@shared/helpers/api-error";
 import type { ApiError } from "@services/interfaces";
+import { useToastStore } from "@shared/stores/toast";
 
 export const useGetEndpointsSummary = (props: { enabled: boolean }) => {
   const endpointsService = useEndpointsService();
@@ -39,7 +39,7 @@ export const useCreateEndpoint = (props: {
 }) => {
   const endpointsService = useEndpointsService();
   const queryClient = useQueryClient();
-  const toast = Toast.useToast();
+  const toast = useToastStore();
 
   const mutation = useMutation({
     retry: false,
@@ -90,7 +90,7 @@ export const useUpdateEndpoint = (props: {
   onSuccess: (data: IEndpoint) => void;
 }) => {
   const endpointsService = useEndpointsService();
-  const toast = Toast.useToast();
+  const toast = useToastStore();
   const queryClient = useQueryClient();
 
   const mutation = useMutation({

@@ -2,15 +2,15 @@ import { GoogleLogin } from "@react-oauth/google";
 import { useGoogleLogin } from "@services/auth/react-query";
 import { Dialog } from "radix-ui";
 import { LuBraces, LuLoaderCircle } from "react-icons/lu";
-import { Toast } from "../toast";
 import { useSessionStore } from "@shared/stores";
+import { useToastStore } from "@shared/stores/toast";
 
 type Props = {
   open: boolean;
 };
 
 export function LoginModal({ open }: Props) {
-  const toast = Toast.useToast();
+  const toast = useToastStore();
   const { createSession } = useSessionStore();
 
   const { googleLogin, isSubmitting } = useGoogleLogin({

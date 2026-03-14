@@ -1,11 +1,19 @@
 import { useLogout } from "@services/auth/react-query";
 import { useSessionStore } from "@shared/stores";
+import { useRouter } from "@tanstack/react-router";
 import { LuLogOut } from "react-icons/lu";
 
 export function UserFooter() {
   const { session, destroySession } = useSessionStore();
+  const router = useRouter();
   const { logout } = useLogout({
-    onMutate: destroySession,
+    onMutate: () => {
+      destroySession();
+
+      router.navigate({
+        to: "/",
+      });
+    },
   });
 
   if (!session) return null;

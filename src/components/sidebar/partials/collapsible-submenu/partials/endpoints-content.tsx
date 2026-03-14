@@ -5,7 +5,7 @@ import {
   getHttpMethodBgColor,
 } from "@shared/helpers/http-method";
 import { useLocation, Link } from "@tanstack/react-router";
-import { useSidebarContext } from "../../../context";
+import { useSidebarStore } from "@shared/stores/sidebar";
 
 type Props = {
   items: Array<IEndpointSubmenuItem>;
@@ -16,7 +16,7 @@ type Props = {
 export function EndpointsContent({ items, isLoading, isError }: Props) {
   const { pathname } = useLocation();
 
-  const { close } = useSidebarContext();
+  const { close } = useSidebarStore();
 
   return (
     <Collapsible.Content

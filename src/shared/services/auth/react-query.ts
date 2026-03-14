@@ -1,16 +1,16 @@
 import { useMutation } from "@tanstack/react-query";
 import { useAuthService } from "./hook";
 import type { AxiosError } from "axios";
-import { Toast } from "@components";
 import { formatApiError } from "@shared/helpers/api-error";
 import type { ApiError } from "@services/interfaces";
 import type { ISession } from "@shared/models/session";
+import { useToastStore } from "@shared/stores/toast";
 
 export const useGoogleLogin = (props: {
   onSuccess: (session: ISession) => void;
 }) => {
   const authService = useAuthService();
-  const toast = Toast.useToast();
+  const toast = useToastStore();
 
   const { mutate, ...mutation } = useMutation({
     retry: false,

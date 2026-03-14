@@ -1,8 +1,8 @@
-import { useSidebarContext } from "../../context";
+import { useSidebarStore } from "@shared/stores/sidebar";
 import { RxHamburgerMenu } from "react-icons/rx";
 
 export function HamburgerButton() {
-  const { open } = useSidebarContext();
+  const { open } = useSidebarStore();
 
   return (
     <button

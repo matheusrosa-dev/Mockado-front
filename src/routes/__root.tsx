@@ -15,14 +15,12 @@ const RootLayout = () => {
 
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-      <Toast.Provider>
-        <QueryClientProvider client={queryClient}>
-          <Outlet />
-          <LoginModal open={!session} />
-          <Toast />
-          <TanStackRouterDevtools />
-        </QueryClientProvider>
-      </Toast.Provider>
+      <QueryClientProvider client={queryClient}>
+        <Outlet />
+        <LoginModal open={!session} />
+        <Toast />
+        <TanStackRouterDevtools />
+      </QueryClientProvider>
     </GoogleOAuthProvider>
   );
 };
