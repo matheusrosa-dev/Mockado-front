@@ -67,6 +67,7 @@ api.interceptors.response.use(
       //    Caso contrario, iniciamos um novo e armazenamos a Promise no mutex.
       // TODO: FAZER O CREATE SESSION DE NOVO QUANDO A API IMPLEMENTAR O RETORNO DOS DADOS DO USUARIO
       if (!refreshPromise) {
+        // TODO: setar novos dados do usuario que vieram no refresh
         refreshPromise = refreshSession().finally(() => {
           refreshPromise = null;
         });

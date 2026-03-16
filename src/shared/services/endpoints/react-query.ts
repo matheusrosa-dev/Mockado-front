@@ -6,16 +6,21 @@ import { formatApiError } from "@shared/helpers/api-error";
 import type { ApiError } from "@services/interfaces";
 import { useToastStore } from "@shared/stores/toast";
 
-export const useGetEndpointsSummary = (props: { enabled: boolean }) => {
+export const useGetEndpointsSummary = (props: { userId?: string }) => {
   const endpointsService = useEndpointsService();
 
-  return useQuery({
-    queryKey: ["endpoints"],
+  const { data, ...query } = useQuery({
+    queryKey: ["endpoints", props.userId],
     queryFn: endpointsService.getEndpointsSummary,
-    enabled: props.enabled,
+    enabled: !!props.userId,
     retry: false,
     refetchOnWindowFocus: false,
   });
+
+  return {
+    ...query,
+    endpoints: data,
+  };
 };
 
 export const useGetEndpointById = (id: string) => {

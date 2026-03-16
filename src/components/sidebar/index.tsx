@@ -10,12 +10,8 @@ import { useSessionStore } from "@shared/stores";
 export function Sidebar() {
   const { session } = useSessionStore();
 
-  const {
-    data: endpoints,
-    isLoading,
-    isError,
-  } = useGetEndpointsSummary({
-    enabled: !!session,
+  const { endpoints, isLoading, isError } = useGetEndpointsSummary({
+    userId: session?.user.id,
   });
 
   return (

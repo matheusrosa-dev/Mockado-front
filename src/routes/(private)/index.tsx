@@ -1,6 +1,8 @@
 import { PrivateHeader } from "@components";
+import { useGetEndpointsSummary } from "@services/endpoints/react-query";
 import { useSessionStore } from "@shared/stores";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { IoArrowForward } from "react-icons/io5";
 
 export const Route = createFileRoute("/(private)/")({
@@ -9,6 +11,23 @@ export const Route = createFileRoute("/(private)/")({
 
 function RouteComponent() {
   const { session } = useSessionStore();
+  const router = useRouter();
+
+  const { endpoints } = useGetEndpointsSummary({
+    userId: session?.user.id,
+  });
+
+  useEffect(() => {
+    if (session && endpoints?.length) {
+      const firstEndpointId = endpoints[0].id;
+
+      router.navigate({
+        to: "/endpoints/$endpointId",
+        params: { endpointId: firstEndpointId },
+      });
+    }
+  }, [session, endpoints, router]);
+
   return (
     <>
       <PrivateHeader>Welcome, {session?.user?.name}!</PrivateHeader>
