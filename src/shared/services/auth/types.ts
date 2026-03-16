@@ -8,6 +8,6 @@ export interface IAuthService {
 
 type GoogleLogin = (data: { googleToken: string }) => Promise<ISession>;
 
-type RefreshSession = () => Promise<void>;
+type RefreshSession = () => Promise<ISession>;
 
 type Logout = () => Promise<void>;
