@@ -13,12 +13,13 @@ Contém todo o código agnóstico de rota e de componente que é compartilhado t
 
 ## Padrões de organização
 
-O diretório é dividido em quatro subdiretórios, cada um com responsabilidade exclusiva:
+O diretório é dividido em cinco subdiretórios, cada um com responsabilidade exclusiva:
 
 - `const/` — valores imutáveis e enumerações.
 - `helpers/` — funções utilitárias puras sem efeitos colaterais.
 - `models/` — interfaces TypeScript que representam entidades de domínio.
 - `services/` — lógica de acesso a dados via API, incluindo configuração HTTP, hooks de serviço e integrações com React Query.
+- `stores/` — stores globais de estado do cliente com Zustand (sessão, toast, sidebar).
 
 Cada subdiretório possui seu próprio `CLAUDE.md` com detalhes específicos.
 
@@ -43,3 +44,14 @@ Cada subdiretório possui seu próprio `CLAUDE.md` com detalhes específicos.
 - Interfaces de domínio usam apenas tipos TypeScript nativos e referências a outros tipos do próprio projeto. Nenhuma dependência de biblioteca externa nos modelos.
 - Interfaces de serviço (ex.: `IUseEndpointsService`) são definidas em arquivos `types.ts` separados e importadas pelos demais arquivos do mesmo módulo de serviço.
 - Tipos de função (ex.: `GetEndpoints`, `GetEndpointById`) são declarados como `type` local no arquivo `types.ts` correspondente e compõem as interfaces de serviço.
+- Tipos de store são declarados como `type` em `types.ts` dentro do subdiretório da store e usados como genérico de `create<T>()` do Zustand.
+
+## Stores (`stores/`)
+
+Gerenciamento de estado global do cliente usando Zustand:
+
+- Um subdiretório por store (`session/`, `toast/`, `sidebar/`), cada um com `index.ts` e `types.ts`.
+- A raiz `stores/index.ts` re-exporta apenas as stores que precisam de acesso amplo (ex.: `useSessionStore`); stores específicas de componente (ex.: `useToastStore`, `useSidebarStore`) são importadas diretamente pelo caminho.
+- Stores com necessidade de persistência usam o middleware `persist` do Zustand (ex.: `useSessionStore` persiste no `localStorage` com chave `"session-storage"`).
+- Nomes das stores: prefixo `use` + nome + `Store` (ex.: `useSessionStore`, `useToastStore`, `useSidebarStore`).
+- O estado fora de componentes (ex.: em `beforeLoad` do router) é acessado via `useSessionStore.getState()`, não pelo hook.

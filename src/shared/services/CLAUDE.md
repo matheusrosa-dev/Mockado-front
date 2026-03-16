@@ -23,8 +23,8 @@ Contém toda a lógica de comunicação com a API REST da aplicação. Organiza 
 ## Convenções de nomenclatura
 
 - Funções de serviço (hook): prefixo `use` + nome do recurso + `Service` (ex.: `useEndpointsService`, `useStatusCodesService`).
-- Funções React Query: verbo descritivo no formato `getRecurso` / `getRecursoPorChave` (ex.: `getEndpoints`, `getEndpointById`, `getStatusCodes`). Não seguem o prefixo `use` apesar de chamarem hooks internamente.
-- Interfaces de serviço: prefixo `I` + `Use` + nome do recurso + `Service` (ex.: `IUseEndpointsService`).
+- Funções React Query: prefixo `use` + verbo descritivo + recurso (ex.: `useGetEndpointsSummary`, `useGetEndpointById`, `useGetStatusCodes`, `useCreateEndpoint`, `useGoogleLogin`).
+- Interfaces de serviço: prefixo `I` + `Use` + nome do recurso + `Service` (ex.: `IUseEndpointsService`, `IUseStatusCodesService`). Exceção: `auth` usa `IAuthService` por convenção própria.
 - Tipos de função auxiliares no `types.ts`: `PascalCase` descritivo (ex.: `GetEndpoints`, `GetEndpointById`).
 
 ## Padrões de exportação/importação
@@ -44,12 +44,26 @@ Contém toda a lógica de comunicação com a API REST da aplicação. Organiza 
 ## Padrões de separação de responsabilidades
 
 - `hook.ts` é responsável exclusivamente pelo transporte HTTP (chamadas `api.get`, `api.post`, etc.) e retorno dos dados brutos.
-- `react-query.ts` é responsável exclusivamente pela configuração do cache (queryKey, retry, refetchOnWindowFocus, initialData) e pelo wrapping com `useQuery`.
+- `react-query.ts` é responsável pela configuração do cache (queryKey, retry, refetchOnWindowFocus) e pelo wrapping com `useQuery` ou `useMutation`. Também inclui lógica de callback (`onSuccess`, `onError`) e integração com o `useToastStore`.
 - `types.ts` concentra todos os contratos de tipo do módulo, sem lógica de execução.
-- A instância de serviço é criada no escopo do módulo (`react-query.ts`) e reutilizada pelas funções de query, em vez de ser instanciada a cada chamada.
+- A instância de serviço é criada via hook dentro de cada função exportada: `const endpointsService = useEndpointsService()`.
+
+## Padrões de retorno das funções React Query
+
+**Queries:** espalham o resultado do `useQuery` e renomeiam `data` para o nome do recurso:
+```ts
+const { data, ...query } = useQuery({ ... });
+return { ...query, endpoints: data };
+```
+
+**Mutations:** espalham o resultado do `useMutation`, desestruturando `mutate` fora do spread, e expõem `isSubmitting` como alias de `isPending`:
+```ts
+const { mutate, ...mutation } = useMutation({ ... });
+return { ...mutation, createEndpoint: mutate, isSubmitting: mutation.isPending };
+```
 
 ## Outras convenções em uso
 
 - `retry: false` e `refetchOnWindowFocus: false` são configurados explicitamente em todas as queries.
-- Quando uma query tem um valor inicial seguro, `initialData` é definido (ex.: array vazio `[]`) para evitar estados `undefined` nos consumidores.
-- O arquivo `react-query.ts` carrega o comentário `biome-ignore-all lint/correctness/useHookAtTopLevel` para suprimir o aviso do linter decorrente do padrão adotado de chamar o hook de serviço fora de um componente React.
+- `initialData` não é utilizado; fallbacks para `undefined` são tratados no ponto de consumo (ex.: `data || []`).
+- O arquivo `interfaces.ts` na raiz de `services/` define `IApiReturn<T>` (envelope de resposta da API) e `ApiError` (alias tipado de `AxiosError`), compartilhados por todos os serviços.

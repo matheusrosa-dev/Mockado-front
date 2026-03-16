@@ -10,10 +10,11 @@ Contém funções utilitárias puras agrupadas por domínio. Cada arquivo reúne
 - Mapear valores de domínio (como método HTTP ou código de status) para representações visuais (classes CSS Tailwind).
 - Fornecer predicados de domínio (ex.: verificar se um código de status possui corpo de resposta).
 - Fornecer funções utilitárias de validação e formatação de tipos primitivos (ex.: validar e formatar strings JSON).
+- Fornecer funções de formatação de mensagens de erro da API (`api-error.ts`) e manipulação de strings genéricas (`string.ts`).
 
 ## Padrões de organização
 
-- Um arquivo por domínio, nomeado em `kebab-case` correspondendo ao conceito (ex.: `http-method.ts`, `status-code.ts`).
+- Um arquivo por domínio, nomeado em `kebab-case` correspondendo ao conceito (ex.: `http-method.ts`, `status-code.ts`, `json.ts`, `api-error.ts`, `string.ts`).
 - Sem barrel export; cada arquivo é importado diretamente pelo caminho completo.
 
 ## Convenções de nomenclatura

@@ -18,7 +18,7 @@ Define valores imutáveis e enumerações que representam conceitos de domínio 
 ## Convenções de nomenclatura
 
 - Enumerações: `PascalCase` (ex.: `HttpMethod`).
-- Membros de enumeração: `UPPER_CASE` com valor string igual ao nome (ex.: `GET = "GET"`).
+- Membros de enumeração: `UPPER_CASE` (ex.: `GET`, `POST`, `JSON`, `TEXT`). O valor string pode ser igual ao nome do membro (ex.: `GET = "GET"`) ou diferente quando representa um identificador técnico (ex.: `JSON = "json"`).
 - Objetos de constante: `UPPER_SNAKE_CASE` (ex.: `STATUS_CODE_GROUPS`, `STATUS_CODES_WITHOUT_BODY`).
 - Chaves de objetos de constante: representação literal do domínio (ex.: `"1xx"`, `"2xx"`).
 

@@ -62,11 +62,14 @@ Rotas mais elaboradas organizam seu conteúdo co-localizado em:
 - A lógica de formulário (estado, validação, submissão) é isolada inteiramente em um componente em `-partials/`, não no arquivo de rota.
 - Helpers de transformação de dados específicos da rota (ex.: agrupamento de códigos de status) ficam em `-helpers/` e não nos componentes.
 - Tipos de dado local da rota ficam em `-types.ts`, separados dos modelos globais em `@shared/models/`.
+- Partials compartilhados entre mútiplas subrotas de um mesmo grupo ficam em `-partials/` no nível do grupo (ex.: `endpoints/-partials/` para componentes reutilizados em `$endpointId/` e `create/`).
 
 ## Outras convenções em uso
 
-- O padrão de layout privado usa `Sidebar.Provider` como wrapper no `route.tsx` do grupo, e `Sidebar` + `main > Outlet` como estrutura de conteúdo.
+- O layout privado em `(private)/route.tsx` renderiza `<Sidebar />` diretamente, sem wrapper `Provider`. A autenticação é verificada via `beforeLoad`, que acessa `useSessionStore.getState()` e dispara `redirect({ to: "/" })` se não houver sessão.
 - Todas as páginas privadas compõem `PrivateHeader` e `PrivateContent` como estrutura visual padrão.
 - Estados de erro nas rotas são tratados com o componente `FetchError`, que recebe `refetch` para retentar.
 - O erro 404 específico de recurso é verificado via `error?.status === 404` e renderiza o componente `NotFound`.
 - Formulários usam `react-hook-form` com `Controller` para campos de componentes controlados (selects customizados) e `register` para campos nativos.
+- A navegação com alterações não salvas é bloqueada com `useBlocker({ shouldBlockFn: () => isDirty && !isSubmitting, withResolver: true })`. O componente de modal de confirmação fica em `-partials/` da rota.
+- Redirect automático baseado em dados (ex.: ir para o primeiro endpoint) é feito com `useEffect` + `useRouter().navigate(...)` dentro do `RouteComponent`.

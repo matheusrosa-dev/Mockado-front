@@ -44,8 +44,10 @@ Contém componentes React reutilizáveis da aplicação, independentes de rotas 
 
 - Componentes folha (sem subcomponentes internos) concentram sua lógica de apresentação inteiramente no `index.tsx`.
 - Componentes compostos (como `Form` e `Sidebar`) delegam partes visuais a `partials/` e expõem a composição através do componente raiz.
-- O padrão de objeto de namespace é utilizado quando um componente precisa expor subcomponentes e utilitários relacionados como uma unidade coesa: o componente principal recebe propriedades estáticas (`Component.SubComponent = SubComponent`, `Component.useHook = useHook`).
-- Lógica de contexto React (`createContext`, `useContext`, `useState`) é isolada em `context/index.tsx`, separada da lógica de apresentação.
+- Dois padrões de namespace são usados dependendo do componente:
+  - **Objeto namespace**: quando o componente raiz é um objeto exportado com membros nomeados. Exemplo: `Form` é `export const Form = { Form: ..., Input, Submit, Textarea }` — consumido como `<Form.Form>`, `<Form.Input>`.
+  - **Propriedades estáticas em função**: quando o componente raiz é uma função com sub-componentes atribuídos como propriedades. Exemplo: `Sidebar.HamburgerButton = HamburgerButton`.
+- Componentes podem acessar Zustand stores diretamente via `@shared/stores` ou caminho direto (ex.: `useSessionStore`, `useSidebarStore`, `useToastStore`).
 - Integração com bibliotecas externas (Radix UI, Monaco) acontece dentro do componente que a encapsula, nunca exposta diretamente ao consumidor.
 
 ## Outras convenções em uso
@@ -53,5 +55,5 @@ Contém componentes React reutilizáveis da aplicação, independentes de rotas 
 - Estilização exclusivamente via classes Tailwind CSS v4, usando os tokens de design definidos em `@theme` no CSS global (`text-text-muted`, `bg-background-secondary`, `text-error`, etc.).
 - A função `twMerge` (de `tailwind-merge`) é utilizada para composição condicional de classes, evitando conflitos.
 - Ícones provêm exclusivamente da biblioteca `react-icons`.
-- O componente `Skeleton` é usado internamente pelos demais componentes para exibir o estado de carregamento, recebendo `showSkeleton` como prop booleana. Quando `showSkeleton` é `true`, os campos também recebem `disabled={true}`.
+- O componente `Skeleton` recebe `show: boolean` como prop para exibir o estado de carregamento. Componentes que encapsulam `Skeleton` (como `Input`, `Submit`, `JsonEditor`) expõem a prop como `showSkeleton?: boolean` e a repassam para `show`. Quando `showSkeleton` é `true`, o campo subjacente também recebe `disabled={true}`.
 - Componentes funcionais são preferidos; `forwardRef` é o único wrapper de ordem superior utilizado.
