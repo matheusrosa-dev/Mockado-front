@@ -7,6 +7,18 @@ export const useSessionStore = create<UseSessionStore>()(
     (set) => ({
       session: null,
 
+      setHasApiKey: () =>
+        set((state) => ({
+          ...state,
+          session: {
+            ...state.session!,
+            user: {
+              ...state.session!.user,
+              hasApiKey: true,
+            },
+          },
+        })),
+
       createSession: (session) => set({ session }),
 
       destroySession: () => set({ session: null }),

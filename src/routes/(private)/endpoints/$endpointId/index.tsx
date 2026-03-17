@@ -7,7 +7,7 @@ import {
 import { useGetEndpointById } from "@services/endpoints/react-query";
 import { getHttpMethodTextColor } from "@shared/helpers/http-method";
 import { createFileRoute } from "@tanstack/react-router";
-import { Form } from "./-partials";
+import { EndpointAccess, Form } from "./-partials";
 import { useGetStatusCodes } from "@services/status-codes/react-query";
 import type { IEndpoint } from "@shared/models/endpoint";
 
@@ -59,12 +59,19 @@ function RouteComponent() {
         )}
 
         {showContent && (
-          <Form
-            key={endpointId}
-            endpoint={endpoint || ({} as IEndpoint)}
-            isLoading={endpointQuery.isLoading || statusCodesQuery.isLoading}
-            statusCodes={statusCodes || []}
-          />
+          <section className="flex flex-col gap-6 lg:max-w-4xl">
+            <EndpointAccess
+              endpointId={endpointId}
+              isLoading={endpointQuery.isLoading || statusCodesQuery.isLoading}
+            />
+
+            <Form
+              key={endpointId}
+              endpoint={endpoint || ({} as IEndpoint)}
+              isLoading={endpointQuery.isLoading || statusCodesQuery.isLoading}
+              statusCodes={statusCodes || []}
+            />
+          </section>
         )}
       </PrivateContent>
     </>

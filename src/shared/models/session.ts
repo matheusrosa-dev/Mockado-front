@@ -3,5 +3,6 @@ export interface ISession {
     id: string;
     name: string;
     email: string;
+    hasApiKey: boolean;
   };
 }

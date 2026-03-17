@@ -2,7 +2,7 @@ import { useSessionStore } from "@shared/stores";
 import axios, { type AxiosError, type AxiosRequestConfig } from "axios";
 import { useAuthService } from "./auth/hook";
 
-const API_BACKEND_URL = import.meta.env.VITE_API_BACKEND_URL as string;
+const API_BACKEND_URL = import.meta.env.VITE_BACKEND_BASE_URL as string;
 
 type RetryableAxiosRequestConfig = AxiosRequestConfig & {
   _retry?: boolean;
@@ -22,7 +22,8 @@ api.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
     // 1) Lemos o estado atual da sessao e o metodo que tenta renovar o token.
-    const { session, destroySession } = useSessionStore.getState();
+    const { session, destroySession, createSession } =
+      useSessionStore.getState();
     const { refreshSession } = useAuthService();
 
     // 2) Guardamos a request original para possivel replay apos refresh.
@@ -68,7 +69,7 @@ api.interceptors.response.use(
       if (!refreshPromise) {
         refreshPromise = refreshSession()
           .then((session) => {
-            useSessionStore.setState({ session });
+            createSession(session);
           })
           .finally(() => {
             refreshPromise = null;

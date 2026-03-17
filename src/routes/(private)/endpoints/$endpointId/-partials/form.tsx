@@ -150,7 +150,7 @@ export function Form({ endpoint, isLoading, statusCodes }: Props) {
       />
 
       <FormComponent.Form
-        className="flex flex-col gap-6 lg:max-w-4xl"
+        className="flex flex-col gap-6"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="rounded-lg border border-border bg-background-secondary p-5 flex flex-col gap-4">
