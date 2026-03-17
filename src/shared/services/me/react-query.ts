@@ -4,6 +4,7 @@ import { useToastStore } from "@shared/stores/toast";
 
 export const useGetApiKey = (props: {
   onSuccess: (apiKey: string) => void;
+  onError: () => void;
 }) => {
   const toast = useToastStore();
   const meService = useMeService();
@@ -17,6 +18,8 @@ export const useGetApiKey = (props: {
     },
 
     onError: () => {
+      props.onError();
+
       toast.show({
         title: "Error getting API key",
         description:

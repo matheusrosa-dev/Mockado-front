@@ -2,9 +2,9 @@ import { Dialog } from "radix-ui";
 import { IoWarning, IoKeyOutline, IoCopyOutline } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import { useGetApiKey } from "@services/me/react-query";
-import { useToastStore } from "@shared/stores/toast";
 import { useSessionStore } from "@shared/stores";
 import { Skeleton } from "@components";
+import { copyToClipboard } from "@shared/helpers/clipboard";
 
 type ModalPhase = null | "confirm-regenerate" | "show-key";
 
@@ -17,20 +17,14 @@ export function ApiKeyModal({ isOpen, onClose }: Props) {
   const [modalPhase, setModalPhase] = useState<ModalPhase>(null);
   const [apiKey, setApiKey] = useState<string>("");
 
-  const toast = useToastStore();
   const { session, setHasApiKey } = useSessionStore();
   const { getApiKey, isLoading } = useGetApiKey({
     onSuccess: (key) => {
       setApiKey(key);
       setHasApiKey();
     },
+    onError: onClose,
   });
-
-  const handleCopy = async () => {
-    // TODO: adicionar a um helper
-    await navigator.clipboard.writeText(apiKey);
-    toast.show({ title: "API key copied", variant: "success" });
-  };
 
   const onConfirmRegenerate = () => {
     setModalPhase("show-key");
@@ -67,47 +61,10 @@ export function ApiKeyModal({ isOpen, onClose }: Props) {
             data-[state=open]:animate-[fade-in_150ms_ease-out]"
         >
           {modalPhase === "confirm-regenerate" && (
-            <div className="flex flex-col gap-4">
-              <div className="flex items-start gap-3">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-error/10 border border-error/30">
-                  <IoWarning className="text-lg text-error" />
-                </div>
-
-                <div className="flex flex-col gap-1">
-                  <Dialog.Title className="text-sm font-semibold text-white/90">
-                    Regenerate API Key?
-                  </Dialog.Title>
-                  <Dialog.Description className="text-xs text-text-muted leading-relaxed">
-                    This will{" "}
-                    <span className="text-white/80 font-medium">
-                      permanently invalidate
-                    </span>{" "}
-                    your current API key. Any requests using the old key will
-                    stop working immediately.
-                  </Dialog.Description>
-                </div>
-              </div>
-
-              <div className="flex justify-end gap-2 mt-1">
-                <button
-                  type="button"
-                  onClick={onClose}
-                  className="rounded-lg border border-border px-4 py-2 text-xs font-medium text-text-muted
-                    hover:text-white/90 hover:border-white/20 transition-colors cursor-pointer"
-                >
-                  Cancel
-                </button>
-
-                <button
-                  type="button"
-                  onClick={onConfirmRegenerate}
-                  className="rounded-lg border border-error/30 bg-error/10 px-4 py-2 text-xs font-medium
-                    text-error hover:bg-error/20 transition-colors cursor-pointer"
-                >
-                  Yes, regenerate
-                </button>
-              </div>
-            </div>
+            <ConfirmRegenerateContent
+              onClose={onClose}
+              onConfirmRegenerate={onConfirmRegenerate}
+            />
           )}
 
           {modalPhase === "show-key" && (
@@ -147,7 +104,12 @@ export function ApiKeyModal({ isOpen, onClose }: Props) {
                 <Skeleton className="rounded-lg flex-1" show={isLoading}>
                   <button
                     type="button"
-                    onClick={handleCopy}
+                    onClick={() =>
+                      copyToClipboard({
+                        text: apiKey,
+                        toastMessage: "API key copied to clipboard",
+                      })
+                    }
                     disabled={isLoading}
                     className="flex items-center gap-1.5 rounded-lg border border-border bg-background-primary px-3 py-2 text-xs font-medium 
                     text-text-muted hover:text-white/90 hover:border-white/20 transition-colors not-disabled:cursor-pointer shrink-0"
@@ -183,3 +145,52 @@ export function ApiKeyModal({ isOpen, onClose }: Props) {
     </Dialog.Root>
   );
 }
+
+const ConfirmRegenerateContent = (props: {
+  onClose: () => void;
+  onConfirmRegenerate: () => void;
+}) => {
+  return (
+    <div className="flex flex-col gap-4">
+      <div className="flex items-start gap-3">
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-error/10 border border-error/30">
+          <IoWarning className="text-lg text-error" />
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <Dialog.Title className="text-sm font-semibold text-white/90">
+            Regenerate API Key?
+          </Dialog.Title>
+          <Dialog.Description className="text-xs text-text-muted leading-relaxed">
+            This will{" "}
+            <span className="text-white/80 font-medium">
+              permanently invalidate
+            </span>{" "}
+            your current API key. Any requests using the old key will stop
+            working immediately.
+          </Dialog.Description>
+        </div>
+      </div>
+
+      <div className="flex justify-end gap-2 mt-1">
+        <button
+          type="button"
+          onClick={props.onClose}
+          className="rounded-lg border border-border px-4 py-2 text-xs font-medium text-text-muted
+                    hover:text-white/90 hover:border-white/20 transition-colors cursor-pointer"
+        >
+          Cancel
+        </button>
+
+        <button
+          type="button"
+          onClick={props.onConfirmRegenerate}
+          className="rounded-lg border border-error/30 bg-error/10 px-4 py-2 text-xs font-medium
+                    text-error hover:bg-error/20 transition-colors cursor-pointer"
+        >
+          Yes, regenerate
+        </button>
+      </div>
+    </div>
+  );
+};

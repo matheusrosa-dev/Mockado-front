@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { IoCopyOutline, IoKeyOutline } from "react-icons/io5";
 import { Skeleton } from "@components";
-import { useToastStore } from "@shared/stores/toast";
 import { ApiKeyModal } from "./api-key-modal";
 import { MdOutlineRefresh } from "react-icons/md";
 import { useSessionStore } from "@shared/stores";
+import { copyToClipboard } from "@shared/helpers/clipboard";
 
 const BACKEND_BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL as string;
 
@@ -17,15 +17,8 @@ export function EndpointAccess({ endpointId, isLoading }: Props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { session } = useSessionStore();
-  const toast = useToastStore();
 
   const endpointUrl = `${BACKEND_BASE_URL}/mock/${endpointId}`;
-
-  // TODO: ADICIONAR EM UM HELPER
-  const handleCopyUrl = async () => {
-    await navigator.clipboard.writeText(endpointUrl);
-    toast.show({ title: "URL copied to clipboard", variant: "success" });
-  };
 
   return (
     <>
@@ -55,7 +48,12 @@ export function EndpointAccess({ endpointId, isLoading }: Props) {
               <Skeleton className="rounded-lg" show={isLoading}>
                 <button
                   type="button"
-                  onClick={handleCopyUrl}
+                  onClick={() =>
+                    copyToClipboard({
+                      text: endpointUrl,
+                      toastMessage: "URL copied to clipboard",
+                    })
+                  }
                   disabled={isLoading}
                   className="flex items-center gap-1.5 rounded-lg border border-border bg-background-tertiary px-3 py-2 text-xs font-medium 
                 text-text-muted hover:text-white/90 hover:border-white/20 transition-colors cursor-pointer disabled:opacity-50 
