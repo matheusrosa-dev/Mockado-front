@@ -59,18 +59,22 @@ function RouteComponent() {
         )}
 
         {showContent && (
-          <section className="flex flex-col gap-6 lg:max-w-4xl">
-            <EndpointAccess
-              endpointId={endpointId}
-              isLoading={endpointQuery.isLoading || statusCodesQuery.isLoading}
-            />
-
+          <section className="grid grid-cols-1 gap-6 xl:grid-cols-2">
             <Form
               key={endpointId}
               endpoint={endpoint || ({} as IEndpoint)}
               isLoading={endpointQuery.isLoading || statusCodesQuery.isLoading}
               statusCodes={statusCodes || []}
             />
+
+            <div className="max-xl:row-start-1">
+              <EndpointAccess
+                endpointId={endpointId}
+                isLoading={
+                  endpointQuery.isLoading || statusCodesQuery.isLoading
+                }
+              />
+            </div>
           </section>
         )}
       </PrivateContent>

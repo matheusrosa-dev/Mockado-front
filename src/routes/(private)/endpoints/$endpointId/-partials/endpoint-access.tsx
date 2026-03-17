@@ -67,37 +67,51 @@ export function EndpointAccess({ endpointId, isLoading }: Props) {
           </div>
 
           <Skeleton className="rounded-lg" show={isLoading}>
-            <div className="flex items-center justify-between rounded-lg border border-border bg-background-tertiary px-4 py-3 gap-4">
-              <div className="flex flex-col gap-0.5 min-w-0">
-                <span className="text-sm font-medium text-white/90">
-                  API Key
-                </span>
-                <p className="text-xs text-text-muted">
-                  {session?.user?.hasApiKey
-                    ? "An API key is active for your account. It works across all your endpoints."
-                    : "Generate a key to authenticate requests to your endpoints."}
-                </p>
+            <div className="rounded-lg border border-border bg-background-tertiary px-4 py-3 flex flex-col gap-2">
+              <div className="flex items-center justify-between gap-4">
+                <div className="flex flex-col gap-1 min-w-0">
+                  <span className="text-sm font-medium text-white/90">
+                    API Key
+                  </span>
+                  <p className="text-xs text-text-muted">
+                    {session?.user?.hasApiKey
+                      ? "An API key is active for your account. It works across all your endpoints."
+                      : "Generate a key to authenticate requests to your endpoints."}
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setIsModalOpen(true)}
+                  disabled={isLoading}
+                  className="flex items-center gap-1.5 rounded-lg border border-accent/30 bg-accent/10 px-4 py-2 text-xs font-medium 
+                text-accent hover:bg-accent/20 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {session?.user?.hasApiKey ? (
+                    <>
+                      <MdOutlineRefresh className="size-4" />
+                      Regenerate
+                    </>
+                  ) : (
+                    <>
+                      <IoKeyOutline className="size-4" />
+                      Generate API Key
+                    </>
+                  )}
+                </button>
               </div>
 
-              <button
-                type="button"
-                onClick={() => setIsModalOpen(true)}
-                disabled={isLoading}
-                className="flex items-center gap-1.5 rounded-lg border border-accent/30 bg-accent/10 px-4 py-2 text-xs font-medium 
-              text-accent hover:bg-accent/20 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {session?.user?.hasApiKey ? (
-                  <>
-                    <MdOutlineRefresh className="size-4" />
-                    Regenerate
-                  </>
-                ) : (
-                  <>
-                    <IoKeyOutline className="size-4" />
-                    Generate API Key
-                  </>
-                )}
-              </button>
+              {session?.user?.hasApiKey && (
+                <div className="flex flex-col gap-1.5">
+                  <p className="text-xs text-text-muted leading-relaxed">
+                    Send the key in every request to your endpoints using the
+                    HTTP header:
+                  </p>
+                  <code className="block rounded-md bg-background-primary border border-border px-3 py-2 text-xs font-mono text-accent">
+                    x-api-key: &lt;your-api-key&gt;
+                  </code>
+                </div>
+              )}
             </div>
           </Skeleton>
         </div>
