@@ -4,6 +4,7 @@ import {
   ResponseBody,
   SelectHttpMethod,
   SelectStatusCode,
+  UnsavedChangesModal,
 } from "../../-partials";
 import { HttpMethod, ResponseBodyType } from "@shared/const/endpoint";
 import { Controller, useForm, useWatch } from "react-hook-form";
@@ -17,7 +18,6 @@ import { useCallback, useEffect, useState } from "react";
 import { CgSpinner } from "react-icons/cg";
 import { useUpdateEndpoint } from "@services/endpoints/react-query";
 import { useBlocker } from "@tanstack/react-router";
-import { UnsavedChangesModal } from "./unsaved-changes-modal";
 
 type Props = {
   endpoint: IEndpoint;

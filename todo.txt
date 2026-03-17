@@ -1,2 +1,0 @@
-PEDIR PARA O CLAUDE REVER OS ARQUIVOS CLAUDE.MD
-mostrar url do endpoint na tela de editar

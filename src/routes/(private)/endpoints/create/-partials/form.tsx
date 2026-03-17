@@ -4,6 +4,7 @@ import {
   ResponseBody,
   SelectHttpMethod,
   SelectStatusCode,
+  UnsavedChangesModal,
 } from "../../-partials";
 import { HttpMethod, ResponseBodyType } from "@shared/const/endpoint";
 import { Controller, useForm, useWatch } from "react-hook-form";
@@ -14,7 +15,8 @@ import { statusCodeHasBody } from "@shared/helpers/status-code";
 import { formatJsonString, validateJsonString } from "@shared/helpers/json";
 import { useCreateEndpoint } from "@services/endpoints/react-query";
 import { CgSpinner } from "react-icons/cg";
-import { useNavigate } from "@tanstack/react-router";
+import { useBlocker, useNavigate } from "@tanstack/react-router";
+import { useEffect } from "react";
 
 type Props = {
   isLoading: boolean;
@@ -38,9 +40,10 @@ export function Form({ isLoading, statusCodes }: Props) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty },
     control,
     setError,
+    reset,
   } = useForm<IForm>({
     resolver: schemaResolver,
     defaultValues: {
@@ -55,6 +58,11 @@ export function Form({ isLoading, statusCodes }: Props) {
   const statusCode = useWatch({
     control,
     name: "statusCode",
+  });
+
+  const blocker = useBlocker({
+    shouldBlockFn: () => isDirty && !isSubmitting,
+    withResolver: true,
   });
 
   const submitWithResponseBody = (formData: IForm) => {
@@ -110,95 +118,111 @@ export function Form({ isLoading, statusCodes }: Props) {
     }
   };
 
-  return (
-    <FormComponent.Form
-      className="flex flex-col gap-6 lg:max-w-4xl"
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <div className="rounded-lg border border-border bg-background-secondary p-5 flex flex-col gap-4">
-        <h2 className="text-sm font-semibold text-white/70 uppercase tracking-widest">
-          Endpoint info
-        </h2>
+  // It`s necessary to isDirty initiate as false
+  useEffect(() => {
+    reset();
+  }, [reset]);
 
-        <div className="flex items-end gap-3">
-          <div className="flex-1">
-            <FormComponent.Input
-              {...register("title")}
-              label="Title"
-              placeholder="e.g. Get all users"
-              error={errors.title?.message}
+  return (
+    <>
+      <UnsavedChangesModal
+        open={blocker.status === "blocked"}
+        onStay={() => blocker.reset?.()}
+        onLeave={() => blocker.proceed?.()}
+      />
+
+      <FormComponent.Form
+        className="flex flex-col gap-6 lg:max-w-4xl"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <div className="rounded-lg border border-border bg-background-secondary p-5 flex flex-col gap-4">
+          <h2 className="text-sm font-semibold text-white/70 uppercase tracking-widest">
+            Endpoint info
+          </h2>
+
+          <div className="flex items-end gap-3">
+            <div className="flex-1">
+              <FormComponent.Input
+                {...register("title")}
+                label="Title"
+                placeholder="e.g. Get all users"
+                error={errors.title?.message}
+                showSkeleton={isLoading}
+                disabled={isSubmitting}
+              />
+            </div>
+
+            <Controller
+              control={control}
+              name="method"
+              render={({ field: { value, onChange } }) => (
+                <SelectHttpMethod
+                  value={value}
+                  onChange={onChange}
+                  showSkeleton={isLoading}
+                  disabled={isSubmitting}
+                />
+              )}
+            />
+
+            <Controller
+              control={control}
+              name="statusCode"
+              render={({ field: { value, onChange } }) => (
+                <SelectStatusCode
+                  value={value}
+                  onChange={onChange}
+                  statusCodes={statusCodes}
+                  showSkeleton={isLoading}
+                  disabled={isSubmitting}
+                />
+              )}
+            />
+
+            <InputDelay
+              {...register("delay")}
+              error={errors.delay?.message}
               showSkeleton={isLoading}
               disabled={isSubmitting}
             />
           </div>
 
-          <Controller
-            control={control}
-            name="method"
-            render={({ field: { value, onChange } }) => (
-              <SelectHttpMethod
-                value={value}
-                onChange={onChange}
-                showSkeleton={isLoading}
-                disabled={isSubmitting}
-              />
-            )}
-          />
-
-          <Controller
-            control={control}
-            name="statusCode"
-            render={({ field: { value, onChange } }) => (
-              <SelectStatusCode
-                value={value}
-                onChange={onChange}
-                statusCodes={statusCodes}
-                showSkeleton={isLoading}
-                disabled={isSubmitting}
-              />
-            )}
-          />
-
-          <InputDelay
-            {...register("delay")}
-            error={errors.delay?.message}
+          <FormComponent.Textarea
+            {...register("description")}
+            label="Description"
+            placeholder="e.g. Returns a paginated list of users"
+            rows={7}
+            error={errors.description?.message}
             showSkeleton={isLoading}
             disabled={isSubmitting}
           />
         </div>
 
-        <FormComponent.Textarea
-          {...register("description")}
-          label="Description"
-          placeholder="e.g. Returns a paginated list of users"
-          rows={7}
-          error={errors.description?.message}
-          showSkeleton={isLoading}
-          disabled={isSubmitting}
-        />
-      </div>
+        {statusCodeHasBody(statusCode) && (
+          <ResponseBody
+            key="response-body"
+            control={control}
+            isLoading={isLoading}
+            isSubmitting={isSubmitting}
+          />
+        )}
 
-      {statusCodeHasBody(statusCode) && (
-        <ResponseBody
-          key="response-body"
-          control={control}
-          isLoading={isLoading}
-          isSubmitting={isSubmitting}
-        />
-      )}
-
-      <div>
-        <FormComponent.Submit showSkeleton={isLoading} disabled={isSubmitting}>
-          {isSubmitting ? (
-            <>
-              Creating endpoint...
-              <CgSpinner className="animate-spin text-base" />
-            </>
-          ) : (
-            "Create endpoint"
-          )}
-        </FormComponent.Submit>
-      </div>
-    </FormComponent.Form>
+        <div>
+          <FormComponent.Submit
+            showSkeleton={isLoading}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? (
+              <>
+                Creating endpoint...
+                <CgSpinner className="animate-spin text-base" />
+              </>
+            ) : (
+              "Create endpoint"
+            )}
+          </FormComponent.Submit>
+        </div>
+      </FormComponent.Form>
+    </>
   );
 }
