@@ -13,6 +13,9 @@ export const api = axios.create({
   withCredentials: true,
 });
 
+// TODO: remover quando ngrok deixar de ser usado no desenvolvimento
+api.defaults.headers.common["ngrok-skip-browser-warning"] = "true";
+
 // Mutex de refresh: garante que apenas um refresh seja executado por vez.
 // Requests concorrentes com 401 aguardam a mesma Promise em vez de
 // cada uma disparar seu proprio refresh (o que esgotaria o token de uso unico).

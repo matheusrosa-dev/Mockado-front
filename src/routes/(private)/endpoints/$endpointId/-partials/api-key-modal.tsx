@@ -13,6 +13,7 @@ type Props = {
   onClose: () => void;
 };
 
+//TODO: ADICIONAR ANIMAÇÃO
 export function ApiKeyModal({ isOpen, onClose }: Props) {
   const [modalPhase, setModalPhase] = useState<ModalPhase>(null);
   const [apiKey, setApiKey] = useState<string>("");
