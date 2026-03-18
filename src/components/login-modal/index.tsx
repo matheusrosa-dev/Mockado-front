@@ -24,11 +24,7 @@ export function LoginModal({ open }: Props) {
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-50 bg-background-secondary/80 backdrop-blur-sm data-[state=closed]:animate-[fade-out_150ms_ease-in]" />
 
-        <Dialog.Content
-          onEscapeKeyDown={(e) => e.preventDefault()}
-          onInteractOutside={(e) => e.preventDefault()}
-          className="fixed inset-0 z-50 flex items-center justify-center px-4 py-12 data-[state=closed]:animate-[fade-out_150ms_ease-in]"
-        >
+        <Dialog.Content className="fixed inset-0 z-50 flex items-center justify-center px-4 py-12 data-[state=closed]:animate-[fade-out_150ms_ease-in]">
           <div className="w-full max-w-sm flex flex-col gap-8 bg-background-secondary border border-border rounded-xl p-8 shadow-2xl">
             <div className="flex flex-col items-center gap-4 text-center">
               <div

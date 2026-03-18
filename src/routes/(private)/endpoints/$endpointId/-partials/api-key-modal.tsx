@@ -13,7 +13,6 @@ type Props = {
   onClose: () => void;
 };
 
-//TODO: ADICIONAR ANIMAÇÃO
 export function ApiKeyModal({ isOpen, onClose }: Props) {
   const [modalPhase, setModalPhase] = useState<ModalPhase>(null);
   const [apiKey, setApiKey] = useState<string>("");
@@ -35,8 +34,10 @@ export function ApiKeyModal({ isOpen, onClose }: Props) {
   // biome-ignore lint/correctness/useExhaustiveDependencies: <it only needs to run when the modal opens>
   useEffect(() => {
     if (!isOpen) {
-      setModalPhase(null);
-      setApiKey("");
+      setTimeout(() => {
+        setModalPhase(null);
+        setApiKey("");
+      }, 150);
       return;
     }
 
@@ -52,14 +53,22 @@ export function ApiKeyModal({ isOpen, onClose }: Props) {
   return (
     <Dialog.Root open={isOpen}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 data-[state=open]:animate-[fade-in_150ms_ease-out]" />
+        <Dialog.Overlay className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 data-[state=open]:animate-[fade-in_150ms_ease-out] data-[state=closed]:animate-[fade-out_150ms_ease-in]" />
 
         <Dialog.Content
-          onEscapeKeyDown={(e) => e.preventDefault()}
-          onInteractOutside={(e) => e.preventDefault()}
+          onEscapeKeyDown={() => {
+            if (modalPhase !== "show-key") {
+              onClose();
+            }
+          }}
+          onInteractOutside={() => {
+            if (modalPhase !== "show-key") {
+              onClose();
+            }
+          }}
           className="fixed left-1/2 top-1/2 z-50 w-full max-w-md -translate-x-1/2 -translate-y-1/2
             rounded-xl border border-border bg-background-tertiary p-6 shadow-2xl
-            data-[state=open]:animate-[fade-in_150ms_ease-out]"
+            data-[state=open]:animate-[fade-in_150ms_ease-out] data-[state=closed]:animate-[fade-out_150ms_ease-in]"
         >
           {modalPhase === "confirm-regenerate" && (
             <ConfirmRegenerateContent
