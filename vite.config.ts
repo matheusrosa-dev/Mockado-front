@@ -15,15 +15,9 @@ export default defineConfig({
   ],
   server: {
     port: 3000,
-    headers: {
-      "Cross-Origin-Opener-Policy": "same-origin-allow-popups",
-    },
   },
   preview: {
     port: 3000,
-    headers: {
-      "Cross-Origin-Opener-Policy": "same-origin-allow-popups",
-    },
   },
   resolve: {
     alias: {
