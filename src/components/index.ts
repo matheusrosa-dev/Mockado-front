@@ -8,3 +8,4 @@ export { FetchError } from "./fetch-error";
 export { NotFound } from "./not-found";
 export { Toast } from "./toast";
 export { LoginModal } from "./login-modal";
+export { Toggle } from "./toggle";

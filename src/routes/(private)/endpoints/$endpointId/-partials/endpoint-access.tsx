@@ -6,6 +6,8 @@ import { MdOutlineRefresh } from "react-icons/md";
 import { useSessionStore } from "@shared/stores";
 import { copyToClipboard } from "@shared/helpers/clipboard";
 
+import { Toggle } from "@components";
+
 const BACKEND_BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL as string;
 
 type Props = {
@@ -64,6 +66,15 @@ export function EndpointAccess({ endpointId, isLoading }: Props) {
                 </button>
               </Skeleton>
             </div>
+          </div>
+
+          <div className="flex items-center">
+            <Toggle
+              checked={true}
+              onChange={() => {}}
+              label="Private endpoint (requires API key)"
+              className=""
+            />
           </div>
 
           <Skeleton className="rounded-lg" show={isLoading}>
