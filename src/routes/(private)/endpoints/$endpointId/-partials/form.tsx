@@ -158,7 +158,7 @@ export function Form({ endpoint, isLoading, statusCodes }: Props) {
             Endpoint info
           </h2>
 
-          <div className="flex items-end gap-3">
+          <div className="flex flex-col sm:flex-row gap-3">
             <div className="flex-1">
               <FormComponent.Input
                 {...register("title")}
@@ -170,39 +170,41 @@ export function Form({ endpoint, isLoading, statusCodes }: Props) {
               />
             </div>
 
-            <Controller
-              control={control}
-              name="method"
-              render={({ field: { value, onChange } }) => (
-                <SelectHttpMethod
-                  value={value}
-                  onChange={onChange}
-                  showSkeleton={isLoading || !isFilled}
-                  disabled={isSubmitting}
-                />
-              )}
-            />
+            <div className="flex gap-3 justify-center">
+              <Controller
+                control={control}
+                name="method"
+                render={({ field: { value, onChange } }) => (
+                  <SelectHttpMethod
+                    value={value}
+                    onChange={onChange}
+                    showSkeleton={isLoading || !isFilled}
+                    disabled={isSubmitting}
+                  />
+                )}
+              />
 
-            <Controller
-              control={control}
-              name="statusCode"
-              render={({ field: { value, onChange } }) => (
-                <SelectStatusCode
-                  value={value}
-                  onChange={onChange}
-                  statusCodes={statusCodes}
-                  showSkeleton={isLoading || !isFilled}
-                  disabled={isSubmitting}
-                />
-              )}
-            />
+              <Controller
+                control={control}
+                name="statusCode"
+                render={({ field: { value, onChange } }) => (
+                  <SelectStatusCode
+                    value={value}
+                    onChange={onChange}
+                    statusCodes={statusCodes}
+                    showSkeleton={isLoading || !isFilled}
+                    disabled={isSubmitting}
+                  />
+                )}
+              />
 
-            <InputDelay
-              {...register("delay")}
-              error={errors.delay?.message}
-              showSkeleton={isLoading || !isFilled}
-              disabled={isSubmitting}
-            />
+              <InputDelay
+                {...register("delay")}
+                error={errors.delay?.message}
+                showSkeleton={isLoading || !isFilled}
+                disabled={isSubmitting}
+              />
+            </div>
           </div>
 
           <FormComponent.Textarea

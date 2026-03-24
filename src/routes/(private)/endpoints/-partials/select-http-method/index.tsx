@@ -41,7 +41,7 @@ export function SelectHttpMethod({
             aria-label="HTTP method"
             className={`border border-border py-1.5 px-3 bg-background-tertiary rounded-md text-sm font-bold ${textColor} 
             select-none transition-colors not-disabled:hover:border-accent/50 focus:outline-none focus:border-accent 
-            focus:ring-1 not-disabled:focus:ring-accent/30 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer
+            focus:ring-1 not-disabled:focus:ring-accent/30 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer whitespace-nowrap
             `}
           >
             <Select.Value placeholder="Select a method" />

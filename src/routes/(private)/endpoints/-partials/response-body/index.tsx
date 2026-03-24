@@ -38,7 +38,7 @@ export function ResponseBody<T extends IFormDefaultFields>({
 
   return (
     <div className="rounded-lg border border-border bg-background-secondary p-5 flex flex-col gap-3">
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row justify-between gap-4">
         <h2 className="text-sm font-semibold text-white/70 uppercase tracking-widest shrink-0">
           Response body
         </h2>

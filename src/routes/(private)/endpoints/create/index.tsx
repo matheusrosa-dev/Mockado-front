@@ -23,11 +23,11 @@ function RouteComponent() {
         {isError ? (
           <FetchError title="Failed to load status codes" refetch={refetch} />
         ) : (
-          <div className="grid grid-cols-2 gap-6">
+          <section className="grid grid-cols-1 gap-6 xl:grid-cols-2">
             <Form isLoading={isLoading} statusCodes={statusCodes || []} />
 
             <div />
-          </div>
+          </section>
         )}
       </PrivateContent>
     </>
