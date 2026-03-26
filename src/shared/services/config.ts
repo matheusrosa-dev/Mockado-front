@@ -7,7 +7,7 @@ type RetryableAxiosRequestConfig = AxiosRequestConfig & {
 };
 
 export const api = axios.create({
-  baseURL: `${window.location.protocol}//${window.location.host}/api`,
+  baseURL: `${window.location.origin}/api`,
   withCredentials: true,
 });
 

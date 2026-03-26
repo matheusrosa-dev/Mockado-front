@@ -2,15 +2,13 @@ import { IoCopyOutline } from "react-icons/io5";
 import { Skeleton } from "@components";
 import { copyToClipboard } from "@shared/helpers/clipboard";
 
-const BACKEND_BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL as string;
-
 type Props = {
   endpointId: string;
   isLoading: boolean;
 };
 
 export function EndpointAccess({ endpointId, isLoading }: Props) {
-  const endpointUrl = `${BACKEND_BASE_URL}/mock/${endpointId}`;
+  const endpointUrl = `${window.location.origin}/api/mock/${endpointId}`;
 
   return (
     <div className="rounded-lg border border-border bg-background-secondary p-5 flex flex-col gap-4">
