@@ -2,14 +2,12 @@ import { useSessionStore } from "@shared/stores";
 import axios, { type AxiosError, type AxiosRequestConfig } from "axios";
 import { useAuthService } from "./auth/hook";
 
-const API_BACKEND_URL = import.meta.env.VITE_BACKEND_BASE_URL as string;
-
 type RetryableAxiosRequestConfig = AxiosRequestConfig & {
   _retry?: boolean;
 };
 
 export const api = axios.create({
-  baseURL: API_BACKEND_URL,
+  baseURL: `http://localhost:3000/api`,
   withCredentials: true,
 });
 
